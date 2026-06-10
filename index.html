@@ -1,50 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Judy Z · Brand Strategist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== Reset & Design Tokens ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --bg: #F8F6F3;
-      --text: #1C1816;
-      --text-secondary: #7A756F;
-      --border: #E3DDD5;
-      --accent: #b8865a;
-      --accent-light: #f0e6d8;
-      --accent-dim: #d4bfa8;
-      --card-bg: #ffffff;
-      --tag-bg: #f3f0eb;
-      --hover-bg: #f5f2ed;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
-      --page-gutter: 48px;
-      --section-padding: 130px;
-      --radius-sm: 8px;
-      --radius-lg: 20px;
+      --bg: #0c0f16;
+      --bg-alt: #11151f;
+      --text: #eaeef2;
+      --text-secondary: #8b95a5;
+      --text-muted: #5a6476;
+      --border: #1e2636;
+      --border-light: #2a3344;
+      --accent: #3b7fbd;
+      --accent-light: #1a2842;
+      --accent-dim: #2a4a6a;
+      --accent-glow: rgba(59,127,189,0.08);
+      --card-bg: #11151f;
+      --card-bg-alt: #161c2a;
+      --radius-sm: 4px;
+      --radius: 8px;
       --max-width: 1120px;
+      --page-gutter: 48px;
+      --section-padding: 140px;
       --font-en: 'Inter', -apple-system, sans-serif;
       --font-zh: 'Noto Sans SC', -apple-system, sans-serif;
-      --font-zh-serif: 'Noto Serif SC', serif;
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    [data-theme="dark"] {
-      --bg: #1a1a1a;
-      --text: #ece8e4;
-      --text-secondary: #99948e;
-      --border: #33302e;
-      --accent: #d4a574;
-      --accent-light: #2a2520;
-      --accent-dim: #4a3a2a;
-      --card-bg: #242220;
-      --tag-bg: #2a2825;
-      --hover-bg: #2a2825;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.15);
-      --shadow-md: 0 4px 24px rgba(0,0,0,0.15);
     }
 
     ::selection { background: var(--accent); color: white; }
@@ -55,14 +40,12 @@
       color: var(--text);
       line-height: 1.6;
       font-weight: 400;
-      transition: background 0.3s, color 0.3s;
       -webkit-font-smoothing: antialiased;
     }
     .en { font-family: var(--font-en); }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
 
-    /* ===== Scrollbar ===== */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
@@ -71,416 +54,411 @@
     .top-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 18px var(--page-gutter);
-      background: rgba(248,246,243,0.88);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      transition: background 0.3s, border-color 0.3s;
+      padding: 16px var(--page-gutter);
+      background: rgba(12,15,22,0.9);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
     }
     .top-bar.scrolled { border-bottom-color: var(--border); }
-    [data-theme="dark"] .top-bar { background: rgba(26,26,26,0.88); }
     .top-bar-logo {
-      font-size: 20px; font-weight: 500; letter-spacing: -0.5px;
+      font-size: 18px; font-weight: 600; letter-spacing: -0.3px;
       font-family: var(--font-en);
     }
+    .top-bar-logo span { color: var(--accent); }
     .top-bar-nav { display: flex; align-items: center; gap: 28px; }
     .top-bar-nav a {
       font-size: 13px; color: var(--text-secondary);
       transition: color 0.25s; position: relative;
-      letter-spacing: 0.3px;
     }
     .top-bar-nav a:hover { color: var(--text); }
-    .top-bar-nav a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px; background: var(--accent); transform: scaleX(0);
-      transition: transform 0.35s var(--ease-out);
-    }
-    .top-bar-nav a:hover::after { transform: scaleX(1); }
     .lang-toggle {
       display: flex; gap: 2px;
-      background: var(--tag-bg); border-radius: 6px; padding: 3px;
+      background: var(--border); border-radius: var(--radius-sm); padding: 3px;
       cursor: pointer; border: none; font-family: inherit; font-size: 12px;
     }
     .lang-toggle span {
-      padding: 4px 10px; border-radius: 5px;
-      transition: all 0.2s; color: var(--text-secondary);
+      padding: 4px 10px; border-radius: 3px;
+      transition: all 0.2s; color: var(--text-muted);
     }
     .lang-toggle span.active {
-      background: var(--card-bg); color: var(--text);
-      box-shadow: var(--shadow-sm);
+      background: var(--card-bg-alt); color: var(--text);
     }
     .theme-toggle {
       background: none; border: none; cursor: pointer;
-      color: var(--text-secondary); font-size: 17px;
-      padding: 4px; line-height: 1;
-      transition: color 0.25s;
+      color: var(--text-muted); font-size: 16px;
+      padding: 4px; line-height: 1; transition: color 0.25s;
     }
     .theme-toggle:hover { color: var(--accent); }
 
-    /* ===== Container ===== */
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--page-gutter); }
 
     /* ===== Section Common ===== */
-    section { padding: var(--section-padding) 0; }
-    .section-marker {
-      display: block; width: 2px; height: 32px;
-      background: var(--accent); margin-bottom: 20px; opacity: 0.5;
+    section { padding: var(--section-padding) 0; position: relative; }
+    .section-number {
+      font-family: var(--font-en); font-size: 11px;
+      letter-spacing: 3px; color: var(--accent);
+      font-weight: 500; margin-bottom: 20px;
     }
-    .section-label {
-      font-size: 11px; text-transform: uppercase;
-      letter-spacing: 4px; color: var(--accent);
-      font-weight: 500; margin-bottom: 16px; font-family: var(--font-en);
-    }
+    .section-number span { color: var(--text-muted); }
     .section-title {
-      font-size: 40px; font-weight: 500;
-      letter-spacing: -1.5px; margin-bottom: 16px;
-      font-family: var(--font-en); line-height: 1.15;
+      font-size: 44px; font-weight: 500;
+      letter-spacing: -2px; margin-bottom: 16px;
+      font-family: var(--font-en); line-height: 1.1;
     }
     .section-title .zh {
-      font-family: var(--font-zh-serif); letter-spacing: 3px;
-      font-size: 30px; line-height: 1.2;
+      letter-spacing: 2px; font-size: 34px; line-height: 1.2;
     }
     .section-desc {
-      font-size: 15px; color: var(--text-secondary);
-      max-width: 580px; margin-bottom: 56px; line-height: 1.65;
+      font-size: 16px; color: var(--text-secondary);
+      max-width: 560px; margin-bottom: 64px; line-height: 1.7;
     }
 
     /* ===== Hero ===== */
     .hero {
       min-height: 100dvh; display: flex; flex-direction: column;
-      justify-content: center; padding: 140px 0 80px; position: relative;
+      justify-content: center; padding: 140px 0 60px; position: relative;
       overflow: hidden;
     }
+    .hero-grid-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(59,127,189,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,127,189,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
     .hero-glow {
-      position: absolute; top: -20%; left: -10%; right: -10%; bottom: -10%;
-      background: radial-gradient(ellipse 60% 50% at 45% 45%, var(--accent-light) 0%, transparent 65%);
-      pointer-events: none; z-index: 0; opacity: 0.7;
+      position: absolute; top: -30%; left: 20%; width: 60%; height: 100%;
+      background: radial-gradient(ellipse 60% 50% at center, rgba(59,127,189,0.08) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
     }
-    [data-theme="dark"] .hero-glow {
-      background: radial-gradient(ellipse 60% 50% at 45% 45%, rgba(180,130,80,0.1) 0%, transparent 65%);
-    }
-    .hero-content { display: flex; align-items: center; gap: 80px; position: relative; z-index: 1; }
-    .hero-text { flex: 1; }
-    .hero-image { flex-shrink: 0; position: relative; }
-    .hero-image img {
-      width: 280px; height: 280px; border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 0 2px var(--accent-dim), 0 8px 40px rgba(0,0,0,0.06);
-    }
-    .hero-image-caption {
-      position: absolute; bottom: -4px; right: 4px;
-      font-size: 11px; color: var(--text-secondary);
-      font-family: var(--font-en); opacity: 0.5;
+    .hero-content {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
     }
     .hero-tag {
-      display: flex; align-items: center; gap: 12px;
+      display: inline-flex; align-items: center; gap: 10px;
       margin-bottom: 28px;
     }
-    .hero-tag-line {
-      width: 32px; height: 2px; background: var(--accent); opacity: 0.4;
+    .hero-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: pulse 2s ease-in-out infinite;
     }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     .hero-tag-text {
       font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--accent); font-weight: 500; font-family: var(--font-en);
+      color: var(--text-secondary); font-weight: 500; font-family: var(--font-en);
     }
     .hero h1 {
-      font-family: var(--font-en); font-size: 60px;
-      font-weight: 600; letter-spacing: -2px;
-      line-height: 1.05; margin-bottom: 20px;
+      font-family: var(--font-en); font-size: 64px;
+      font-weight: 600; letter-spacing: -2.5px;
+      line-height: 1.02; margin-bottom: 24px;
     }
-    .hero h1 .zh {
-      font-family: var(--font-zh-serif); font-size: 44px; letter-spacing: 4px;
-    }
+    .hero h1 .zh { font-size: 44px; letter-spacing: 3px; }
+    .hero h1 .accent-text { color: var(--accent); }
     .hero-sub {
-      font-size: 20px; color: var(--text-secondary);
-      font-weight: 300; max-width: 520px; margin-bottom: 36px;
-      line-height: 1.5;
+      font-size: 18px; color: var(--text-secondary);
+      max-width: 480px; margin-bottom: 40px; line-height: 1.6;
     }
-    .hero-sub .zh { font-family: var(--font-zh-serif); font-size: 18px; }
-    .hero-cta { display: flex; gap: 16px; }
+    .hero-cta { display: flex; gap: 12px; }
     .hero-cta a {
-      display: inline-block; padding: 13px 32px;
+      display: inline-block; padding: 14px 32px;
       border-radius: var(--radius-sm); font-size: 14px;
       font-weight: 500; transition: all 0.25s ease;
       font-family: var(--font-en);
     }
     .hero-cta .primary {
       background: var(--accent); color: white;
-      box-shadow: 0 2px 8px rgba(184,134,90,0.25);
     }
-    .hero-cta .primary:hover {
-      opacity: 0.92; transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(184,134,90,0.3);
-    }
+    .hero-cta .primary:hover { opacity: 0.9; }
     .hero-cta .secondary {
-      border: 1px solid var(--border); color: var(--text);
+      border: 1px solid var(--border); color: var(--text-secondary);
     }
-    .hero-cta .secondary:hover {
-      background: var(--accent-light); border-color: var(--accent);
+    .hero-cta .secondary:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ===== Hero Right Stats ===== */
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .hero-stat-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color 0.3s;
+    }
+    .hero-stat-card:hover { border-color: var(--accent-dim); }
+    .hero-stat-number {
+      font-family: var(--font-en); font-size: 28px;
+      font-weight: 600; color: var(--accent); margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 13px; color: var(--text-muted); font-family: var(--font-en);
+    }
+    .hero-stat-label.zh-label { font-family: var(--font-zh); }
+    .hero-image {
+      grid-column: 2; grid-row: 1 / 3;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .hero-img-wrap {
+      width: 100%; aspect-ratio: 4/5; overflow: hidden;
+      border-radius: var(--radius); background: var(--card-bg);
+      border: 1px solid var(--border);
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
     }
 
     /* ===== Logo Wall ===== */
     .logo-wall-section {
-      margin-top: 52px; padding-top: 36px;
+      grid-column: 1; margin-top: 36px;
       border-top: 1px solid var(--border);
+      padding-top: 36px;
     }
     .logo-wall-label {
       font-size: 11px; letter-spacing: 2px;
-      color: var(--text-secondary); font-family: var(--font-en);
-      margin-bottom: 24px; opacity: 0.6;
+      color: var(--text-muted); font-family: var(--font-en);
+      margin-bottom: 20px; text-transform: uppercase;
     }
     .logo-wall {
-      display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center;
+      display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center;
     }
     .logo-wall-item {
       font-size: 13px; letter-spacing: 1px; font-weight: 400;
-      color: var(--text-secondary); opacity: 0.55;
-      transition: opacity 0.3s; font-family: var(--font-en);
+      color: var(--text-muted); opacity: 0.6;
+      transition: opacity 0.3s;
     }
-    .logo-wall-item:hover { opacity: 0.85; }
-    [data-lang="zh"] .logo-wall-item { font-family: var(--font-zh); }
+    .logo-wall-item:hover { opacity: 1; }
 
     /* ===== About ===== */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+    #about { border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
     .about-text p {
-      margin-bottom: 22px; font-size: 15px; line-height: 1.7;
-      color: var(--text);
+      margin-bottom: 24px; font-size: 15px; line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .about-timeline { margin-top: 40px; }
+    .about-timeline-item {
+      display: flex; gap: 20px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-timeline-item:last-child { border-bottom: none; }
+    .about-timeline-year {
+      font-family: var(--font-en); font-size: 12px;
+      color: var(--accent); font-weight: 600; min-width: 48px;
+    }
+    .about-timeline-content h4 {
+      font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    }
+    .about-timeline-content p {
+      font-size: 13px; color: var(--text-muted); margin: 0;
     }
     .about-philosophy {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      padding: 40px; border: 1px solid var(--border);
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px;
     }
     .about-philosophy h3 {
-      font-size: 14px; margin-bottom: 16px;
+      font-size: 13px; margin-bottom: 16px;
       color: var(--accent); letter-spacing: 2px;
       text-transform: uppercase; font-family: var(--font-en);
     }
     .about-philosophy blockquote {
-      font-family: var(--font-zh-serif);
-      font-size: 19px; line-height: 1.55;
-      color: var(--text); font-style: italic;
-      margin-bottom: 24px; padding-left: 20px;
-      border-left: 2px solid var(--accent);
+      font-size: 20px; line-height: 1.5;
+      color: var(--text); font-weight: 400;
+      margin-bottom: 28px; padding: 0 0 20px;
+      border-bottom: 1px solid var(--border);
     }
+    .about-philosophy blockquote .accent-text { color: var(--accent); }
     .about-philosophy ul { list-style: none; }
     .about-philosophy li {
-      padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.6;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+      font-size: 14px; line-height: 1.6; color: var(--text-secondary);
     }
     .about-philosophy li:last-child { border-bottom: none; }
-    .about-philosophy li strong {
+    .about-philosophy li .num {
       color: var(--accent); font-family: var(--font-en);
-      font-size: 13px;
+      font-size: 12px; margin-right: 8px;
+    }
+
+    /* ===== Case Studies ===== */
+    #cases { border-top: 1px solid var(--border); }
+    .cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .case-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      cursor: pointer; transition: border-color 0.3s, transform 0.3s;
+    }
+    .case-card:hover {
+      border-color: var(--accent-dim); transform: translateY(-2px);
+    }
+    .case-card-image {
+      width: 100%; height: 200px; overflow: hidden;
+      background: var(--bg-alt); position: relative;
+    }
+    .case-card-image svg {
+      width: 100%; height: 100%;
+    }
+    .case-card-body { padding: 24px; }
+    .case-card-service {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; font-family: var(--font-en);
+      margin-bottom: 8px;
+    }
+    .case-card-brand {
+      font-size: 20px; font-weight: 600; margin-bottom: 4px;
+      font-family: var(--font-en);
+    }
+    .case-card-brand .zh { font-weight: 400; font-size: 15px; color: var(--text-muted); }
+    .case-card-tagline {
+      font-size: 13px; color: var(--text-muted); line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .case-card-metrics {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      padding-top: 12px; border-top: 1px solid var(--border);
+    }
+    .case-card-metric {
+      font-size: 12px; color: var(--text-muted);
+    }
+    .case-card-metric strong {
+      font-family: var(--font-en); color: var(--accent); font-weight: 600;
+    }
+
+    /* ===== Case Detail Modal ===== */
+    .case-detail-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      justify-content: center; align-items: center;
+      padding: 40px; opacity: 0; transition: opacity 0.3s;
+    }
+    .case-detail-overlay.active {
+      display: flex; opacity: 1;
+    }
+    .case-detail-panel {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); max-width: 720px; width: 100%;
+      max-height: 80vh; overflow-y: auto; padding: 48px;
+      position: relative; transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    .case-detail-overlay.active .case-detail-panel { transform: translateY(0); }
+    .case-detail-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; color: var(--text-muted);
+      font-size: 24px; cursor: pointer; font-family: var(--font-en);
+      transition: color 0.2s;
+    }
+    .case-detail-close:hover { color: var(--text); }
+    .case-detail-panel h4 {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); font-family: var(--font-en); margin-bottom: 6px;
+      margin-top: 24px;
+    }
+    .case-detail-panel h4:first-child { margin-top: 0; }
+    .case-detail-panel p {
+      font-size: 14px; line-height: 1.7; color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .case-detail-brand {
+      font-size: 28px; font-weight: 600; margin-bottom: 4px;
+      font-family: var(--font-en);
+    }
+    .case-detail-service {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); font-family: var(--font-en); margin-bottom: 24px;
     }
 
     /* ===== Methodology ===== */
-    #methodology {
-      position: relative;
-    }
-    #methodology::before {
-      content: ''; position: absolute; inset: 0;
-      background: var(--accent-light); opacity: 0.5;
-    }
-    #methodology .container { position: relative; z-index: 1; }
-    .methodology-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    }
+    #methodology { border-top: 1px solid var(--border); }
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .method-card {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      padding: 36px; border: 1px solid var(--border);
-      cursor: default; transition: border-color 0.35s ease;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px;
+      transition: border-color 0.3s;
     }
-    .method-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-md);
-    }
-    .method-number {
-      font-family: var(--font-en); font-size: 11px;
-      color: var(--accent); font-weight: 600;
-      letter-spacing: 2px; margin-bottom: 10px;
+    .method-card:hover { border-color: var(--accent-dim); }
+    .method-num {
+      font-family: var(--font-en); font-size: 10px;
+      letter-spacing: 2px; color: var(--accent); margin-bottom: 12px;
     }
     .method-card h3 {
-      font-size: 19px; font-weight: 600; margin-bottom: 10px; line-height: 1.4;
+      font-size: 18px; font-weight: 600; margin-bottom: 10px; line-height: 1.3;
     }
-    .method-card h3 .zh { font-family: var(--font-zh-serif); }
     .method-card .one-liner {
-      font-size: 14px; color: var(--text-secondary);
+      font-size: 13px; color: var(--text-muted);
       margin-bottom: 20px; line-height: 1.6;
     }
     .method-diagram {
       display: block; width: 100%; margin: 0 0 20px;
       border-bottom: 1px solid var(--border); padding-bottom: 20px;
     }
-    .method-diagram text { font-family: var(--font-zh); font-size: 12px; }
     .method-card .detail {
-      font-size: 13px; color: var(--text-secondary);
+      font-size: 13px; color: var(--text-muted);
       line-height: 1.7; display: none;
     }
     .method-card.expanded .detail { display: block; }
     .method-toggle {
-      font-size: 13px; color: var(--accent);
+      font-size: 12px; color: var(--accent);
       cursor: pointer; font-weight: 500; margin-top: 12px;
-      display: inline-block; transition: opacity 0.2s;
+      display: inline-block; transition: opacity 0.2s; font-family: var(--font-en);
     }
     .method-toggle:hover { opacity: 0.7; }
-    .method-tag {
-      display: inline-block; font-size: 11px;
-      padding: 3px 10px; background: var(--tag-bg);
-      border-radius: 4px; color: var(--text-secondary);
-      margin-right: 6px; margin-top: 12px;
-    }
-
-    /* ===== Case Studies ===== */
-    .cases-list { display: flex; flex-direction: column; gap: 24px; }
-    .case-item {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      cursor: pointer; transition: border-color 0.35s ease, box-shadow 0.35s ease;
-      overflow: hidden;
-    }
-    .case-item:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
-    .case-image-wrap {
-      width: 100%; height: 220px; overflow: hidden; position: relative;
-      background: var(--tag-bg);
-    }
-    .case-image-wrap img, .case-image-wrap svg {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s var(--ease-out);
-    }
-    .case-item:hover .case-image-wrap svg { transform: scale(1.02); }
-    .case-image-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 16px 28px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.4));
-      color: white;
-    }
-    .case-image-overlay .case-service {
-      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-      font-weight: 500; font-family: var(--font-en);
-    }
-    .case-header-text { padding: 28px 28px 0; }
-    .case-header-top {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
-    }
-    .case-brand {
-      font-size: 22px; font-weight: 500; margin-bottom: 2px;
-      font-family: var(--font-en);
-    }
-    .case-brand-sub {
-      font-size: 15px; font-weight: 400; color: var(--text-secondary);
-    }
-    .case-tagline {
-      font-size: 14px; color: var(--text-secondary);
-      margin-top: 8px; font-style: italic; line-height: 1.5;
-    }
-    .case-meta {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
-    }
-    .case-meta-item {
-      font-size: 11px; padding: 3px 10px;
-      background: var(--tag-bg); border-radius: 4px;
-      color: var(--text-secondary);
-    }
-    .case-arrow {
-      flex-shrink: 0; font-size: 18px; color: var(--text-secondary);
-      transition: transform 0.35s var(--ease-out); margin-top: 2px;
-    }
-    .case-item.expanded .case-arrow { transform: rotate(90deg); }
-    .case-body {
-      display: none; margin: 0 28px 28px;
-      padding-top: 24px; border-top: 1px solid var(--border);
-    }
-    .case-item.expanded .case-body { display: block; animation: fadeSlideIn 0.4s var(--ease-out); }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .case-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .case-body h4 {
-      font-size: 11px; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 1.5px;
-      font-family: var(--font-en); margin-bottom: 6px;
-    }
-    .case-body p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
 
     /* ===== Writing ===== */
-    #writing { position: relative; }
-    #writing::before {
-      content: ''; position: absolute; inset: 0;
-      background: var(--accent-light); opacity: 0.5;
-    }
-    #writing .container { position: relative; z-index: 1; }
+    #writing { border-top: 1px solid var(--border); }
     .writing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .writing-card {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      padding: 32px; border: 1px solid var(--border);
-      transition: border-color 0.35s ease;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+      transition: border-color 0.3s;
     }
-    .writing-card:hover { border-color: var(--accent); }
+    .writing-card:hover { border-color: var(--accent-dim); }
     .writing-card .date {
-      font-size: 11px; color: var(--text-secondary);
+      font-size: 11px; color: var(--text-muted);
       font-family: var(--font-en); margin-bottom: 10px;
-      letter-spacing: 1px;
     }
     .writing-card h4 {
       font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.4;
     }
     .writing-card p {
-      font-size: 13px; color: var(--text-secondary);
+      font-size: 13px; color: var(--text-muted);
       line-height: 1.6;
     }
     .writing-card .tag {
-      display: inline-block; font-size: 11px;
-      padding: 3px 8px; background: var(--tag-bg);
-      border-radius: 4px; color: var(--text-secondary);
-      margin-top: 12px;
+      display: inline-block; font-size: 10px;
+      padding: 3px 8px; background: var(--border);
+      border-radius: var(--radius-sm); color: var(--text-muted);
+      margin-top: 14px; letter-spacing: 0.5px;
     }
 
     /* ===== Contact ===== */
-    .contact-section { text-align: center; padding: var(--section-padding) 0; }
-    .contact-section .section-title { text-align: center; }
-    .contact-section .section-desc { margin: 0 auto 48px; text-align: center; }
-    .contact-links {
-      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-    }
-    .contact-link {
-      display: flex; align-items: center; gap: 10px;
-      padding: 14px 28px; border: 1px solid var(--border);
-      border-radius: var(--radius-sm); font-size: 14px;
-      transition: all 0.25s ease; color: var(--text);
-    }
-    .contact-link:hover {
-      border-color: var(--accent); background: var(--hover-bg);
-    }
-    .contact-link .icon {
-      width: 16px; height: 16px; flex-shrink: 0;
-      color: var(--text-secondary);
-      transition: color 0.25s;
-    }
-    .contact-link:hover .icon { color: var(--accent); }
-    .contact-msg {
-      margin-top: 40px; font-size: 13px;
-      color: var(--text-secondary);
-      font-family: var(--font-en);
-    }
-    [data-lang="zh"] .contact-msg { font-family: var(--font-zh); }
-
-    /* ===== Footer ===== */
-    footer {
-      text-align: center; padding: 40px;
-      font-size: 12px; color: var(--text-secondary);
+    #contact {
       border-top: 1px solid var(--border);
+      text-align: center; padding: var(--section-padding) 0;
+    }
+    #contact .section-title { text-align: center; }
+    .contact-grid {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+      margin-top: 48px;
+    }
+    .contact-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 28px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 14px;
+      transition: all 0.25s ease; color: var(--text-secondary);
+    }
+    .contact-card:hover {
+      border-color: var(--accent); color: var(--text);
+    }
+    .contact-card svg {
+      width: 16px; height: 16px; flex-shrink: 0;
     }
 
     /* ===== Scroll Reveal ===== */
     .reveal {
-      opacity: 0; transform: translateY(32px) scale(0.98);
-      transition: opacity 0.7s ease, transform 0.7s var(--ease-out);
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
-    .reveal-delay-1 { transition-delay: 0.12s; }
-    .reveal-delay-2 { transition-delay: 0.24s; }
-    .reveal-delay-3 { transition-delay: 0.36s; }
-    .reveal-delay-4 { transition-delay: 0.48s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ===== Toast ===== */
     .toast {
@@ -488,46 +466,18 @@
       background: var(--text); color: var(--bg);
       padding: 10px 24px; border-radius: var(--radius-sm);
       font-size: 13px; opacity: 0; pointer-events: none;
-      transition: all 0.4s var(--ease-out); z-index: 200;
+      transition: all 0.4s var(--ease-out); z-index: 300;
       font-family: var(--font-en);
     }
-    .toast.show {
-      opacity: 1; transform: translateX(-50%) translateY(0);
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      text-align: center; padding: 40px;
+      font-size: 12px; color: var(--text-muted);
+      border-top: 1px solid var(--border);
     }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      :root { --section-padding: 80px; --page-gutter: 24px; }
-      .top-bar { padding: 14px 20px; }
-      .top-bar-nav a { font-size: 12px; }
-      .top-bar-nav { gap: 18px; }
-      .hero-content { flex-direction: column-reverse; text-align: center; gap: 40px; }
-      .hero-image img { width: 180px; height: 180px; }
-      .hero h1 { font-size: 36px; }
-      .hero h1 .zh { font-size: 28px; }
-      .hero-sub { max-width: 100%; font-size: 17px; }
-      .hero-cta { justify-content: center; }
-      .hero-tag { justify-content: center; }
-      .logo-wall-section { text-align: center; }
-      .logo-wall { justify-content: center; }
-      .about-grid { grid-template-columns: 1fr; gap: 36px; }
-      .methodology-grid { grid-template-columns: 1fr; }
-      .case-image-wrap { height: 180px; }
-      .case-header-text { padding: 20px 20px 0; }
-      .case-body { margin: 0 20px 20px; }
-      .case-body-grid { grid-template-columns: 1fr; gap: 16px; }
-      .writing-grid { grid-template-columns: 1fr; }
-      .section-title { font-size: 30px; }
-      .section-title .zh { font-size: 24px; }
-      .contact-links { flex-direction: column; align-items: center; }
-    }
-    @media (max-width: 480px) {
-      .top-bar-nav a:not(.lang-toggle) { display: none; }
-      .hero h1 { font-size: 28px; }
-      .hero h1 .zh { font-size: 22px; }
-    }
-
-    /* ===== Language Visibility ===== */
+    /* ===== Language ===== */
     .lang-zh { display: none; }
     .lang-en { display: contents; }
     [data-lang="zh"] .lang-zh { display: contents; }
@@ -536,24 +486,52 @@
     [data-lang="zh"] .block-en { display: none !important; }
     .block-en { display: block; }
     .block-zh { display: none; }
-    [data-lang="zh"] .inline-zh { display: inline !important; }
-    [data-lang="zh"] .inline-en { display: none !important; }
-    .inline-en { display: inline; }
-    .inline-zh { display: none; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 48px; }
+      .hero-image { grid-column: 1; grid-row: auto; }
+      .hero-img-wrap { aspect-ratio: 16/9; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .logo-wall-section { grid-column: 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cases-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --section-padding: 80px; --page-gutter: 24px; }
+      .top-bar { padding: 14px 20px; }
+      .top-bar-nav a { font-size: 12px; }
+      .top-bar-nav { gap: 16px; }
+      .hero h1 { font-size: 36px; }
+      .hero h1 .zh { font-size: 28px; }
+      .hero-sub { font-size: 16px; }
+      .hero-cta { flex-direction: column; }
+      .section-title { font-size: 30px; }
+      .section-title .zh { font-size: 24px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .writing-grid { grid-template-columns: 1fr; }
+      .contact-grid { flex-direction: column; align-items: center; }
+      .case-detail-overlay { padding: 20px; }
+      .case-detail-panel { padding: 32px; }
+    }
+    @media (max-width: 480px) {
+      .top-bar-nav a:not(.lang-toggle) { display: none; }
+      .hero h1 { font-size: 28px; }
+    }
   </style>
 </head>
 <body data-lang="en">
 
 <!-- Top Bar -->
 <div class="top-bar">
-  <div class="top-bar-logo">Judy Z</div>
+  <div class="top-bar-logo">Judy <span>Z</span></div>
   <div class="top-bar-nav">
     <a href="#about" class="lang-en">About</a>
     <a href="#about" class="lang-zh">关于</a>
-    <a href="#methodology" class="lang-en">Methodology</a>
-    <a href="#methodology" class="lang-zh">方法论</a>
     <a href="#cases" class="lang-en">Work</a>
     <a href="#cases" class="lang-zh">案例</a>
+    <a href="#methodology" class="lang-en">Method</a>
+    <a href="#methodology" class="lang-zh">方法论</a>
     <a href="#writing" class="lang-en">Writing</a>
     <a href="#writing" class="lang-zh">写作</a>
     <a href="#contact" class="lang-en">Contact</a>
@@ -568,31 +546,34 @@
 
 <!-- Hero -->
 <section class="hero" id="hero">
+  <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
         <div class="hero-tag">
-          <span class="hero-tag-line"></span>
+          <span class="hero-tag-dot"></span>
           <span class="hero-tag-text lang-en">Brand Strategist</span>
           <span class="hero-tag-text lang-zh">品牌策略师</span>
         </div>
         <h1>
-          <span class="lang-en">Judy Z</span>
-          <span class="lang-zh">朱家億</span>
+          <span class="lang-en">I help brands <span class="accent-text">think</span> before they speak.</span>
+          <span class="lang-zh">帮品牌<span class="accent-text">先想清楚</span>，再说漂亮。</span>
         </h1>
-        <div class="hero-sub">
-          <span class="lang-en">I help brands find a position that people actually want to sit next to.</span>
-          <span class="lang-zh">帮品牌找到一个让人舒服的位置。</span>
+        <div class="hero-sub lang-en">
+          Strategy, content systems, and visual identity for brands that want more than just another campaign.
+        </div>
+        <div class="hero-sub lang-zh">
+          策略、内容体系和视觉身份——为想要不止于"再来一个Campaign"的品牌。
         </div>
         <div class="hero-cta">
-          <a href="#cases" class="primary lang-en">View Work</a>
+          <a href="#cases" class="primary lang-en">Selected Work</a>
           <a href="#cases" class="primary lang-zh">看案例</a>
-          <a href="#contact" class="secondary lang-en">Get in Touch</a>
-          <a href="#contact" class="secondary lang-zh">联系我</a>
+          <a href="#contact" class="secondary lang-en">Contact</a>
+          <a href="#contact" class="secondary lang-zh">联系</a>
         </div>
         <div class="logo-wall-section">
-          <div class="logo-wall-label lang-en">SELECTED CLIENTS</div>
+          <div class="logo-wall-label lang-en">Selected clients</div>
           <div class="logo-wall-label lang-zh">合作品牌</div>
           <div class="logo-wall">
             <span class="logo-wall-item">NIVEA</span>
@@ -608,9 +589,33 @@
           </div>
         </div>
       </div>
+
       <div class="hero-image">
-        <img src="photo.jpg" alt="Judy Z">
-        <span class="hero-image-caption">Judy Z, 2025</span>
+        <div class="hero-img-wrap">
+          <img src="photo.jpg" alt="Judy Z">
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-card">
+            <div class="hero-stat-number">10+</div>
+            <div class="hero-stat-label lang-en">Brands served</div>
+            <div class="hero-stat-label lang-zh">服务品牌</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-number">20K+</div>
+            <div class="hero-stat-label lang-en">Social followers grown</div>
+            <div class="hero-stat-label lang-zh">社交粉丝增长</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-number">100+</div>
+            <div class="hero-stat-label lang-en">Strategy articles</div>
+            <div class="hero-stat-label lang-zh">策略文章</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="hero-stat-number">1M+</div>
+            <div class="hero-stat-label lang-en">Content impressions</div>
+            <div class="hero-stat-label lang-zh">内容触达</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -619,167 +624,67 @@
 <!-- About -->
 <section id="about">
   <div class="container">
-    <span class="section-marker"></span>
-    <div class="section-label en">About</div>
-    <div class="section-label lang-zh" style="display:none">关于</div>
+    <div class="section-number"><span>01</span> / About</div>
     <h2 class="section-title">
-      <span class="lang-en">Strategy before creativity.</span>
-      <span class="lang-zh">先想清楚，再说漂亮。</span>
+      <span class="lang-en">From execution to strategy.</span>
+      <span class="lang-zh">从执行者到策略人。</span>
     </h2>
     <div class="about-grid reveal">
-      <div class="about-text">
-        <div class="lang-en">
-          <p>I'm a brand strategist who believes the best creative work comes from a sharply defined problem, not a blank sheet of paper. Before we make something beautiful, we need to know who we're talking to, what they actually feel, and what role the brand can play in their lives without trying too hard.</p>
-          <p>With brands like NIVEA, Peninsula Hotel, Aesop, NORDISK, Wrangler, Guming, and Atour, I've built strategies across beauty, hospitality, outdoor, apparel, and F&B, always starting from consumer emotional truth.</p>
-          <p>I don't sell frameworks. I sell clarity. The frameworks just help me get there faster.</p>
+      <div>
+        <div class="about-text">
+          <div class="lang-en">
+            <p>I started in the trenches of social media operations, writing, editing, and optimizing content daily. Over five years across media (广告门), brand consulting (念相), and PR (鹰飞公关), I learned the difference between content that performs and content that builds brands.</p>
+            <p>Today I work as a strategist who bridges the gap between consumer insight and brand expression. My approach starts with emotional truth, moves through rigorous category analysis, and lands on brand roles and content systems that earn their place in people's lives.</p>
+            <p>I don't sell frameworks. I sell clarity.</p>
+          </div>
+          <div class="lang-zh">
+            <p>我从社交媒体运营的一线做起，每天写、编、优化内容。在广告门(媒体)、念相(品牌咨询)和鹰飞(PR)的五年里，我学会了区分"能跑量的内容"和"能建品牌的内容"。</p>
+            <p>今天我作为策略师，在消费者洞察和品牌表达之间搭建桥梁。我的方法从情绪真相出发，经过严格的品类分析，最终落在品牌角色和内容体系上——让品牌有资格在人们的生活中存在。</p>
+            <p>我不卖方法论框架。我卖的是"想清楚了"。</p>
+          </div>
         </div>
-        <div class="lang-zh">
-          <p>我是品牌策略师。我相信最好的创意来自一个被说清楚的问题，而不是一张白纸。在做出好看的东西之前，我们需要知道：我们在跟谁说话、他们真正感觉到了什么、品牌可以在他们的生活中扮演什么角色，不费力、不端着。</p>
-          <p>服务过 NIVEA、半岛酒店、Aesop、NORDISK、Wrangler、古茗、亚朵等品牌，在美妆、酒店、户外、服饰、茶饮等多个品类中积累策略经验。每一次，我都从消费者的情绪真相出发。</p>
-          <p>我不卖方法论框架。我卖的是"想清楚了"。框架只是帮我更快抵达的工具。</p>
+
+        <div class="about-timeline">
+          <div class="about-timeline-item">
+            <div class="about-timeline-year">2024-</div>
+            <div class="about-timeline-content">
+              <h4><span class="lang-en">SAE · 鹰飞公关</span><span class="lang-zh">SAE · 鹰飞公关</span></h4>
+              <p class="lang-en">Goldwin social retainer, Peninsula Boutique social, Costa campaign. Built 12-month growth: +10K followers on WeChat and Xiaohongshu for Goldwin.</p>
+              <p class="lang-zh">Goldwin社交运营、半岛精品店社交内容、Costa campaign投放。实现Goldwin公众号+小红书双渠道12个月涨粉各1万。</p>
+            </div>
+          </div>
+          <div class="about-timeline-item">
+            <div class="about-timeline-year">2023-24</div>
+            <div class="about-timeline-content">
+              <h4>PR · 念相品牌咨询</h4>
+              <p class="lang-en">Corporate PR, brand case packaging, social content for a top-tier brand consultancy. Grew Xiaohongshu following to 4.5K.</p>
+              <p class="lang-zh">公司PR传播、品牌案例包装、社交内容运营。小红书涨粉至4500+。</p>
+            </div>
+          </div>
+          <div class="about-timeline-item">
+            <div class="about-timeline-year">2022-23</div>
+            <div class="about-timeline-content">
+              <h4><span class="lang-en">Editor · 广告门APP</span><span class="lang-zh">编辑 · 广告门APP</span></h4>
+              <p class="lang-en">100+ original articles, 1M+ impressions, grew WeChat followers by 30K+ and Xiaohongshu by 12K in one year.</p>
+              <p class="lang-zh">100+原创文章，100w+阅读触达，年涨公众号粉丝3w+，小红书粉丝1.2w+。</p>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="about-philosophy">
-        <h3 class="lang-en">How I Think</h3>
-        <h3 class="lang-zh">我的工作哲学</h3>
-        <blockquote class="lang-en">"Brands shouldn't be teachers. They should be the friend you actually want to sit next to."</blockquote>
-        <blockquote class="lang-zh">"品牌不做你的老师，做你的搭子。"</blockquote>
+        <h3 class="lang-en">Working Philosophy</h3>
+        <h3 class="lang-zh">工作哲学</h3>
+        <blockquote>
+          <span class="lang-en">"The best brand role is the one that <span class="accent-text">reduces</span> cognitive load, not adds to it."</span>
+          <span class="lang-zh">"最好的品牌角色，是<span class="accent-text">减少</span>消费者的心理负担，而不是增加。"</span>
+        </blockquote>
         <ul>
-          <li class="lang-en"><strong>01</strong> Consumer truth first. Everything else follows.</li>
-          <li class="lang-zh"><strong>01</strong> 消费者的真实感受优先，其他都是推论。</li>
-          <li class="lang-en"><strong>02</strong> A good strategy is <em>consumer-true</em> x <em>brand-ownable</em> x <em>culturally-resonant</em>.</li>
-          <li class="lang-zh"><strong>02</strong> 好策略 = 消费者真实 x 品牌可拥有 x 文化共鸣。</li>
-          <li class="lang-en"><strong>03</strong> The best brand role is the one that reduces, not adds, cognitive load.</li>
-          <li class="lang-zh"><strong>03</strong> 最好的品牌角色，是减少消费者的心理负担，而不是增加。</li>
-          <li class="lang-en"><strong>04</strong> Reframe the problem first. The answer will be obvious.</li>
-          <li class="lang-zh"><strong>04</strong> 先重新定义问题，答案自然浮现。</li>
+          <li><span class="num">01</span> <span class="lang-en">Consumer truth first. Everything else follows.</span><span class="lang-zh">消费者的真实感受优先，其他都是推论。</span></li>
+          <li><span class="num">02</span> <span class="lang-en">Good strategy = consumer-true x brand-ownable x culturally-resonant.</span><span class="lang-zh">好策略 = 消费者真实 x 品牌可拥有 x 文化共鸣。</span></li>
+          <li><span class="num">03</span> <span class="lang-en">The problem is rarely the one the client came in with.</span><span class="lang-zh">客户的表面需求从来不是真正的问题。</span></li>
+          <li><span class="num">04</span> <span class="lang-en">In noisy categories, be a companion, not another expert.</span><span class="lang-zh">在高噪音品类中，做陪伴者，而不是另一个专家。</span></li>
         </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Methodology -->
-<section id="methodology">
-  <div class="container">
-    <span class="section-marker"></span>
-    <div class="section-label en">Methodology</div>
-    <div class="section-label lang-zh" style="display:none">方法论</div>
-    <h2 class="section-title">
-      <span class="lang-en">How I arrive at the answer.</span>
-      <span class="lang-zh">我怎么抵达答案。</span>
-    </h2>
-    <div class="section-desc lang-en">These are the thinking tools I use to move from mess to clarity. Each one was born from real client work, then codified into a reusable framework.</div>
-    <div class="section-desc lang-zh">这些是我从"混乱"到"清晰"的思考工具。每一个都来自真实的客户项目，然后提炼为可复用的框架。</div>
-
-    <div class="methodology-grid reveal">
-      <!-- Method 1: Prism -->
-      <div class="method-card">
-        <div class="method-number">01</div>
-        <h3><span class="lang-en">The Prism</span><span class="lang-zh">三棱镜推理法</span></h3>
-        <div class="one-liner lang-en">Look at the problem through Consumer, Category, and Brand simultaneously. The strategy lives where all three converge.</div>
-        <div class="one-liner lang-zh">同时从消费者、品类和品牌三个角度审视问题。策略藏在三者的交汇处。</div>
-        <svg class="method-diagram" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="160" cy="72" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
-          <circle cx="111" cy="130" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
-          <circle cx="209" cy="130" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
-          <circle cx="160" cy="112" r="20" fill="var(--accent)" fill-opacity="0.2"/>
-          <text x="160" y="77" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Category</tspan><tspan class="lang-zh">品类</tspan></text>
-          <text x="109" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Consumer</tspan><tspan class="lang-zh">消费者</tspan></text>
-          <text x="211" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
-          <text x="160" y="117" text-anchor="middle" fill="white" font-size="12" font-weight="600"><tspan class="lang-en">Strategy</tspan><tspan class="lang-zh">策略</tspan></text>
-        </svg>
-        <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence, ensuring the answer is consumer-true, category-relevant, and brand-ownable. Used for brand positioning, new product launches, and competitive differentiation.</div>
-        <div class="detail lang-zh">大多数策略只看了1-2个维度。三棱镜强迫三方交汇，确保答案在消费者层面真实、在品类层面相关、在品牌层面可拥有。适用于品牌定位、新品上市、品类竞争分析。</div>
-        <span class="method-tag lang-en">Brand Positioning</span>
-        <span class="method-tag lang-zh">品牌定位</span>
-        <span class="method-tag lang-en">Strategy</span>
-        <span class="method-tag lang-zh">策略框架</span>
-      </div>
-
-      <!-- Method 2: Buddy Role -->
-      <div class="method-card">
-        <div class="method-number">02</div>
-        <h3><span class="lang-en">The Buddy Role</span><span class="lang-zh">品牌搭子角色</span></h3>
-        <div class="one-liner lang-en">In noisy categories, consumers don't need more authority. They need a low-pressure companion.</div>
-        <div class="one-liner lang-zh">在高噪音品类中，消费者不需要更多权威，他们需要一个低压力的陪伴者。</div>
-        <svg class="method-diagram" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="160" y1="100" x2="60" y2="65" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <line x1="160" y1="100" x2="260" y2="65" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <line x1="160" y1="100" x2="70" y2="155" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <line x1="160" y1="100" x2="250" y2="155" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <circle cx="160" cy="100" r="34" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.4"/>
-          <text x="160" y="97" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="600"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
-          <text x="160" y="109" text-anchor="middle" fill="var(--text-secondary)" font-size="9" font-weight="500">Buddy / 搭子</text>
-          <circle cx="60" cy="65" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="60" cy="62" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
-          <ellipse cx="60" cy="74" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
-          <circle cx="260" cy="65" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="260" cy="62" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
-          <ellipse cx="260" cy="74" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
-          <circle cx="70" cy="155" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="70" cy="152" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
-          <ellipse cx="70" cy="164" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
-          <circle cx="250" cy="155" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="250" cy="152" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
-          <ellipse cx="250" cy="164" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
-        </svg>
-        <div class="detail lang-en">The "Buddy" (搭子) role rejects the brand-as-authority or brand-as-celebrity model. Instead, it positions the brand as a companion who reduces cognitive load. Best for mass-market brands in categories with high expert noise and consumer fatigue. Case example: NIVEA's "Your Reliable Buddy" (妮的靠谱搭子).</div>
-        <div class="detail lang-zh">"搭子"角色拒绝品牌=权威或品牌=明星的竞争惯性。它把品牌定位为一个降低认知负担的陪伴者。最适合大众消费品类、专家噪音高、消费者疲劳程度强的品牌。案例：NIVEA "妮的靠谱搭子"。</div>
-        <span class="method-tag lang-en">Brand Role</span>
-        <span class="method-tag lang-zh">品牌角色</span>
-        <span class="method-tag lang-en">Consumer Culture</span>
-        <span class="method-tag lang-zh">消费者文化</span>
-      </div>
-
-      <!-- Method 3 -->
-      <div class="method-card">
-        <div class="method-number">03</div>
-        <h3><span class="lang-en">Sit in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h3>
-        <div class="one-liner lang-en">Don't pitch your solution first. First, make the client re-live the consumer's discomfort.</div>
-        <div class="one-liner lang-zh">不要先讲方案。先让客户重新体验消费者感受到的"不对劲"。</div>
-        <svg class="method-diagram" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="20" width="280" height="140" rx="4" fill="var(--accent)" fill-opacity="0.04" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <path d="M40 50 L160 50 L160 70 L40 70Z" fill="var(--accent)" fill-opacity="0.06"/>
-          <path d="M40 90 L200 90 L200 110 L40 110Z" fill="var(--accent)" fill-opacity="0.06"/>
-          <path d="M40 130 L120 130 L120 150 L40 150Z" fill="var(--accent)" fill-opacity="0.06"/>
-          <text x="50" y="63" fill="var(--text-secondary)" font-size="10">1. 呈现日常体验</text>
-          <text x="50" y="103" fill="var(--text-secondary)" font-size="10">2. 放大未被言说的不适</text>
-          <text x="50" y="143" fill="var(--text-secondary)" font-size="10">3. 建立共鸣，再揭示品牌角色</text>
-        </svg>
-        <div class="detail lang-en">A narrative arc for strategic presentations: Present everyday experience, amplify unspoken discomfort, build resonance, then reveal the brand's role as relief. Clients have a natural defense against solutions, but no defense against a truth they can feel. Best for complex proposals where the category is noisy or the client is fatigued by sameness.</div>
-        <div class="detail lang-zh">策略提案的叙事弧线：呈现日常体验，放大未被言说的不适感，建立共鸣，再揭示品牌角色作为解决方案。客户对方案有天然防御机制，但对能感受到的真实"不对劲"没有防御。适用于品类噪音大、客户被同质化提案疲劳的复杂提案。</div>
-        <span class="method-tag lang-en">Deck Narrative</span>
-        <span class="method-tag lang-zh">提案叙事</span>
-        <span class="method-tag lang-en">Pitching</span>
-      </div>
-
-      <!-- Method 4 -->
-      <div class="method-card">
-        <div class="method-number">04</div>
-        <h3><span class="lang-en">Emotional Truth to Brand Role</span><span class="lang-zh">情绪真相到品牌角色</span></h3>
-        <div class="one-liner lang-en">A 7-step narrative structure from consumer emotional truth to a brand role that earns the right to exist in their lives.</div>
-        <div class="one-liner lang-zh">七步叙事结构：从消费者的情绪真相出发，推导出品牌值得存在的角色。</div>
-        <svg class="method-diagram" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="20" width="280" height="140" rx="4" fill="var(--accent)" fill-opacity="0.04" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="50" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
-          <text x="50" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">洞察</text>
-          <line x1="70" y1="90" x2="100" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <circle cx="120" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
-          <text x="120" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">策略</text>
-          <line x1="140" y1="90" x2="170" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <circle cx="190" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
-          <text x="190" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">角色</text>
-          <line x1="210" y1="90" x2="240" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
-          <circle cx="260" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
-          <text x="260" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">内容</text>
-        </svg>
-        <div class="detail lang-en">The sequence: Industry Mistake, Consumer Fatigue, Evidence, Category Complicity, Brand Permission, Brand Role, Content System, Execution. Ensures every strategy deck has a logical, emotionally grounded narrative arc rather than jumping straight to the brand solution.</div>
-        <div class="detail lang-zh">顺序：行业误区，消费者疲劳，证据，品类的共谋，品牌许可，品牌角色，内容体系，执行。确保每个策略提案都有逻辑清晰、有情感根基的叙事弧线，而不是直接跳到品牌方案。</div>
-        <span class="method-tag lang-en">Deck Structure</span>
-        <span class="method-tag lang-zh">Deck架构</span>
-        <span class="method-tag lang-en">Narrative</span>
-        <span class="method-tag lang-zh">叙事逻辑</span>
       </div>
     </div>
   </div>
@@ -788,314 +693,271 @@
 <!-- Case Studies -->
 <section id="cases">
   <div class="container">
-    <span class="section-marker"></span>
-    <div class="section-label en">Selected Work</div>
-    <div class="section-label lang-zh" style="display:none">案例</div>
+    <div class="section-number"><span>02</span> / Work</div>
     <h2 class="section-title">
-      <span class="lang-en">Brands I've helped find their position.</span>
-      <span class="lang-zh">帮他们找到位置的品牌。</span>
+      <span class="lang-en">Brands I've helped find their voice.</span>
+      <span class="lang-zh">帮他们找到声音的品牌。</span>
     </h2>
-    <div class="section-desc lang-en">Click each case to see the full story.</div>
-    <div class="section-desc lang-zh">点击展开每个案例的完整故事。</div>
+    <div class="section-desc lang-en">Click a case to see the full strategy story.</div>
+    <div class="section-desc lang-zh">点击查看完整策略故事。</div>
 
-    <div class="cases-list reveal">
+    <div class="cases-grid reveal">
 
-      <!-- Case 1: NIVEA -->
-      <div class="case-item">
-        <div class="case-image-wrap">
-          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="400" fill="#0a1628"/>
-            <circle cx="400" cy="200" r="180" fill="none" stroke="#1a3a5c" stroke-width="0.5" opacity="0.3"/>
-            <circle cx="400" cy="200" r="120" fill="none" stroke="#2a5a8c" stroke-width="0.5" opacity="0.2"/>
-            <path d="M280 200 Q340 140 400 160 Q460 180 520 200 Q460 220 400 200 Q340 180 280 200Z" fill="#3a7abd" opacity="0.25"/>
-            <path d="M320 200 Q360 175 400 185 Q440 195 480 200 Q440 210 400 200 Q360 190 320 200Z" fill="#4a8acd" opacity="0.15"/>
-            <circle cx="400" cy="200" r="3" fill="#6aaadd" opacity="0.5"/>
-            <text x="400" y="370" text-anchor="middle" fill="#6aaadd" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">NIVEA</text>
+      <!-- Case 1: Goldwin -->
+      <div class="case-card" data-case="goldwin">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0c1520"/>
+            <path d="M100 220 Q200 100 300 140 Q400 180 500 220" fill="none" stroke="#2a5a6a" stroke-width="1.5" opacity="0.15"/>
+            <path d="M120 230 Q220 120 300 155 Q380 190 480 230" fill="none" stroke="#3a7a8a" stroke-width="0.8" opacity="0.1"/>
+            <circle cx="300" cy="140" r="50" fill="none" stroke="#2a5a6a" stroke-width="0.5" opacity="0.08"/>
+            <rect x="280" y="180" width="40" height="60" rx="2" fill="#3a7a8a" opacity="0.06"/>
+            <text x="300" y="250" text-anchor="middle" fill="#3a7a8a" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">GOLDWIN</text>
           </svg>
-          <div class="case-image-overlay">
-            <span class="case-service">Brand Strategy x Content System</span>
-          </div>
         </div>
-        <div class="case-header-text">
-          <div class="case-header-top">
-            <div>
-              <div class="case-brand">NIVEA <span class="case-brand-sub">妮维雅</span></div>
-              <div class="case-tagline lang-en">"Your Reliable Buddy" from brand role to annual social content system</div>
-              <div class="case-tagline lang-zh">"妮的靠谱搭子"，从品牌角色到全年Social内容体系</div>
-              <div class="case-meta">
-                <span class="case-meta-item">Strategy Deck</span>
-                <span class="case-meta-item">Content System</span>
-                <span class="case-meta-item">2026</span>
-              </div>
-            </div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-body-grid">
-            <div>
-              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">NIVEA needed a 2026 Social Account Operation strategy for the Chinese market. The initial ask was tactical: content calendar, platform operations, KPI targets.</p>
-              <p class="lang-zh">NIVEA需要2026年中国市场Social账号运营策略。初始需求偏向执行层：内容日历、平台运营、KPI指标。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">This wasn't about operating accounts. It was about rebuilding NIVEA's brand role in a market where skincare had become a stressful KPI and everyone was promising better ingredients.</p>
-              <p class="lang-zh">这不是"运营账号"的问题，而是在护肤KPI化的焦虑市场中，为NIVEA重建一个让人放松的品牌角色。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
-              <p class="lang-en">Skincare had become a performance metric, consumers felt they had to learn more, chase faster, choose better, do more complete routines. The result was emotional fatigue: mind-body separation in daily care.</p>
-              <p class="lang-zh">护肤变成了一项KPI，消费者觉得必须学更多、追更快、选更好、做更完整的流程。结果是情绪疲劳：身心分离。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
-              <p class="lang-en">Positioned NIVEA as "Your Reliable Buddy", a low-pressure companion who brings care back to simplicity. Built using the Prism method and operationalized through a full content system, tone guide, and topic architecture.</p>
-              <p class="lang-zh">将NIVEA定位为"妮的靠谱搭子"，一个把护理带回简单的低压力陪伴者。使用三棱镜推理法推导，并落地为完整的内容体系。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
-              <p class="lang-en">Strategy deck, annual content system, expression asset library, tone-of-voice guide, competitor social analysis.</p>
-              <p class="lang-zh">策略提案Deck、全年内容体系、表达资产库、语调指南、竞品社交分析。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Result</h4><h4 class="lang-zh">结果</h4>
-              <p class="lang-en">Proposal approved. This framework continues to guide NIVEA's social content direction.</p>
-              <p class="lang-zh">提案通过。该框架持续指导NIVEA的Social内容方向。</p>
-            </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Social Media Strategy</div>
+          <div class="case-card-brand">Goldwin <span class="zh">户外品牌</span></div>
+          <div class="case-card-tagline lang-en">WeChat & Xiaohongshu retainer with "取色自然" content pillar</div>
+          <div class="case-card-tagline lang-zh">公众号+小红书运营，"取色自然"专栏驱动品牌内容</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric"><strong>+10K</strong> 公众号粉丝</span>
+            <span class="case-card-metric"><strong>+10K</strong> 小红书粉丝</span>
+            <span class="case-card-metric"><strong>+1000</strong> 平均阅读</span>
           </div>
         </div>
       </div>
 
-      <!-- Case 2: Guming -->
-      <div class="case-item">
-        <div class="case-image-wrap">
-          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="400" fill="#f5f0e8"/>
-            <circle cx="400" cy="190" r="150" fill="none" stroke="#d4c5a0" stroke-width="0.8" opacity="0.25"/>
-            <path d="M350 160 Q375 130 400 145 Q425 160 415 185 Q405 210 385 200 Q365 190 350 160Z" fill="#8a7a5a" opacity="0.1"/>
-            <path d="M375 155 Q390 135 400 148 Q410 161 405 178 Q400 195 390 190 Q380 185 375 155Z" fill="#9a8a6a" opacity="0.08"/>
-            <line x1="398" y1="185" x2="398" y2="290" stroke="#7a6a4a" stroke-width="1.2" opacity="0.1"/>
-            <path d="M365 265 Q400 245 435 265 Q445 285 400 290 Q355 285 365 265Z" fill="#8a7a5a" opacity="0.06"/>
-            <text x="400" y="370" text-anchor="middle" fill="#8a7a5a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">GUMING</text>
+      <!-- Case 2: Peninsula -->
+      <div class="case-card" data-case="peninsula">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0e0c0a"/>
+            <line x1="220" y1="60" x2="220" y2="220" stroke="#6a7a5a" stroke-width="0.4" opacity="0.12"/>
+            <line x1="380" y1="60" x2="380" y2="220" stroke="#6a7a5a" stroke-width="0.4" opacity="0.12"/>
+            <line x1="200" y1="60" x2="400" y2="60" stroke="#6a7a5a" stroke-width="0.2" opacity="0.08"/>
+            <line x1="200" y1="220" x2="400" y2="220" stroke="#6a7a5a" stroke-width="0.2" opacity="0.08"/>
+            <rect x="270" y="90" width="60" height="100" rx="2" fill="#6a7a5a" opacity="0.04"/>
+            <circle cx="300" cy="120" r="15" fill="none" stroke="#6a7a5a" stroke-width="0.5" opacity="0.1"/>
+            <text x="300" y="250" text-anchor="middle" fill="#6a7a5a" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">PENINSULA</text>
           </svg>
-          <div class="case-image-overlay">
-            <span class="case-service">Visual Identity Concept</span>
-          </div>
         </div>
-        <div class="case-header-text">
-          <div class="case-header-top">
-            <div>
-              <div class="case-brand">古茗 <span class="case-brand-sub">Guming</span></div>
-              <div class="case-tagline lang-en">Finding a visual language that carries "everyday little happiness"</div>
-              <div class="case-tagline lang-zh">找到一种能承载"日常小确幸"的视觉语言</div>
-              <div class="case-meta">
-                <span class="case-meta-item">Visual Identity</span>
-                <span class="case-meta-item">Brand Concept</span>
-              </div>
-            </div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-body-grid">
-            <div>
-              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">Guming needed a visual identity concept. The challenge: a major regional tea chain looking to modernize without losing its accessible, everyday character.</p>
-              <p class="lang-zh">古茗需要视觉身份概念方案。挑战：一个大型区域茶饮品牌，希望在现代化的同时不失去亲民的日常感。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">Not "make a beautiful logo." It was: "what visual system can make people feel this is my daily treat without shouting?"</p>
-              <p class="lang-zh">不是"设计一个好看的logo"，而是"什么样的视觉系统能让人们觉得这是我日常的小确幸，不用声张"。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
-              <p class="lang-en">Brand audit, competitive landscape analysis, visual direction exploration, concept development, application scenarios.</p>
-              <p class="lang-zh">品牌审计、竞争格局分析、视觉方向探索、概念深化、应用场景展示。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
-              <p class="lang-en">Concept Keynote deck with visual identity directions, brand application mockups.</p>
-              <p class="lang-zh">概念Keynote方案，包含视觉方向、品牌应用示意。</p>
-            </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Social Content Strategy</div>
+          <div class="case-card-brand">Peninsula <span class="zh">半岛酒店</span></div>
+          <div class="case-card-tagline lang-en">"此刻是半岛" social content series for luxury boutique</div>
+          <div class="case-card-tagline lang-zh">"此刻是半岛"内容系列，打造东方策展人品牌身份</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric"><strong>+15K</strong> 公众号粉丝</span>
+            <span class="case-card-metric"><strong>+10K</strong> 小红书粉丝</span>
+            <span class="case-card-metric"><strong>+2000</strong> 平均阅读</span>
           </div>
         </div>
       </div>
 
-      <!-- Case 3: NORDISK -->
-      <div class="case-item">
-        <div class="case-image-wrap">
-          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="400" fill="#e8ece0"/>
-            <path d="M200 280 Q300 220 400 240 Q500 260 600 280" fill="none" stroke="#5a6a4a" stroke-width="1" opacity="0.18"/>
-            <path d="M160 300 Q300 235 400 250 Q500 265 640 300" fill="none" stroke="#4a5a3a" stroke-width="0.6" opacity="0.1"/>
-            <path d="M270 170 Q350 135 400 155 Q450 175 530 170" fill="none" stroke="#7a8a6a" stroke-width="0.8" opacity="0.12"/>
-            <circle cx="360" cy="165" r="6" fill="#6a7a5a" opacity="0.06"/>
-            <circle cx="420" cy="150" r="10" fill="#6a7a5a" opacity="0.05"/>
-            <circle cx="390" cy="168" r="4" fill="#6a7a5a" opacity="0.08"/>
-            <rect x="380" y="260" width="40" height="65" rx="2" fill="#5a6a4a" opacity="0.05"/>
-            <path d="M380 260 L400 235 L420 260Z" fill="#5a6a4a" opacity="0.08"/>
-            <text x="400" y="370" text-anchor="middle" fill="#5a6a4a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">NORDISK</text>
+      <!-- Case 3: 广告门 -->
+      <div class="case-card" data-case="admen">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0a0e14"/>
+            <rect x="180" y="80" width="240" height="120" rx="2" fill="none" stroke="#2a4a6a" stroke-width="0.8" opacity="0.15"/>
+            <line x1="200" y1="110" x2="400" y2="110" stroke="#2a4a6a" stroke-width="0.4" opacity="0.08"/>
+            <line x1="200" y1="130" x2="360" y2="130" stroke="#2a4a6a" stroke-width="0.4" opacity="0.08"/>
+            <line x1="200" y1="150" x2="340" y2="150" stroke="#2a4a6a" stroke-width="0.4" opacity="0.08"/>
+            <line x1="200" y1="170" x2="380" y2="170" stroke="#2a4a6a" stroke-width="0.4" opacity="0.08"/>
+            <text x="300" y="250" text-anchor="middle" fill="#2a4a6a" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">广告门</text>
           </svg>
-          <div class="case-image-overlay">
-            <span class="case-service">Content Strategy x Social Media</span>
-          </div>
         </div>
-        <div class="case-header-text">
-          <div class="case-header-top">
-            <div>
-              <div class="case-brand">NORDISK</div>
-              <div class="case-tagline lang-en">Building a Xiaohongshu presence around "an escape from the everyday"</div>
-              <div class="case-tagline lang-zh">围绕"逃离日常"建立小红书品牌存在感</div>
-              <div class="case-meta">
-                <span class="case-meta-item">Content Strategy</span>
-                <span class="case-meta-item">Xiaohongshu</span>
-              </div>
-            </div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-body-grid">
-            <div>
-              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">NORDISK, a Danish outdoor lifestyle brand, needed a social media content strategy for the Chinese market, starting with Xiaohongshu.</p>
-              <p class="lang-zh">NORDISK，丹麦户外生活方式品牌，需要中国市场的社交内容策略，从小红书开始。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">Not "post product content." The real need was: how does a niche outdoor brand create a sense of belonging in a market where outdoor is either luxury gear or extreme sports?</p>
-              <p class="lang-zh">不是"发产品内容"。真正的需求是：一个户外品牌如何在一个把户外等同于"高端装备"或"极限运动"的市场中创造归属感？</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
-              <p class="lang-en">Young consumers in the outdoor category are not looking for gear guides. They're looking for an "exit" from the daily grind.</p>
-              <p class="lang-zh">年轻消费者在户外中寻找的不是"装备攻略"，而是"逃离日常的入口"。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
-              <p class="lang-en">Buddy Brand Role applied to platform content, built around "your outdoor buddy" persona with content pillars across inspiration, education, and community.</p>
-              <p class="lang-zh">品牌搭子角色在小红书的落地：围绕"你的户外搭子"人设建立内容矩阵。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
-              <p class="lang-en">Social media proposal deck, KOL planning, content calendar, brand introduction deck.</p>
-              <p class="lang-zh">社交媒体提案Deck、达人规划、内容日历、品牌介绍文件。</p>
-            </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Media Operations</div>
+          <div class="case-card-brand">广告门APP <span class="zh">广告媒体</span></div>
+          <div class="case-card-tagline lang-en">Daily social media operations for China's leading ad industry media</div>
+          <div class="case-card-tagline lang-zh">国内头部广告媒体公众号+小红书日更运营</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric"><strong>100+</strong> 原创文章</span>
+            <span class="case-card-metric"><strong>1M+</strong> 阅读触达</span>
+            <span class="case-card-metric"><strong>1.8W+</strong> 头条均读</span>
           </div>
         </div>
       </div>
 
-      <!-- Case 4: Peninsula -->
-      <div class="case-item">
-        <div class="case-image-wrap">
-          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="400" fill="#1a1816"/>
-            <line x1="300" y1="100" x2="300" y2="300" stroke="#c8a85a" stroke-width="0.4" opacity="0.12"/>
-            <line x1="500" y1="100" x2="500" y2="300" stroke="#c8a85a" stroke-width="0.4" opacity="0.12"/>
-            <line x1="280" y1="100" x2="520" y2="100" stroke="#c8a85a" stroke-width="0.2" opacity="0.08"/>
-            <line x1="280" y1="300" x2="520" y2="300" stroke="#c8a85a" stroke-width="0.2" opacity="0.08"/>
-            <rect x="355" y="130" width="90" height="140" rx="2" fill="#c8a85a" opacity="0.03"/>
-            <rect x="370" y="150" width="60" height="50" rx="25" fill="none" stroke="#c8a85a" stroke-width="0.5" opacity="0.12"/>
-            <circle cx="400" cy="175" r="18" fill="none" stroke="#c8a85a" stroke-width="0.5" opacity="0.1"/>
-            <circle cx="400" cy="175" r="7" fill="#c8a85a" opacity="0.08"/>
-            <line x1="370" y1="230" x2="430" y2="230" stroke="#c8a85a" stroke-width="0.4" opacity="0.08"/>
-            <line x1="375" y1="242" x2="425" y2="242" stroke="#c8a85a" stroke-width="0.3" opacity="0.06"/>
-            <text x="400" y="370" text-anchor="middle" fill="#c8a85a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">PENINSULA</text>
+      <!-- Case 4: NIVEA -->
+      <div class="case-card" data-case="nivea">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0a1520"/>
+            <circle cx="300" cy="140" r="120" fill="none" stroke="#1a3a5c" stroke-width="0.5" opacity="0.2"/>
+            <circle cx="300" cy="140" r="80" fill="none" stroke="#2a5a8c" stroke-width="0.5" opacity="0.12"/>
+            <path d="M220 140 Q260 100 300 110 Q340 120 380 140 Q340 160 300 150 Q260 140 220 140Z" fill="#3a7abd" opacity="0.15"/>
+            <text x="300" y="250" text-anchor="middle" fill="#3a7abd" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">NIVEA</text>
           </svg>
-          <div class="case-image-overlay">
-            <span class="case-service">Brand Strategy</span>
-          </div>
         </div>
-        <div class="case-header-text">
-          <div class="case-header-top">
-            <div>
-              <div class="case-brand">The Peninsula <span class="case-brand-sub">半岛酒店</span></div>
-              <div class="case-tagline lang-en">Reimagining the boutique experience for a legendary hotel brand</div>
-              <div class="case-tagline lang-zh">为传奇酒店品牌重新构想精品体验</div>
-              <div class="case-meta">
-                <span class="case-meta-item">Brand Strategy</span>
-                <span class="case-meta-item">Social Content</span>
-              </div>
-            </div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-body-grid">
-            <div>
-              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">Peninsula Hotel needed a strategy proposal for their boutique experience in the Chinese market.</p>
-              <p class="lang-zh">半岛酒店需要中国市场的精品体验策略方案。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">Beyond traditional luxury hospitality positioning. How does a century-old brand stay culturally relevant to a new generation of Chinese luxury travelers?</p>
-              <p class="lang-zh">超越传统的奢华酒店定位。一个百年品牌如何对新一代中国奢华旅行者保持文化相关性？</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
-              <p class="lang-en">Strategy proposal deck, social copy guidelines, meeting documentation.</p>
-              <p class="lang-zh">策略提案Deck、社交文案指南、会议记录。</p>
-            </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Brand Strategy x Content System</div>
+          <div class="case-card-brand">NIVEA <span class="zh">妮维雅</span></div>
+          <div class="case-card-tagline lang-en">"Your Reliable Buddy" brand role & annual social content system</div>
+          <div class="case-card-tagline lang-zh">"妮的靠谱搭子"品牌角色 + 全年Social内容体系</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric">Strategy Deck</span>
+            <span class="case-card-metric">Content System</span>
+            <span class="case-card-metric">Tone Guide</span>
           </div>
         </div>
       </div>
 
-      <!-- Case 5: Aesop -->
-      <div class="case-item">
-        <div class="case-image-wrap">
-          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="800" height="400" fill="#f2ede8"/>
-            <rect x="340" y="110" width="22" height="150" rx="11" fill="#8a7a6a" opacity="0.07"/>
-            <rect x="378" y="95" width="26" height="165" rx="13" fill="#7a6a5a" opacity="0.05"/>
-            <rect x="420" y="130" width="20" height="130" rx="10" fill="#6a5a4a" opacity="0.06"/>
-            <rect x="454" y="105" width="24" height="155" rx="12" fill="#8a7a6a" opacity="0.04"/>
-            <line x1="340" y1="80" x2="480" y2="80" stroke="#8a7a6a" stroke-width="0.4" opacity="0.06"/>
-            <line x1="340" y1="280" x2="480" y2="280" stroke="#8a7a6a" stroke-width="0.4" opacity="0.06"/>
-            <circle cx="400" cy="310" r="60" fill="none" stroke="#8a7a6a" stroke-width="0.3" opacity="0.06"/>
-            <text x="400" y="370" text-anchor="middle" fill="#7a6a5a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">AESOP</text>
+      <!-- Case 5: 古茗 -->
+      <div class="case-card" data-case="guming">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0f0e0a"/>
+            <circle cx="300" cy="130" r="100" fill="none" stroke="#4a5a3a" stroke-width="0.8" opacity="0.15"/>
+            <path d="M265 105 Q285 85 300 95 Q315 105 310 125 Q305 145 290 140 Q275 135 265 105Z" fill="#5a6a4a" opacity="0.08"/>
+            <line x1="298" y1="125" x2="298" y2="200" stroke="#4a5a3a" stroke-width="1" opacity="0.08"/>
+            <text x="300" y="250" text-anchor="middle" fill="#5a6a4a" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">古茗</text>
           </svg>
-          <div class="case-image-overlay">
-            <span class="case-service">PR & Communication</span>
-          </div>
         </div>
-        <div class="case-header-text">
-          <div class="case-header-top">
-            <div>
-              <div class="case-brand">Aesop</div>
-              <div class="case-tagline lang-en">PR communication planning for a luxury skincare brand with a distinct voice</div>
-              <div class="case-tagline lang-zh">为有独特品牌气质的奢华护肤品牌做公关传播规划</div>
-              <div class="case-meta">
-                <span class="case-meta-item">PR Planning</span>
-                <span class="case-meta-item">Communication</span>
-              </div>
-            </div>
-            <div class="case-arrow">→</div>
-          </div>
-        </div>
-        <div class="case-body">
-          <div class="case-body-grid">
-            <div>
-              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">Aesop needed a PR communication plan catering to the Chinese market.</p>
-              <p class="lang-zh">Aesop需要针对中国市场的PR传播计划。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
-              <p class="lang-en">Integrated PR planning balancing Aesop's minimalist brand ethos with Chinese market expectations, including media relations, gifting strategy, event planning, and KOL collaboration.</p>
-              <p class="lang-zh">整合PR规划，在Aesop极简品牌气质与中国市场期待之间取得平衡，包括媒体关系、礼赠策略、活动规划和达人合作。</p>
-            </div>
-            <div>
-              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
-              <p class="lang-en">PR communication plan deck.</p>
-              <p class="lang-zh">PR传播规划Deck。</p>
-            </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Visual Identity Concept</div>
+          <div class="case-card-brand">古茗 <span class="zh">Guming</span></div>
+          <div class="case-card-tagline lang-en">Visual identity concept for a major regional tea chain</div>
+          <div class="case-card-tagline lang-zh">大型区域茶饮品牌视觉身份概念方案</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric">Brand Audit</span>
+            <span class="case-card-metric">Visual Direction</span>
+            <span class="case-card-metric">Keynote Deck</span>
           </div>
         </div>
       </div>
 
+      <!-- Case 6: NORDISK -->
+      <div class="case-card" data-case="nordisk">
+        <div class="case-card-image">
+          <svg viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="280" fill="#0a100e"/>
+            <path d="M180 190 Q260 150 300 160 Q340 170 420 190" fill="none" stroke="#3a5a4a" stroke-width="1" opacity="0.12"/>
+            <path d="M220 100 Q280 80 300 90 Q320 100 380 100" fill="none" stroke="#4a6a5a" stroke-width="0.8" opacity="0.08"/>
+            <circle cx="330" cy="100" r="5" fill="#4a6a5a" opacity="0.06"/>
+            <circle cx="280" cy="95" r="3" fill="#4a6a5a" opacity="0.08"/>
+            <rect x="285" y="150" width="30" height="45" rx="1.5" fill="#3a5a4a" opacity="0.05"/>
+            <path d="M285 150 L300 135 L315 150Z" fill="#3a5a4a" opacity="0.08"/>
+            <text x="300" y="250" text-anchor="middle" fill="#3a5a4a" font-family="Inter,sans-serif" font-size="13" letter-spacing="6" opacity="0.3">NORDISK</text>
+          </svg>
+        </div>
+        <div class="case-card-body">
+          <div class="case-card-service">Content Strategy</div>
+          <div class="case-card-brand">NORDISK</div>
+          <div class="case-card-tagline lang-en">Xiaohongshu content strategy for a Danish outdoor brand</div>
+          <div class="case-card-tagline lang-zh">小红书内容策略，建立"逃离日常"的户外陪伴感</div>
+          <div class="case-card-metrics">
+            <span class="case-card-metric">Content Matrix</span>
+            <span class="case-card-metric">KOL Strategy</span>
+            <span class="case-card-metric">Calendar</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Case Detail Modal -->
+<div class="case-detail-overlay" id="caseDetailOverlay">
+  <div class="case-detail-panel" id="caseDetailPanel">
+    <button class="case-detail-close" id="caseDetailClose">&times;</button>
+    <div id="caseDetailContent"></div>
+  </div>
+</div>
+
+<!-- Methodology -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-number"><span>03</span> / Method</div>
+    <h2 class="section-title">
+      <span class="lang-en">How I arrive at clarity.</span>
+      <span class="lang-zh">我怎么抵达清晰。</span>
+    </h2>
+    <div class="section-desc lang-en">Thinking tools built from real client work, codified into reusable frameworks.</div>
+    <div class="section-desc lang-zh">从真实项目中提炼的思考工具。</div>
+
+    <div class="method-grid reveal">
+      <div class="method-card">
+        <div class="method-num">01</div>
+        <h3><span class="lang-en">The Prism</span><span class="lang-zh">三棱镜推理法</span></h3>
+        <div class="one-liner lang-en">Consumer x Category x Brand. Strategy lives at the intersection.</div>
+        <div class="one-liner lang-zh">消费者 x 品类 x 品牌。策略在交汇处。</div>
+        <svg class="method-diagram" viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="140" cy="68" r="50" fill="var(--accent)" fill-opacity="0.08" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.3"/>
+          <circle cx="108" cy="110" r="50" fill="var(--accent)" fill-opacity="0.08" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.3"/>
+          <circle cx="172" cy="110" r="50" fill="var(--accent)" fill-opacity="0.08" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.3"/>
+          <circle cx="140" cy="96" r="16" fill="var(--accent)" fill-opacity="0.2"/>
+          <text x="140" y="73" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-weight="500"><tspan class="lang-en">Category</tspan><tspan class="lang-zh">品类</tspan></text>
+          <text x="107" y="132" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-weight="500"><tspan class="lang-en">Consumer</tspan><tspan class="lang-zh">消费者</tspan></text>
+          <text x="173" y="132" text-anchor="middle" fill="var(--text-muted)" font-size="11" font-weight="500"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
+          <text x="140" y="101" text-anchor="middle" fill="white" font-size="11" font-weight="600"><tspan class="lang-en">Strategy</tspan><tspan class="lang-zh">策略</tspan></text>
+        </svg>
+        <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence, ensuring consumer-true, category-relevant, and brand-ownable answers.</div>
+        <div class="detail lang-zh">大多数策略只看1-2个维度。三棱镜强迫三方交汇，确保答案在消费者、品类和品牌三个层面都站得住。</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">02</div>
+        <h3><span class="lang-en">The Buddy Role</span><span class="lang-zh">品牌搭子角色</span></h3>
+        <div class="one-liner lang-en">In noisy categories, be a companion, not another expert.</div>
+        <div class="one-liner lang-zh">在高噪音品类中，做陪伴者，不做另一个专家。</div>
+        <svg class="method-diagram" viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="140" y1="80" x2="55" y2="55" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="140" y1="80" x2="225" y2="55" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="140" y1="80" x2="60" y2="120" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="140" y1="80" x2="220" y2="120" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <circle cx="140" cy="80" r="28" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.35"/>
+          <text x="140" y="78" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="600"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
+          <text x="140" y="90" text-anchor="middle" fill="var(--text-muted)" font-size="8"><tspan class="lang-en">Buddy</tspan><tspan class="lang-zh">搭子</tspan></text>
+          <circle cx="55" cy="55" r="12" fill="var(--accent)" fill-opacity="0.05" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="225" cy="55" r="12" fill="var(--accent)" fill-opacity="0.05" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="60" cy="120" r="12" fill="var(--accent)" fill-opacity="0.05" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="220" cy="120" r="12" fill="var(--accent)" fill-opacity="0.05" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+        </svg>
+        <div class="detail lang-en">Rejects the brand-as-authority model. Positions the brand as a companion who reduces cognitive load. Best for mass-market brands with high consumer fatigue.</div>
+        <div class="detail lang-zh">拒绝品牌=权威的竞争惯性，定位为降低认知负担的陪伴者。适合大众消费品类、消费者疲劳度高的品牌。</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">03</div>
+        <h3><span class="lang-en">Sit in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h3>
+        <div class="one-liner lang-en">Don't pitch the solution. Make them feel the discomfort first.</div>
+        <div class="one-liner lang-zh">不要先讲方案。先让他们感受到'不对劲'。</div>
+        <svg class="method-diagram" viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="15" width="240" height="110" rx="3" fill="var(--accent)" fill-opacity="0.03" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.12"/>
+          <path d="M35 35 L160 35 L160 50 L35 50Z" fill="var(--accent)" fill-opacity="0.05"/>
+          <path d="M35 70 L200 70 L200 85 L35 85Z" fill="var(--accent)" fill-opacity="0.05"/>
+          <path d="M35 105 L130 105 L130 120 L35 120Z" fill="var(--accent)" fill-opacity="0.05"/>
+          <text x="42" y="46" fill="var(--text-muted)" font-size="9" font-family="var(--font-zh)">1. 体验 - 消费者日常</text>
+          <text x="42" y="81" fill="var(--text-muted)" font-size="9" font-family="var(--font-zh)">2. 放大 - 未被言说的不适</text>
+          <text x="42" y="116" fill="var(--text-muted)" font-size="9" font-family="var(--font-zh)">3. 共鸣 - 再揭示品牌角色</text>
+        </svg>
+        <div class="detail lang-en">A narrative arc for presentations: present everyday experience, amplify unspoken discomfort, build resonance, then reveal the brand role as relief.</div>
+        <div class="detail lang-zh">提案叙事弧线：呈现日常体验，放大未被言说的不适感，建立共鸣，再揭示品牌角色作为解决方案。</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num">04</div>
+        <h3><span class="lang-en">Emotional Truth to Brand Role</span><span class="lang-zh">情绪真相到品牌角色</span></h3>
+        <div class="one-liner lang-en">7-step narrative from consumer emotion to brand permission.</div>
+        <div class="one-liner lang-zh">从情绪真相到品牌许可，七步叙事框架。</div>
+        <svg class="method-diagram" viewBox="0 0 280 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="15" width="250" height="110" rx="3" fill="var(--accent)" fill-opacity="0.03" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.12"/>
+          <circle cx="50" cy="70" r="18" fill="var(--accent)" fill-opacity="0.08"/>
+          <text x="50" y="74" text-anchor="middle" fill="var(--text-muted)" font-size="8">洞察</text>
+          <line x1="68" y1="70" x2="92" y2="70" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="110" cy="70" r="18" fill="var(--accent)" fill-opacity="0.08"/>
+          <text x="110" y="74" text-anchor="middle" fill="var(--text-muted)" font-size="8">策略</text>
+          <line x1="128" y1="70" x2="152" y2="70" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="170" cy="70" r="18" fill="var(--accent)" fill-opacity="0.08"/>
+          <text x="170" y="74" text-anchor="middle" fill="var(--text-muted)" font-size="8">角色</text>
+          <line x1="188" y1="70" x2="212" y2="70" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15"/>
+          <circle cx="230" cy="70" r="18" fill="var(--accent)" fill-opacity="0.08"/>
+          <text x="230" y="74" text-anchor="middle" fill="var(--text-muted)" font-size="8">内容</text>
+        </svg>
+        <div class="detail lang-en">Industry Mistake, Consumer Fatigue, Evidence, Category Complicity, Brand Permission, Brand Role, Content System, Execution. A complete narrative arc for strategic presentations.</div>
+        <div class="detail lang-zh">行业误区，消费者疲劳，证据，品类共谋，品牌许可，品牌角色，内容体系，执行。完整的叙事闭环。</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1103,92 +965,83 @@
 <!-- Writing -->
 <section id="writing">
   <div class="container">
-    <span class="section-marker"></span>
-    <div class="section-label en">Writing</div>
-    <div class="section-label lang-zh" style="display:none">写作</div>
+    <div class="section-number"><span>04</span> / Writing</div>
     <h2 class="section-title">
       <span class="lang-en">Thinking out loud.</span>
       <span class="lang-zh">想法的回音。</span>
     </h2>
-    <div class="section-desc lang-en">Strategy observations, consumer insights, and the occasional industry observation.</div>
-    <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业思考。</div>
+    <div class="section-desc lang-en">Strategy observations, consumer insights, and occasional industry notes.</div>
+    <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业笔记。</div>
 
     <div class="writing-grid reveal">
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Skincare Has Become a KPI</span><span class="lang-zh">护肤KPI化与选择疲劳</span></h4>
-        <p class="lang-en">Why the skincare industry's pursuit of "more" has left consumers exhausted, and what brand role can actually help.</p>
+        <p class="lang-en">Why the skincare industry's pursuit of "more" has left consumers exhausted, and what brand role can help.</p>
         <p class="lang-zh">为什么护肤品行业的"更多"追求让消费者筋疲力尽，以及品牌角色能做什么。</p>
-        <span class="tag lang-en">Consumer Insight</span>
-        <span class="tag lang-zh">消费者洞察</span>
+        <span class="tag">Consumer Insight</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
-        <h4><span class="lang-en">Why "Buddy" Is a Brand Role Worth Stealing</span><span class="lang-zh">为什么"搭子"是一个值得偷走的品牌角色</span></h4>
-        <p class="lang-en">Positioning your brand as a low-pressure companion: what it is, when it works, and how to operationalize it.</p>
-        <p class="lang-zh">把品牌定位为低压力陪伴者：是什么、什么时候有效、怎么落地。</p>
-        <span class="tag lang-en">Methodology</span>
-        <span class="tag lang-zh">方法论</span>
+        <h4><span class="lang-en">Why "Buddy" Is a Brand Role Worth Stealing</span><span class="lang-zh">为什么"搭子"值得偷走</span></h4>
+        <p class="lang-en">Positioning as a low-pressure companion: when it works, and how to operationalize it.</p>
+        <p class="lang-zh">把品牌定位为低压力陪伴者：什么时候有效、怎么落地。</p>
+        <span class="tag">Methodology</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
-        <h4><span class="lang-en">Sit Your Client in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h4>
-        <p class="lang-en">Why starting your pitch with strategy is the wrong move, and a better narrative structure for winning proposals.</p>
-        <p class="lang-zh">为什么从策略开始讲提案是错的，以及更好的叙事结构。</p>
-        <span class="tag lang-en">Pitching</span>
-        <span class="tag lang-zh">提案技巧</span>
+        <h4><span class="lang-en">Start with the Discomfort</span><span class="lang-zh">从"不对劲"开始</span></h4>
+        <p class="lang-en">Why pitching strategy first is wrong, and a better narrative structure for winning proposals.</p>
+        <p class="lang-zh">为什么从策略开始讲提案是错的——以及更好的叙事结构。</p>
+        <span class="tag">Pitching</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
-        <h4><span class="lang-en">Every Category Can Be Gamified</span><span class="lang-zh">所有品类都能用游戏化再做一遍</span></h4>
-        <p class="lang-en">How game mechanics can refresh stale categories, and where most brands get it wrong.</p>
-        <p class="lang-zh">游戏化机制如何刷新沉闷的品类，以及大多数品牌错在哪里。</p>
-        <span class="tag lang-en">Trends</span>
-        <span class="tag lang-zh">趋势观察</span>
+        <h4><span class="lang-en">Every Category Can Be Gamified</span><span class="lang-zh">所有品类都能游戏化</span></h4>
+        <p class="lang-en">How game mechanics refresh stale categories, and where most brands get it wrong.</p>
+        <p class="lang-zh">游戏化机制如何刷新沉闷品类，以及大多数品牌错在哪里。</p>
+        <span class="tag">Trends</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Contact -->
-<section id="contact" class="contact-section">
+<section id="contact">
   <div class="container">
-    <span class="section-marker" style="margin:0 auto 20px;"></span>
-    <div class="section-label en" style="text-align:center;">Contact</div>
-    <div class="section-label lang-zh" style="display:none;text-align:center;">联系</div>
+    <div class="section-number"><span>05</span> / Contact</div>
     <h2 class="section-title" style="text-align:center;">
       <span class="lang-en">Let's find the right position.</span>
       <span class="lang-zh">一起找到那个对的位置。</span>
     </h2>
-    <div class="section-desc lang-en" style="text-align:center;margin:0 auto 48px;">
-      Whether you have a brief in mind or just want to explore an idea, a 15-minute chat is always a good start.
+    <div class="section-desc lang-en" style="text-align:center;margin:0 auto 64px;">
+      A 15-minute conversation is always a good start.
     </div>
-    <div class="section-desc lang-zh" style="text-align:center;margin:0 auto 48px;">
-      不管是有具体的需求，还是只是想聊聊一个想法，15分钟的聊天永远是个好的开始。
+    <div class="section-desc lang-zh" style="text-align:center;margin:0 auto 64px;">
+      15分钟的聊天，永远是个好的开始。
     </div>
-    <div class="contact-links">
-      <a href="mailto:zhujiahui11212020@163.com" class="contact-link">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+
+    <div class="contact-grid">
+      <a href="mailto:zhujiahui11212020@163.com" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <path d="M4 6l8 5.5L20 6M4 18h16a2 2 0 002-2V8a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"/>
         </svg>
         zhujiahui11212020@163.com
       </a>
-      <a href="#" class="contact-link" id="wechatBtn">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <a href="#" class="contact-card" id="wechatBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
         </svg>
         WeChat: _Zjyppz
       </a>
-      <a href="https://www.xiaohongshu.com/user/profile/616bd934000000000201fd44" target="_blank" rel="noopener" class="contact-link">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <a href="https://www.xiaohongshu.com/user/profile/616bd934000000000201fd44" target="_blank" rel="noopener" class="contact-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
           <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
         </svg>
         小红书
       </a>
     </div>
-    <div class="contact-msg lang-en">judyzjy.com  |  Strategy before creativity.</div>
-    <div class="contact-msg lang-zh">judyzjy.com  |  先想清楚，再说漂亮。</div>
   </div>
 </section>
 
@@ -1197,21 +1050,16 @@
   <span class="lang-zh">&copy; 2025-2026 Judy Z</span>
 </footer>
 
-<!-- Toast -->
 <div class="toast" id="toast">WeChat ID copied</div>
 
 <script>
-  // ===== Language Toggle =====
   const langToggle = document.getElementById('langToggle');
   const langSpans = langToggle.querySelectorAll('span');
   const body = document.body;
   const savedLang = localStorage.getItem('judy-lang') || 'en';
   body.setAttribute('data-lang', savedLang);
   langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === savedLang));
-  document.querySelectorAll('.section-label').forEach(el => {
-    if (el.classList.contains('lang-zh')) el.style.display = savedLang === 'zh' ? 'block' : 'none';
-    else el.style.display = savedLang === 'en' ? 'block' : 'none';
-  });
+  document.querySelectorAll('.section-number').forEach(el => {});
 
   langToggle.addEventListener('click', () => {
     const current = body.getAttribute('data-lang');
@@ -1219,80 +1067,53 @@
     body.setAttribute('data-lang', next);
     localStorage.setItem('judy-lang', next);
     langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === next));
-    document.querySelectorAll('.section-label').forEach(el => {
-      if (el.classList.contains('lang-zh')) el.style.display = next === 'zh' ? 'block' : 'none';
-      else el.style.display = next === 'en' ? 'block' : 'none';
-    });
     document.querySelectorAll('svg').forEach(svg => {
       const clone = svg.cloneNode(true);
       svg.parentNode.replaceChild(clone, svg);
     });
   });
 
-  // ===== Theme Toggle =====
   const themeToggle = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('judy-theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  themeToggle.textContent = savedTheme === 'light' ? '☼' : '☽';
-
   themeToggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'light' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('judy-theme', next);
     themeToggle.textContent = next === 'light' ? '☼' : '☽';
   });
+  const savedTheme = localStorage.getItem('judy-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeToggle.textContent = savedTheme === 'light' ? '☼' : '☽';
 
-  // ===== Nav scroll state =====
-  const topBar = document.querySelector('.top-bar');
+  // Nav scroll
+  document.querySelector('.top-bar').addEventListener('scroll', function(){}, {passive:true});
   window.addEventListener('scroll', () => {
-    topBar.classList.toggle('scrolled', window.scrollY > 80);
+    document.querySelector('.top-bar').classList.toggle('scrolled', window.scrollY > 80);
   }, { passive: true });
 
-  // ===== Case Study Expand =====
-  document.querySelectorAll('.case-item').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('expanded');
-    });
-  });
-
-  // ===== Smooth Scroll =====
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-
-  // ===== Scroll Reveal =====
+  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ===== WeChat Copy =====
-  const wechatBtn = document.getElementById('wechatBtn');
-  const toast = document.getElementById('toast');
-  wechatBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // WeChat copy
+  document.getElementById('wechatBtn').addEventListener('click', (e) => {
+    e.preventDefault(); e.stopPropagation();
     navigator.clipboard.writeText('_Zjyppz').then(() => {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
+      const t = document.getElementById('toast');
+      t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000);
     });
   });
 
-  // ===== Fix section labels on load =====
-  document.querySelectorAll('.section-label.lang-zh').forEach(el => {
-    if (savedLang === 'zh') el.style.display = 'block';
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      const t = document.querySelector(this.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 </script>
-
 </body>
 </html>
