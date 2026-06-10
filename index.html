@@ -14,8 +14,9 @@
       --text: #1a1a1a;
       --text-secondary: #6b6b6b;
       --border: #e5e5e5;
-      --accent: #b8865a; /* warm gold - warm, strategic */
+      --accent: #b8865a;
       --accent-light: #f0e6d8;
+      --accent-dim: #d4bfa8;
       --card-bg: #ffffff;
       --tag-bg: #f3f0eb;
       --hover-bg: #f5f2ed;
@@ -33,12 +34,62 @@
       --border: #333;
       --accent: #d4a574;
       --accent-light: #2a2520;
+      --accent-dim: #4a3a2a;
       --card-bg: #242424;
       --tag-bg: #2a2a2a;
       --hover-bg: #2a2a2a;
       --shadow: 0 2px 20px rgba(0,0,0,0.2);
     }
     html { scroll-behavior: smooth; }
+
+    /* ===== Ambient Hero Glow ===== */
+    .hero-glow {
+      position: absolute; top: -30%; left: -20%; right: -20%; bottom: -10%;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, var(--accent-light) 0%, transparent 70%);
+      pointer-events: none; z-index: 0; opacity: 0.6;
+    }
+    [data-theme="dark"] .hero-glow {
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(180,130,80,0.12) 0%, transparent 70%);
+    }
+    .hero .container { position: relative; z-index: 1; }
+
+    /* ===== SVG Methodology Diagram ===== */
+    .method-diagram {
+      display: block; margin: 20px auto 12px; max-width: 260px; width: 100%;
+    }
+    .method-diagram text { font-family: var(--font-zh); }
+    .method-diagram .label-en { font-family: var(--font-en); }
+
+    /* ===== Logo Wall ===== */
+    .logo-wall {
+      display: flex; flex-wrap: wrap; gap: 28px 36px; align-items: center;
+      justify-content: center; padding: 40px 0 8px;
+    }
+    .logo-wall-item {
+      height: 28px; opacity: 0.55; transition: opacity 0.3s;
+      filter: grayscale(1); cursor: default;
+    }
+    .logo-wall-item:hover { opacity: 0.85; filter: grayscale(0); }
+    .logo-wall-item img { height: 100%; width: auto; }
+    .logo-wall-text {
+      font-size: 14px; letter-spacing: 1px; font-weight: 500;
+      color: var(--text-secondary); font-family: var(--font-en);
+    }
+    [data-lang="zh"] .logo-wall-text { font-family: var(--font-zh); }
+
+    /* ===== Scroll Reveal ===== */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ===== Section Dividers ===== */
+    .section-divider {
+      width: 60px; height: 2px; background: var(--accent); margin: 0 auto 32px;
+      border-radius: 2px; opacity: 0.4;
+    }
     body {
       font-family: var(--font-zh);
       background: var(--bg);
@@ -575,6 +626,7 @@
 
 <!-- Hero -->
 <section class="hero" id="hero">
+  <div class="hero-glow"></div>
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
@@ -597,9 +649,20 @@
           <a href="#contact" class="secondary lang-zh">联系我</a>
         </div>
         <div class="hero-brands">
-          <span>NIVEA</span><span>Peninsula</span><span>Aesop</span><span>NORDISK</span>
-          <span>Wrangler</span><span>古茗</span><span>Nike</span><span>亚朵</span>
-          <span>馥马尔</span><span>喜茶</span>
+          <span class="lang-en">Brands I've worked with</span>
+          <span class="lang-zh">合作品牌</span>
+        </div>
+        <div class="logo-wall">
+          <img src="https://cdn.simpleicons.org/nivea/6b6b6b" alt="NIVEA" class="logo-wall-item" loading="lazy">
+          <span class="logo-wall-text">Peninsula</span>
+          <span class="logo-wall-text">Aesop</span>
+          <span class="logo-wall-text">NORDISK</span>
+          <img src="https://cdn.simpleicons.org/wrangler/6b6b6b" alt="Wrangler" class="logo-wall-item" loading="lazy">
+          <span class="logo-wall-text">古茗</span>
+          <img src="https://cdn.simpleicons.org/nike/6b6b6b" alt="Nike" class="logo-wall-item" loading="lazy">
+          <span class="logo-wall-text">亚朵</span>
+          <span class="logo-wall-text">馥马尔</span>
+          <span class="logo-wall-text">喜茶</span>
         </div>
       </div>
       <div class="hero-image">
@@ -618,7 +681,7 @@
       <span class="lang-en">Strategy before creativity.</span>
       <span class="lang-zh">先想清楚，再说漂亮。</span>
     </h2>
-    <div class="about-grid">
+    <div class="about-grid reveal">
       <div class="about-text">
         <!-- English -->
         <div class="lang-en">
@@ -665,15 +728,34 @@
     <div class="section-desc lang-en">These are the thinking tools I use to move from mess to clarity. Each one was born from real client work, then codified into a reusable framework.</div>
     <div class="section-desc lang-zh">这些是我从"混乱"到"清晰"的思考工具。每一个都来自真实的客户项目，然后提炼为可复用的框架。</div>
 
-    <div class="methodology-grid">
+    <div class="methodology-grid reveal">
       <!-- Method 1 -->
       <div class="method-card">
         <div class="method-number">01</div>
         <h3><span class="lang-en">The Prism</span><span class="lang-zh">三棱镜推理法</span></h3>
         <div class="one-liner lang-en">Look at the problem through Consumer, Category, and Brand simultaneously. The strategy lives where all three converge.</div>
         <div class="one-liner lang-zh">同时从消费者、品类和品牌三个角度审视问题。策略藏在三者的交汇处。</div>
-        <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence — ensuring the answer is consumer-true, category-relevant, and brand-ownable. Used for brand positioning, new product launches, and competitive differentiation.</div>
-        <div class="detail lang-zh">大多数策略只看了1-2个维度。三棱镜强迫三方交汇——确保答案在消费者层面真实、在品类层面相关、在品牌层面可拥有。适用于品牌定位、新品上市、品类竞争分析。</div>
+        <!-- Prism Venn Diagram -->
+        <svg class="method-diagram" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="82" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
+          <circle cx="107" cy="145" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
+          <circle cx="213" cy="145" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
+          <circle cx="160" cy="124" r="22" fill="var(--accent)" fill-opacity="0.2"/>
+          <text x="160" y="87" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
+            <tspan class="lang-en">Category</tspan><tspan class="lang-zh">品类</tspan>
+          </text>
+          <text x="105" y="165" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
+            <tspan class="lang-en">Consumer</tspan><tspan class="lang-zh">消费者</tspan>
+          </text>
+          <text x="215" y="165" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
+            <tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan>
+          </text>
+          <text x="160" y="129" text-anchor="middle" fill="white" font-size="12" font-weight="600">
+            <tspan class="lang-en">Strategy</tspan><tspan class="lang-zh">策略</tspan>
+          </text>
+        </svg>
+        <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence, ensuring the answer is consumer-true, category-relevant, and brand-ownable. Used for brand positioning, new product launches, and competitive differentiation.</div>
+        <div class="detail lang-zh">大多数策略只看了1-2个维度。三棱镜强迫三方交汇，确保答案在消费者层面真实、在品类层面相关、在品牌层面可拥有。适用于品牌定位、新品上市、品类竞争分析。</div>
         <span class="method-tag lang-en">Brand Positioning</span><span class="method-tag lang-en">Strategy</span>
         <span class="method-tag lang-zh">品牌定位</span><span class="method-tag lang-zh">策略框架</span>
       </div>
@@ -684,6 +766,35 @@
         <h3><span class="lang-en">The Buddy Role</span><span class="lang-zh">品牌搭子角色</span></h3>
         <div class="one-liner lang-en">In noisy categories, consumers don't need more authority. They need a low-pressure companion.</div>
         <div class="one-liner lang-zh">在高噪音品类中，消费者不需要更多权威，他们需要一个低压力的陪伴者。</div>
+        <!-- Buddy Hub Diagram -->
+        <svg class="method-diagram" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Connecting lines -->
+          <line x1="160" y1="110" x2="60" y2="75" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
+          <line x1="160" y1="110" x2="260" y2="75" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
+          <line x1="160" y1="110" x2="70" y2="175" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
+          <line x1="160" y1="110" x2="250" y2="175" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
+          <!-- Central hub -->
+          <circle cx="160" cy="110" r="38" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.5" stroke-opacity="0.4"/>
+          <text x="160" y="106" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="600">
+            <tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan>
+          </text>
+          <text x="160" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="10" font-weight="500">
+            <tspan class="lang-en">Buddy</tspan><tspan class="lang-zh">搭子</tspan>
+          </text>
+          <!-- Surrounding nodes with SVG person icons -->
+          <circle cx="60" cy="75" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="60" cy="72" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
+          <ellipse cx="60" cy="85" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
+          <circle cx="260" cy="75" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="260" cy="72" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
+          <ellipse cx="260" cy="85" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
+          <circle cx="70" cy="175" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="70" cy="172" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
+          <ellipse cx="70" cy="185" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
+          <circle cx="250" cy="175" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="250" cy="172" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
+          <ellipse cx="250" cy="185" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
+        </svg>
         <div class="detail lang-en">The "Buddy" (搭子) role rejects the brand-as-authority or brand-as-celebrity model. Instead, it positions the brand as a companion who reduces cognitive load. Best for mass-market brands in categories with high expert noise and consumer fatigue. Case example: NIVEA's "Your Reliable Buddy" (妮的靠谱搭子).</div>
         <div class="detail lang-zh">"搭子"角色拒绝品牌=权威或品牌=明星的竞争惯性。它把品牌定位为一个降低认知负担的陪伴者。最适合大众消费品类、专家噪音高、消费者疲劳程度强的品牌。案例：NIVEA "妮的靠谱搭子"。</div>
         <span class="method-tag lang-en">Brand Role</span><span class="method-tag lang-en">Consumer Culture</span>
@@ -729,7 +840,7 @@
     <div class="section-desc lang-en">Click each case to see the full story — brief, reframe, insight, strategy, and outcome.</div>
     <div class="section-desc lang-zh">点击展开每个案例的完整故事——Brief、问题重构、洞察、策略和结果。</div>
 
-    <div class="cases-list">
+    <div class="cases-list reveal">
 
       <!-- Case 1: NIVEA -->
       <div class="case-item">
@@ -937,7 +1048,7 @@
     <div class="section-desc lang-en">Strategy observations, consumer insights, and the occasional industry rant.</div>
     <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业吐槽。</div>
 
-    <div class="writing-grid">
+    <div class="writing-grid reveal">
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Skincare Has Become a KPI</span><span class="lang-zh">护肤KPI化与选择疲劳</span></h4>
@@ -1062,10 +1173,26 @@
     });
   });
 
-  // ===== Intersection Observer for section labels (zh) =====
-  // Observe methodology section background
-  const methodologySection = document.getElementById('methodology');
-  // already handled via CSS
+  // ===== Intersection Observer for scroll reveals =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ===== Lang toggle fix for SVG text =====
+  document.getElementById('langToggle').addEventListener('click', () => {
+    // Force SVG text elements to repaint for language visibility
+    document.querySelectorAll('svg').forEach(svg => {
+      const clone = svg.cloneNode(true);
+      svg.parentNode.replaceChild(clone, svg);
+    });
+  });
 </script>
 
 </body>
