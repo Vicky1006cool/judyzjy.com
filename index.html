@@ -7,576 +7,518 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== Reset & Base ===== */
+    /* ===== Reset & Design Tokens ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #FAF9F7;
-      --text: #1a1a1a;
-      --text-secondary: #6b6b6b;
-      --border: #e5e5e5;
+      --bg: #F8F6F3;
+      --text: #1C1816;
+      --text-secondary: #7A756F;
+      --border: #E3DDD5;
       --accent: #b8865a;
       --accent-light: #f0e6d8;
       --accent-dim: #d4bfa8;
       --card-bg: #ffffff;
       --tag-bg: #f3f0eb;
       --hover-bg: #f5f2ed;
-      --shadow: 0 2px 20px rgba(0,0,0,0.04);
-      --radius: 16px;
-      --max-width: 1100px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+      --page-gutter: 48px;
+      --section-padding: 130px;
+      --radius-sm: 8px;
+      --radius-lg: 20px;
+      --max-width: 1120px;
       --font-en: 'Inter', -apple-system, sans-serif;
       --font-zh: 'Noto Sans SC', -apple-system, sans-serif;
       --font-zh-serif: 'Noto Serif SC', serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
     [data-theme="dark"] {
       --bg: #1a1a1a;
-      --text: #f0f0f0;
-      --text-secondary: #999;
-      --border: #333;
+      --text: #ece8e4;
+      --text-secondary: #99948e;
+      --border: #33302e;
       --accent: #d4a574;
       --accent-light: #2a2520;
       --accent-dim: #4a3a2a;
-      --card-bg: #242424;
-      --tag-bg: #2a2a2a;
-      --hover-bg: #2a2a2a;
-      --shadow: 0 2px 20px rgba(0,0,0,0.2);
+      --card-bg: #242220;
+      --tag-bg: #2a2825;
+      --hover-bg: #2a2825;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.15);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.15);
     }
+
+    ::selection { background: var(--accent); color: white; }
     html { scroll-behavior: smooth; }
-
-    /* ===== Ambient Hero Glow ===== */
-    .hero-glow {
-      position: absolute; top: -30%; left: -20%; right: -20%; bottom: -10%;
-      background: radial-gradient(ellipse 70% 60% at 50% 40%, var(--accent-light) 0%, transparent 70%);
-      pointer-events: none; z-index: 0; opacity: 0.6;
-    }
-    [data-theme="dark"] .hero-glow {
-      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(180,130,80,0.12) 0%, transparent 70%);
-    }
-    .hero .container { position: relative; z-index: 1; }
-
-    /* ===== SVG Methodology Diagram ===== */
-    .method-diagram {
-      display: block; margin: 20px auto 12px; max-width: 260px; width: 100%;
-    }
-    .method-diagram text { font-family: var(--font-zh); }
-    .method-diagram .label-en { font-family: var(--font-en); }
-
-    /* ===== Logo Wall ===== */
-    .logo-wall {
-      display: flex; flex-wrap: wrap; gap: 28px 36px; align-items: center;
-      justify-content: center; padding: 40px 0 8px;
-    }
-    .logo-wall-item {
-      height: 28px; opacity: 0.55; transition: opacity 0.3s;
-      filter: grayscale(1); cursor: default;
-    }
-    .logo-wall-item:hover { opacity: 0.85; filter: grayscale(0); }
-    .logo-wall-item img { height: 100%; width: auto; }
-    .logo-wall-text {
-      font-size: 14px; letter-spacing: 1px; font-weight: 500;
-      color: var(--text-secondary); font-family: var(--font-en);
-    }
-    [data-lang="zh"] .logo-wall-text { font-family: var(--font-zh); }
-
-    /* ===== Scroll Reveal ===== */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* ===== Section Dividers ===== */
-    .section-divider {
-      width: 60px; height: 2px; background: var(--accent); margin: 0 auto 32px;
-      border-radius: 2px; opacity: 0.4;
-    }
     body {
       font-family: var(--font-zh);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.7;
+      line-height: 1.6;
       font-weight: 400;
       transition: background 0.3s, color 0.3s;
+      -webkit-font-smoothing: antialiased;
     }
     .en { font-family: var(--font-en); }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
 
-    /* ===== Lang Toggle & Theme ===== */
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 0; }
+
+    /* ===== Top Bar ===== */
     .top-bar {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 40px;
-      background: rgba(250,249,247,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: background 0.3s;
+      padding: 18px var(--page-gutter);
+      background: rgba(248,246,243,0.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      transition: background 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
     }
-    [data-theme="dark"] .top-bar {
-      background: rgba(26,26,26,0.85);
-    }
+    .top-bar.scrolled { border-bottom-color: var(--border); }
+    [data-theme="dark"] .top-bar { background: rgba(26,26,26,0.88); }
     .top-bar-logo {
-      font-size: 18px; font-weight: 600; letter-spacing: -0.5px;
+      font-size: 20px; font-weight: 500; letter-spacing: -0.5px;
+      font-family: var(--font-en);
     }
-    .top-bar-nav {
-      display: flex; align-items: center; gap: 24px;
-    }
+    .top-bar-nav { display: flex; align-items: center; gap: 28px; }
     .top-bar-nav a {
-      font-size: 14px; color: var(--text-secondary);
-      transition: color 0.2s;
-      position: relative;
+      font-size: 13px; color: var(--text-secondary);
+      transition: color 0.25s; position: relative;
+      letter-spacing: 0.3px;
     }
     .top-bar-nav a:hover { color: var(--text); }
+    .top-bar-nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent); transform: scaleX(0);
+      transition: transform 0.35s var(--ease-out);
+    }
+    .top-bar-nav a:hover::after { transform: scaleX(1); }
     .lang-toggle {
       display: flex; gap: 2px;
-      background: var(--tag-bg); border-radius: 20px; padding: 3px;
-      cursor: pointer;
-      border: none; font-family: inherit; font-size: 13px;
+      background: var(--tag-bg); border-radius: 6px; padding: 3px;
+      cursor: pointer; border: none; font-family: inherit; font-size: 12px;
     }
     .lang-toggle span {
-      padding: 4px 12px; border-radius: 18px;
-      transition: all 0.2s;
-      color: var(--text-secondary);
+      padding: 4px 10px; border-radius: 5px;
+      transition: all 0.2s; color: var(--text-secondary);
     }
     .lang-toggle span.active {
-      background: var(--card-bg);
-      color: var(--text);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      background: var(--card-bg); color: var(--text);
+      box-shadow: var(--shadow-sm);
     }
     .theme-toggle {
       background: none; border: none; cursor: pointer;
-      color: var(--text-secondary); font-size: 18px;
+      color: var(--text-secondary); font-size: 17px;
       padding: 4px; line-height: 1;
-      transition: color 0.2s;
+      transition: color 0.25s;
     }
-    .theme-toggle:hover { color: var(--text); }
+    .theme-toggle:hover { color: var(--accent); }
 
     /* ===== Container ===== */
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 40px;
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--page-gutter); }
+
+    /* ===== Section Common ===== */
+    section { padding: var(--section-padding) 0; }
+    .section-marker {
+      display: block; width: 2px; height: 32px;
+      background: var(--accent); margin-bottom: 20px; opacity: 0.5;
+    }
+    .section-label {
+      font-size: 11px; text-transform: uppercase;
+      letter-spacing: 4px; color: var(--accent);
+      font-weight: 500; margin-bottom: 16px; font-family: var(--font-en);
+    }
+    .section-title {
+      font-size: 40px; font-weight: 500;
+      letter-spacing: -1.5px; margin-bottom: 16px;
+      font-family: var(--font-en); line-height: 1.15;
+    }
+    .section-title .zh {
+      font-family: var(--font-zh-serif); letter-spacing: 3px;
+      font-size: 30px; line-height: 1.2;
+    }
+    .section-desc {
+      font-size: 15px; color: var(--text-secondary);
+      max-width: 580px; margin-bottom: 56px; line-height: 1.65;
     }
 
     /* ===== Hero ===== */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center;
-      padding: 120px 0 80px;
+      min-height: 100dvh; display: flex; flex-direction: column;
+      justify-content: center; padding: 140px 0 80px; position: relative;
+      overflow: hidden;
     }
-    .hero-content {
-      display: flex; align-items: center; gap: 60px;
+    .hero-glow {
+      position: absolute; top: -20%; left: -10%; right: -10%; bottom: -10%;
+      background: radial-gradient(ellipse 60% 50% at 45% 45%, var(--accent-light) 0%, transparent 65%);
+      pointer-events: none; z-index: 0; opacity: 0.7;
     }
+    [data-theme="dark"] .hero-glow {
+      background: radial-gradient(ellipse 60% 50% at 45% 45%, rgba(180,130,80,0.1) 0%, transparent 65%);
+    }
+    .hero-content { display: flex; align-items: center; gap: 80px; position: relative; z-index: 1; }
     .hero-text { flex: 1; }
-    .hero-image { flex-shrink: 0; }
+    .hero-image { flex-shrink: 0; position: relative; }
     .hero-image img {
-      width: 240px; height: 240px;
-      border-radius: 50%;
+      width: 280px; height: 280px; border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 0 0 2px var(--accent-dim), 0 8px 40px rgba(0,0,0,0.06);
+    }
+    .hero-image-caption {
+      position: absolute; bottom: -4px; right: 4px;
+      font-size: 11px; color: var(--text-secondary);
+      font-family: var(--font-en); opacity: 0.5;
     }
     .hero-tag {
-      display: inline-block;
-      background: var(--accent-light);
-      color: var(--accent);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-tag-line {
+      width: 32px; height: 2px; background: var(--accent); opacity: 0.4;
+    }
+    .hero-tag-text {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); font-weight: 500; font-family: var(--font-en);
     }
     .hero h1 {
-      font-family: var(--font-en);
-      font-size: 56px;
-      font-weight: 700;
-      letter-spacing: -2px;
-      line-height: 1.1;
-      margin-bottom: 16px;
+      font-family: var(--font-en); font-size: 60px;
+      font-weight: 600; letter-spacing: -2px;
+      line-height: 1.05; margin-bottom: 20px;
     }
-    .hero h1 .zh { font-family: var(--font-zh-serif); font-size: 42px; letter-spacing: 2px; }
+    .hero h1 .zh {
+      font-family: var(--font-zh-serif); font-size: 44px; letter-spacing: 4px;
+    }
     .hero-sub {
-      font-size: 20px;
-      color: var(--text-secondary);
-      font-weight: 300;
-      max-width: 540px;
-      margin-bottom: 32px;
+      font-size: 20px; color: var(--text-secondary);
+      font-weight: 300; max-width: 520px; margin-bottom: 36px;
+      line-height: 1.5;
     }
-    .hero-sub .zh {
-      font-family: var(--font-zh-serif);
-      font-size: 18px;
-    }
-    .hero-cta {
-      display: flex; gap: 16px;
-    }
+    .hero-sub .zh { font-family: var(--font-zh-serif); font-size: 18px; }
+    .hero-cta { display: flex; gap: 16px; }
     .hero-cta a {
-      display: inline-block;
-      padding: 12px 28px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s;
+      display: inline-block; padding: 13px 32px;
+      border-radius: var(--radius-sm); font-size: 14px;
+      font-weight: 500; transition: all 0.25s ease;
+      font-family: var(--font-en);
     }
     .hero-cta .primary {
-      background: var(--accent);
-      color: white;
+      background: var(--accent); color: white;
+      box-shadow: 0 2px 8px rgba(184,134,90,0.25);
     }
     .hero-cta .primary:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
+      opacity: 0.92; transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(184,134,90,0.3);
     }
     .hero-cta .secondary {
-      border: 1px solid var(--border);
-      color: var(--text);
+      border: 1px solid var(--border); color: var(--text);
     }
     .hero-cta .secondary:hover {
-      background: var(--hover-bg);
-    }
-    .hero-brands {
-      margin-top: 48px;
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
-    .hero-brands span {
-      padding: 6px 14px;
-      background: var(--tag-bg);
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--text-secondary);
+      background: var(--accent-light); border-color: var(--accent);
     }
 
-    /* ===== Section Common ===== */
-    section { padding: 100px 0; }
-    .section-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 16px;
-      font-family: var(--font-en);
+    /* ===== Logo Wall ===== */
+    .logo-wall-section {
+      margin-top: 52px; padding-top: 36px;
+      border-top: 1px solid var(--border);
     }
-    .section-title {
-      font-size: 36px;
-      font-weight: 600;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-      font-family: var(--font-en);
+    .logo-wall-label {
+      font-size: 11px; letter-spacing: 2px;
+      color: var(--text-secondary); font-family: var(--font-en);
+      margin-bottom: 24px; opacity: 0.6;
     }
-    .section-title .zh {
-      font-family: var(--font-zh-serif);
-      letter-spacing: 2px;
-      font-size: 28px;
+    .logo-wall {
+      display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center;
     }
-    .section-desc {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin-bottom: 48px;
+    .logo-wall-item {
+      font-size: 13px; letter-spacing: 1px; font-weight: 400;
+      color: var(--text-secondary); opacity: 0.55;
+      transition: opacity 0.3s; font-family: var(--font-en);
     }
+    .logo-wall-item:hover { opacity: 0.85; }
+    [data-lang="zh"] .logo-wall-item { font-family: var(--font-zh); }
 
     /* ===== About ===== */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
     .about-text p {
-      margin-bottom: 20px;
-      font-size: 15px;
-      line-height: 1.8;
+      margin-bottom: 22px; font-size: 15px; line-height: 1.7;
+      color: var(--text);
     }
     .about-philosophy {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 40px;
-      box-shadow: var(--shadow);
+      background: var(--card-bg); border-radius: var(--radius-sm);
+      padding: 40px; border: 1px solid var(--border);
     }
     .about-philosophy h3 {
-      font-size: 16px;
-      margin-bottom: 16px;
-      color: var(--accent);
+      font-size: 14px; margin-bottom: 16px;
+      color: var(--accent); letter-spacing: 2px;
+      text-transform: uppercase; font-family: var(--font-en);
     }
     .about-philosophy blockquote {
       font-family: var(--font-zh-serif);
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--text);
-      font-style: italic;
-      margin-bottom: 20px;
+      font-size: 19px; line-height: 1.55;
+      color: var(--text); font-style: italic;
+      margin-bottom: 24px; padding-left: 20px;
+      border-left: 2px solid var(--accent);
     }
-    .about-philosophy ul {
-      list-style: none;
-    }
+    .about-philosophy ul { list-style: none; }
     .about-philosophy li {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.6;
     }
     .about-philosophy li:last-child { border-bottom: none; }
     .about-philosophy li strong {
-      color: var(--accent);
+      color: var(--accent); font-family: var(--font-en);
+      font-size: 13px;
     }
 
     /* ===== Methodology ===== */
+    #methodology {
+      position: relative;
+    }
+    #methodology::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent-light); opacity: 0.5;
+    }
+    #methodology .container { position: relative; z-index: 1; }
     .methodology-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
     }
     .method-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 36px;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: default;
-      border: 1px solid transparent;
+      background: var(--card-bg); border-radius: var(--radius-sm);
+      padding: 36px; border: 1px solid var(--border);
+      cursor: default; transition: border-color 0.35s ease;
     }
     .method-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
       border-color: var(--accent);
+      box-shadow: var(--shadow-md);
     }
     .method-number {
-      font-family: var(--font-en);
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
+      font-family: var(--font-en); font-size: 11px;
+      color: var(--accent); font-weight: 600;
+      letter-spacing: 2px; margin-bottom: 10px;
     }
     .method-card h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
+      font-size: 19px; font-weight: 600; margin-bottom: 10px; line-height: 1.4;
     }
-    .method-card h3 .zh {
-      font-family: var(--font-zh-serif);
-    }
+    .method-card h3 .zh { font-family: var(--font-zh-serif); }
     .method-card .one-liner {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.6;
+      font-size: 14px; color: var(--text-secondary);
+      margin-bottom: 20px; line-height: 1.6;
     }
+    .method-diagram {
+      display: block; width: 100%; margin: 0 0 20px;
+      border-bottom: 1px solid var(--border); padding-bottom: 20px;
+    }
+    .method-diagram text { font-family: var(--font-zh); font-size: 12px; }
     .method-card .detail {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      display: none;
+      font-size: 13px; color: var(--text-secondary);
+      line-height: 1.7; display: none;
     }
     .method-card.expanded .detail { display: block; }
     .method-toggle {
-      font-size: 13px;
-      color: var(--accent);
-      cursor: pointer;
-      font-weight: 500;
-      margin-top: 8px;
-      display: inline-block;
+      font-size: 13px; color: var(--accent);
+      cursor: pointer; font-weight: 500; margin-top: 12px;
+      display: inline-block; transition: opacity 0.2s;
     }
+    .method-toggle:hover { opacity: 0.7; }
     .method-tag {
-      display: inline-block;
-      font-size: 11px;
-      padding: 2px 10px;
-      background: var(--tag-bg);
-      border-radius: 12px;
-      color: var(--text-secondary);
-      margin-right: 6px;
-      margin-top: 8px;
+      display: inline-block; font-size: 11px;
+      padding: 3px 10px; background: var(--tag-bg);
+      border-radius: 4px; color: var(--text-secondary);
+      margin-right: 6px; margin-top: 12px;
     }
 
     /* ===== Case Studies ===== */
-    .cases-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    .cases-list { display: flex; flex-direction: column; gap: 24px; }
     .case-item {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 36px;
-      box-shadow: var(--shadow);
+      background: var(--card-bg); border-radius: var(--radius-sm);
       border: 1px solid var(--border);
-      cursor: pointer;
-      transition: all 0.2s;
+      cursor: pointer; transition: border-color 0.35s ease, box-shadow 0.35s ease;
+      overflow: hidden;
     }
-    .case-item:hover {
-      border-color: var(--accent);
+    .case-item:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
+    .case-image-wrap {
+      width: 100%; height: 220px; overflow: hidden; position: relative;
+      background: var(--tag-bg);
     }
-    .case-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
+    .case-image-wrap img, .case-image-wrap svg {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .case-item:hover .case-image-wrap svg { transform: scale(1.02); }
+    .case-image-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px 28px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.4));
+      color: white;
+    }
+    .case-image-overlay .case-service {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 500; font-family: var(--font-en);
+    }
+    .case-header-text { padding: 28px 28px 0; }
+    .case-header-top {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
     }
     .case-brand {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .case-service {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-size: 22px; font-weight: 500; margin-bottom: 2px;
       font-family: var(--font-en);
+    }
+    .case-brand-sub {
+      font-size: 15px; font-weight: 400; color: var(--text-secondary);
     }
     .case-tagline {
-      font-size: 14px;
+      font-size: 14px; color: var(--text-secondary);
+      margin-top: 8px; font-style: italic; line-height: 1.5;
+    }
+    .case-meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    .case-meta-item {
+      font-size: 11px; padding: 3px 10px;
+      background: var(--tag-bg); border-radius: 4px;
       color: var(--text-secondary);
-      margin-top: 8px;
-      font-style: italic;
     }
     .case-arrow {
-      font-size: 24px;
-      color: var(--text-secondary);
-      transition: transform 0.2s;
-      flex-shrink: 0;
-      margin-top: 4px;
+      flex-shrink: 0; font-size: 18px; color: var(--text-secondary);
+      transition: transform 0.35s var(--ease-out); margin-top: 2px;
     }
-    .case-item.expanded .case-arrow {
-      transform: rotate(90deg);
-    }
+    .case-item.expanded .case-arrow { transform: rotate(90deg); }
     .case-body {
-      display: none;
-      margin-top: 28px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
+      display: none; margin: 0 28px 28px;
+      padding-top: 24px; border-top: 1px solid var(--border);
     }
-    .case-item.expanded .case-body { display: block; }
-    .case-body-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    .case-item.expanded .case-body { display: block; animation: fadeSlideIn 0.4s var(--ease-out); }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+    .case-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .case-body h4 {
-      font-size: 13px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-family: var(--font-en);
-      margin-bottom: 8px;
+      font-size: 11px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1.5px;
+      font-family: var(--font-en); margin-bottom: 6px;
     }
-    .case-body p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--text-secondary);
-    }
+    .case-body p { font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
 
     /* ===== Writing ===== */
-    .writing-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    #writing { position: relative; }
+    #writing::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent-light); opacity: 0.5;
     }
+    #writing .container { position: relative; z-index: 1; }
+    .writing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .writing-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s;
+      background: var(--card-bg); border-radius: var(--radius-sm);
+      padding: 32px; border: 1px solid var(--border);
+      transition: border-color 0.35s ease;
     }
-    .writing-card:hover {
-      transform: translateY(-2px);
-    }
+    .writing-card:hover { border-color: var(--accent); }
     .writing-card .date {
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-family: var(--font-en);
-      margin-bottom: 8px;
+      font-size: 11px; color: var(--text-secondary);
+      font-family: var(--font-en); margin-bottom: 10px;
+      letter-spacing: 1px;
     }
     .writing-card h4 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 16px; font-weight: 600; margin-bottom: 10px; line-height: 1.4;
     }
     .writing-card p {
-      font-size: 13px;
-      color: var(--text-secondary);
+      font-size: 13px; color: var(--text-secondary);
       line-height: 1.6;
     }
     .writing-card .tag {
-      display: inline-block;
-      font-size: 11px;
-      padding: 2px 8px;
-      background: var(--tag-bg);
-      border-radius: 10px;
-      color: var(--text-secondary);
-      margin-top: 8px;
+      display: inline-block; font-size: 11px;
+      padding: 3px 8px; background: var(--tag-bg);
+      border-radius: 4px; color: var(--text-secondary);
+      margin-top: 12px;
     }
 
     /* ===== Contact ===== */
-    .contact-section {
-      text-align: center;
-      padding: 100px 0;
-    }
-    .contact-section .section-title {
-      text-align: center;
-    }
-    .contact-section .section-desc {
-      margin: 0 auto 40px;
-      text-align: center;
-    }
+    .contact-section { text-align: center; padding: var(--section-padding) 0; }
+    .contact-section .section-title { text-align: center; }
+    .contact-section .section-desc { margin: 0 auto 48px; text-align: center; }
     .contact-links {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
+      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
     }
-    .contact-links a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      font-size: 14px;
-      transition: all 0.2s;
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 14px;
+      transition: all 0.25s ease; color: var(--text);
     }
-    .contact-links a:hover {
-      border-color: var(--accent);
-      background: var(--hover-bg);
+    .contact-link:hover {
+      border-color: var(--accent); background: var(--hover-bg);
     }
-    .contact-msg {
-      margin-top: 32px;
-      font-size: 14px;
+    .contact-link .icon {
+      width: 16px; height: 16px; flex-shrink: 0;
       color: var(--text-secondary);
+      transition: color 0.25s;
     }
+    .contact-link:hover .icon { color: var(--accent); }
+    .contact-msg {
+      margin-top: 40px; font-size: 13px;
+      color: var(--text-secondary);
+      font-family: var(--font-en);
+    }
+    [data-lang="zh"] .contact-msg { font-family: var(--font-zh); }
 
     /* ===== Footer ===== */
     footer {
-      text-align: center;
-      padding: 40px;
-      font-size: 12px;
-      color: var(--text-secondary);
+      text-align: center; padding: 40px;
+      font-size: 12px; color: var(--text-secondary);
       border-top: 1px solid var(--border);
     }
 
-    /* ===== Scrollbar ===== */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    /* ===== Scroll Reveal ===== */
+    .reveal {
+      opacity: 0; transform: translateY(32px) scale(0.98);
+      transition: opacity 0.7s ease, transform 0.7s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+
+    /* ===== Toast ===== */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--text); color: var(--bg);
+      padding: 10px 24px; border-radius: var(--radius-sm);
+      font-size: 13px; opacity: 0; pointer-events: none;
+      transition: all 0.4s var(--ease-out); z-index: 200;
+      font-family: var(--font-en);
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
 
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
-      .container { padding: 0 20px; }
-      .top-bar { padding: 16px 20px; }
+      :root { --section-padding: 80px; --page-gutter: 24px; }
+      .top-bar { padding: 14px 20px; }
       .top-bar-nav a { font-size: 12px; }
-      .hero-content { flex-direction: column-reverse; text-align: center; gap: 32px; }
-      .hero-image img { width: 160px; height: 160px; }
+      .top-bar-nav { gap: 18px; }
+      .hero-content { flex-direction: column-reverse; text-align: center; gap: 40px; }
+      .hero-image img { width: 180px; height: 180px; }
       .hero h1 { font-size: 36px; }
       .hero h1 .zh { font-size: 28px; }
-      .hero-sub { max-width: 100%; }
+      .hero-sub { max-width: 100%; font-size: 17px; }
       .hero-cta { justify-content: center; }
-      .hero-brands { justify-content: center; }
-      .about-grid { grid-template-columns: 1fr; }
+      .hero-tag { justify-content: center; }
+      .logo-wall-section { text-align: center; }
+      .logo-wall { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
       .methodology-grid { grid-template-columns: 1fr; }
-      .case-body-grid { grid-template-columns: 1fr; }
+      .case-image-wrap { height: 180px; }
+      .case-header-text { padding: 20px 20px 0; }
+      .case-body { margin: 0 20px 20px; }
+      .case-body-grid { grid-template-columns: 1fr; gap: 16px; }
       .writing-grid { grid-template-columns: 1fr; }
-      .section-title { font-size: 28px; }
-      .section-title .zh { font-size: 22px; }
+      .section-title { font-size: 30px; }
+      .section-title .zh { font-size: 24px; }
       .contact-links { flex-direction: column; align-items: center; }
     }
     @media (max-width: 480px) {
@@ -604,7 +546,7 @@
 
 <!-- Top Bar -->
 <div class="top-bar">
-  <div class="top-bar-logo en">Judy Z</div>
+  <div class="top-bar-logo">Judy Z</div>
   <div class="top-bar-nav">
     <a href="#about" class="lang-en">About</a>
     <a href="#about" class="lang-zh">关于</a>
@@ -631,12 +573,13 @@
     <div class="hero-content">
       <div class="hero-text">
         <div class="hero-tag">
-          <span class="lang-en">Brand Strategist</span>
-          <span class="lang-zh">品牌策略师</span>
+          <span class="hero-tag-line"></span>
+          <span class="hero-tag-text lang-en">Brand Strategist</span>
+          <span class="hero-tag-text lang-zh">品牌策略师</span>
         </div>
         <h1>
           <span class="lang-en">Judy Z</span>
-          <span class="lang-zh">朱 Judy</span>
+          <span class="lang-zh">朱家億</span>
         </h1>
         <div class="hero-sub">
           <span class="lang-en">I help brands find a position that people actually want to sit next to.</span>
@@ -648,25 +591,26 @@
           <a href="#contact" class="secondary lang-en">Get in Touch</a>
           <a href="#contact" class="secondary lang-zh">联系我</a>
         </div>
-        <div class="hero-brands">
-          <span class="lang-en">Brands I've worked with</span>
-          <span class="lang-zh">合作品牌</span>
-        </div>
-        <div class="logo-wall">
-          <img src="https://cdn.simpleicons.org/nivea/6b6b6b" alt="NIVEA" class="logo-wall-item" loading="lazy">
-          <span class="logo-wall-text">Peninsula</span>
-          <span class="logo-wall-text">Aesop</span>
-          <span class="logo-wall-text">NORDISK</span>
-          <img src="https://cdn.simpleicons.org/wrangler/6b6b6b" alt="Wrangler" class="logo-wall-item" loading="lazy">
-          <span class="logo-wall-text">古茗</span>
-          <img src="https://cdn.simpleicons.org/nike/6b6b6b" alt="Nike" class="logo-wall-item" loading="lazy">
-          <span class="logo-wall-text">亚朵</span>
-          <span class="logo-wall-text">馥马尔</span>
-          <span class="logo-wall-text">喜茶</span>
+        <div class="logo-wall-section">
+          <div class="logo-wall-label lang-en">SELECTED CLIENTS</div>
+          <div class="logo-wall-label lang-zh">合作品牌</div>
+          <div class="logo-wall">
+            <span class="logo-wall-item">NIVEA</span>
+            <span class="logo-wall-item">Peninsula</span>
+            <span class="logo-wall-item">Aesop</span>
+            <span class="logo-wall-item">NORDISK</span>
+            <span class="logo-wall-item">Wrangler</span>
+            <span class="logo-wall-item">古茗</span>
+            <span class="logo-wall-item">Nike</span>
+            <span class="logo-wall-item">亚朵</span>
+            <span class="logo-wall-item">馥马尔</span>
+            <span class="logo-wall-item">喜茶</span>
+          </div>
         </div>
       </div>
       <div class="hero-image">
         <img src="photo.jpg" alt="Judy Z">
+        <span class="hero-image-caption">Judy Z, 2025</span>
       </div>
     </div>
   </div>
@@ -675,23 +619,22 @@
 <!-- About -->
 <section id="about">
   <div class="container">
+    <span class="section-marker"></span>
     <div class="section-label en">About</div>
-    <div class="section-label zh" style="display:none">关于</div>
+    <div class="section-label lang-zh" style="display:none">关于</div>
     <h2 class="section-title">
       <span class="lang-en">Strategy before creativity.</span>
       <span class="lang-zh">先想清楚，再说漂亮。</span>
     </h2>
     <div class="about-grid reveal">
       <div class="about-text">
-        <!-- English -->
         <div class="lang-en">
-          <p>I'm a brand strategist who believes the best creative work comes from a sharply defined problem — not a blank sheet of paper. Before we make something beautiful, we need to know who we're talking to, what they actually feel, and what role the brand can play in their lives without trying too hard.</p>
-          <p>With brands like NIVEA, Peninsula Hotel, Aesop, NORDISK, Wrangler, Guming, and Atour, I've built strategies across beauty, hospitality, outdoor, apparel, and F&B — always starting from consumer emotional truth.</p>
+          <p>I'm a brand strategist who believes the best creative work comes from a sharply defined problem, not a blank sheet of paper. Before we make something beautiful, we need to know who we're talking to, what they actually feel, and what role the brand can play in their lives without trying too hard.</p>
+          <p>With brands like NIVEA, Peninsula Hotel, Aesop, NORDISK, Wrangler, Guming, and Atour, I've built strategies across beauty, hospitality, outdoor, apparel, and F&B, always starting from consumer emotional truth.</p>
           <p>I don't sell frameworks. I sell clarity. The frameworks just help me get there faster.</p>
         </div>
-        <!-- Chinese -->
         <div class="lang-zh">
-          <p>我是品牌策略师。我相信最好的创意来自一个被说清楚的问题，而不是一张白纸。在做出好看的东西之前，我们需要知道：我们在跟谁说话、他们真正感觉到了什么、品牌可以在他们的生活中扮演什么角色——不费力、不端着。</p>
+          <p>我是品牌策略师。我相信最好的创意来自一个被说清楚的问题，而不是一张白纸。在做出好看的东西之前，我们需要知道：我们在跟谁说话、他们真正感觉到了什么、品牌可以在他们的生活中扮演什么角色，不费力、不端着。</p>
           <p>服务过 NIVEA、半岛酒店、Aesop、NORDISK、Wrangler、古茗、亚朵等品牌，在美妆、酒店、户外、服饰、茶饮等多个品类中积累策略经验。每一次，我都从消费者的情绪真相出发。</p>
           <p>我不卖方法论框架。我卖的是"想清楚了"。框架只是帮我更快抵达的工具。</p>
         </div>
@@ -702,14 +645,14 @@
         <blockquote class="lang-en">"Brands shouldn't be teachers. They should be the friend you actually want to sit next to."</blockquote>
         <blockquote class="lang-zh">"品牌不做你的老师，做你的搭子。"</blockquote>
         <ul>
-          <li class="lang-en"><strong>01</strong> &nbsp;Consumer truth first. Everything else follows.</li>
-          <li class="lang-zh"><strong>01</strong> &nbsp;消费者的真实感受优先，其他都是推论。</li>
-          <li class="lang-en"><strong>02</strong> &nbsp;A good strategy is <em>consumer-true</em> × <em>brand-ownable</em> × <em>culturally-resonant</em>.</li>
-          <li class="lang-zh"><strong>02</strong> &nbsp;好策略 = 消费者真实 × 品牌可拥有 × 文化共鸣。</li>
-          <li class="lang-en"><strong>03</strong> &nbsp;The best brand role is the one that reduces, not adds, cognitive load.</li>
-          <li class="lang-zh"><strong>03</strong> &nbsp;最好的品牌角色，是减少消费者的心理负担，而不是增加。</li>
-          <li class="lang-en"><strong>04</strong> &nbsp;Reframe the problem first. The answer will be obvious.</li>
-          <li class="lang-zh"><strong>04</strong> &nbsp;先重新定义问题，答案自然浮现。</li>
+          <li class="lang-en"><strong>01</strong> Consumer truth first. Everything else follows.</li>
+          <li class="lang-zh"><strong>01</strong> 消费者的真实感受优先，其他都是推论。</li>
+          <li class="lang-en"><strong>02</strong> A good strategy is <em>consumer-true</em> x <em>brand-ownable</em> x <em>culturally-resonant</em>.</li>
+          <li class="lang-zh"><strong>02</strong> 好策略 = 消费者真实 x 品牌可拥有 x 文化共鸣。</li>
+          <li class="lang-en"><strong>03</strong> The best brand role is the one that reduces, not adds, cognitive load.</li>
+          <li class="lang-zh"><strong>03</strong> 最好的品牌角色，是减少消费者的心理负担，而不是增加。</li>
+          <li class="lang-en"><strong>04</strong> Reframe the problem first. The answer will be obvious.</li>
+          <li class="lang-zh"><strong>04</strong> 先重新定义问题，答案自然浮现。</li>
         </ul>
       </div>
     </div>
@@ -717,10 +660,11 @@
 </section>
 
 <!-- Methodology -->
-<section id="methodology" style="background: var(--accent-light);">
-  <div class="container" style="background: transparent;">
+<section id="methodology">
+  <div class="container">
+    <span class="section-marker"></span>
     <div class="section-label en">Methodology</div>
-    <div class="section-label zh" style="display:none">方法论</div>
+    <div class="section-label lang-zh" style="display:none">方法论</div>
     <h2 class="section-title">
       <span class="lang-en">How I arrive at the answer.</span>
       <span class="lang-zh">我怎么抵达答案。</span>
@@ -729,76 +673,63 @@
     <div class="section-desc lang-zh">这些是我从"混乱"到"清晰"的思考工具。每一个都来自真实的客户项目，然后提炼为可复用的框架。</div>
 
     <div class="methodology-grid reveal">
-      <!-- Method 1 -->
+      <!-- Method 1: Prism -->
       <div class="method-card">
         <div class="method-number">01</div>
         <h3><span class="lang-en">The Prism</span><span class="lang-zh">三棱镜推理法</span></h3>
         <div class="one-liner lang-en">Look at the problem through Consumer, Category, and Brand simultaneously. The strategy lives where all three converge.</div>
         <div class="one-liner lang-zh">同时从消费者、品类和品牌三个角度审视问题。策略藏在三者的交汇处。</div>
-        <!-- Prism Venn Diagram -->
-        <svg class="method-diagram" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="160" cy="82" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
-          <circle cx="107" cy="145" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
-          <circle cx="213" cy="145" r="72" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.3"/>
-          <circle cx="160" cy="124" r="22" fill="var(--accent)" fill-opacity="0.2"/>
-          <text x="160" y="87" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
-            <tspan class="lang-en">Category</tspan><tspan class="lang-zh">品类</tspan>
-          </text>
-          <text x="105" y="165" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
-            <tspan class="lang-en">Consumer</tspan><tspan class="lang-zh">消费者</tspan>
-          </text>
-          <text x="215" y="165" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="500">
-            <tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan>
-          </text>
-          <text x="160" y="129" text-anchor="middle" fill="white" font-size="12" font-weight="600">
-            <tspan class="lang-en">Strategy</tspan><tspan class="lang-zh">策略</tspan>
-          </text>
+        <svg class="method-diagram" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="160" cy="72" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
+          <circle cx="111" cy="130" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
+          <circle cx="209" cy="130" r="65" fill="var(--accent)" fill-opacity="0.09" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.35"/>
+          <circle cx="160" cy="112" r="20" fill="var(--accent)" fill-opacity="0.2"/>
+          <text x="160" y="77" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Category</tspan><tspan class="lang-zh">品类</tspan></text>
+          <text x="109" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Consumer</tspan><tspan class="lang-zh">消费者</tspan></text>
+          <text x="211" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="12" font-weight="500"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
+          <text x="160" y="117" text-anchor="middle" fill="white" font-size="12" font-weight="600"><tspan class="lang-en">Strategy</tspan><tspan class="lang-zh">策略</tspan></text>
         </svg>
         <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence, ensuring the answer is consumer-true, category-relevant, and brand-ownable. Used for brand positioning, new product launches, and competitive differentiation.</div>
         <div class="detail lang-zh">大多数策略只看了1-2个维度。三棱镜强迫三方交汇，确保答案在消费者层面真实、在品类层面相关、在品牌层面可拥有。适用于品牌定位、新品上市、品类竞争分析。</div>
-        <span class="method-tag lang-en">Brand Positioning</span><span class="method-tag lang-en">Strategy</span>
-        <span class="method-tag lang-zh">品牌定位</span><span class="method-tag lang-zh">策略框架</span>
+        <span class="method-tag lang-en">Brand Positioning</span>
+        <span class="method-tag lang-zh">品牌定位</span>
+        <span class="method-tag lang-en">Strategy</span>
+        <span class="method-tag lang-zh">策略框架</span>
       </div>
 
-      <!-- Method 2 -->
+      <!-- Method 2: Buddy Role -->
       <div class="method-card">
         <div class="method-number">02</div>
         <h3><span class="lang-en">The Buddy Role</span><span class="lang-zh">品牌搭子角色</span></h3>
         <div class="one-liner lang-en">In noisy categories, consumers don't need more authority. They need a low-pressure companion.</div>
         <div class="one-liner lang-zh">在高噪音品类中，消费者不需要更多权威，他们需要一个低压力的陪伴者。</div>
-        <!-- Buddy Hub Diagram -->
-        <svg class="method-diagram" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Connecting lines -->
-          <line x1="160" y1="110" x2="60" y2="75" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
-          <line x1="160" y1="110" x2="260" y2="75" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
-          <line x1="160" y1="110" x2="70" y2="175" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
-          <line x1="160" y1="110" x2="250" y2="175" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.2"/>
-          <!-- Central hub -->
-          <circle cx="160" cy="110" r="38" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.5" stroke-opacity="0.4"/>
-          <text x="160" y="106" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="600">
-            <tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan>
-          </text>
-          <text x="160" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="10" font-weight="500">
-            <tspan class="lang-en">Buddy</tspan><tspan class="lang-zh">搭子</tspan>
-          </text>
-          <!-- Surrounding nodes with SVG person icons -->
-          <circle cx="60" cy="75" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="60" cy="72" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
-          <ellipse cx="60" cy="85" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
-          <circle cx="260" cy="75" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="260" cy="72" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
-          <ellipse cx="260" cy="85" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
-          <circle cx="70" cy="175" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="70" cy="172" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
-          <ellipse cx="70" cy="185" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
-          <circle cx="250" cy="175" r="20" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
-          <circle cx="250" cy="172" r="5" fill="var(--text-secondary)" fill-opacity="0.25"/>
-          <ellipse cx="250" cy="185" rx="8" ry="5" fill="var(--text-secondary)" fill-opacity="0.15"/>
+        <svg class="method-diagram" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="160" y1="100" x2="60" y2="65" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="160" y1="100" x2="260" y2="65" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="160" y1="100" x2="70" y2="155" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <line x1="160" y1="100" x2="250" y2="155" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <circle cx="160" cy="100" r="34" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.2" stroke-opacity="0.4"/>
+          <text x="160" y="97" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="600"><tspan class="lang-en">Brand</tspan><tspan class="lang-zh">品牌</tspan></text>
+          <text x="160" y="109" text-anchor="middle" fill="var(--text-secondary)" font-size="9" font-weight="500">Buddy / 搭子</text>
+          <circle cx="60" cy="65" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="60" cy="62" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
+          <ellipse cx="60" cy="74" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
+          <circle cx="260" cy="65" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="260" cy="62" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
+          <ellipse cx="260" cy="74" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
+          <circle cx="70" cy="155" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="70" cy="152" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
+          <ellipse cx="70" cy="164" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
+          <circle cx="250" cy="155" r="16" fill="var(--accent)" fill-opacity="0.06" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="250" cy="152" r="4" fill="var(--text-secondary)" fill-opacity="0.2"/>
+          <ellipse cx="250" cy="164" rx="6" ry="4" fill="var(--text-secondary)" fill-opacity="0.12"/>
         </svg>
         <div class="detail lang-en">The "Buddy" (搭子) role rejects the brand-as-authority or brand-as-celebrity model. Instead, it positions the brand as a companion who reduces cognitive load. Best for mass-market brands in categories with high expert noise and consumer fatigue. Case example: NIVEA's "Your Reliable Buddy" (妮的靠谱搭子).</div>
         <div class="detail lang-zh">"搭子"角色拒绝品牌=权威或品牌=明星的竞争惯性。它把品牌定位为一个降低认知负担的陪伴者。最适合大众消费品类、专家噪音高、消费者疲劳程度强的品牌。案例：NIVEA "妮的靠谱搭子"。</div>
-        <span class="method-tag lang-en">Brand Role</span><span class="method-tag lang-en">Consumer Culture</span>
-        <span class="method-tag lang-zh">品牌角色</span><span class="method-tag lang-zh">消费者文化</span>
+        <span class="method-tag lang-en">Brand Role</span>
+        <span class="method-tag lang-zh">品牌角色</span>
+        <span class="method-tag lang-en">Consumer Culture</span>
+        <span class="method-tag lang-zh">消费者文化</span>
       </div>
 
       <!-- Method 3 -->
@@ -807,22 +738,48 @@
         <h3><span class="lang-en">Sit in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h3>
         <div class="one-liner lang-en">Don't pitch your solution first. First, make the client re-live the consumer's discomfort.</div>
         <div class="one-liner lang-zh">不要先讲方案。先让客户重新体验消费者感受到的"不对劲"。</div>
-        <div class="detail lang-en">A narrative arc for strategic presentations: Present everyday experience → Amplify unspoken discomfort → Build resonance → Then reveal the brand's role as relief. Clients have a natural defense against solutions, but they have no defense against a truth they can feel. Best for complex proposals where the category is noisy or the client is fatigued by sameness.</div>
-        <div class="detail lang-zh">策略提案的叙事弧线：呈现日常体验 → 放大未被言说的不适感 → 建立共鸣 → 再揭示品牌角色作为解决方案。客户对方案有天然防御机制，但对能感受到的真实"不对劲"没有防御。适用于品类噪音大、客户被同质化提案疲劳的复杂提案。</div>
-        <span class="method-tag lang-en">Deck Narrative</span><span class="method-tag lang-en">Pitching</span>
-        <span class="method-tag lang-zh">提案叙事</span><span class="method-tag lang-zh">Presentation</span>
+        <svg class="method-diagram" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="280" height="140" rx="4" fill="var(--accent)" fill-opacity="0.04" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <path d="M40 50 L160 50 L160 70 L40 70Z" fill="var(--accent)" fill-opacity="0.06"/>
+          <path d="M40 90 L200 90 L200 110 L40 110Z" fill="var(--accent)" fill-opacity="0.06"/>
+          <path d="M40 130 L120 130 L120 150 L40 150Z" fill="var(--accent)" fill-opacity="0.06"/>
+          <text x="50" y="63" fill="var(--text-secondary)" font-size="10">1. 呈现日常体验</text>
+          <text x="50" y="103" fill="var(--text-secondary)" font-size="10">2. 放大未被言说的不适</text>
+          <text x="50" y="143" fill="var(--text-secondary)" font-size="10">3. 建立共鸣，再揭示品牌角色</text>
+        </svg>
+        <div class="detail lang-en">A narrative arc for strategic presentations: Present everyday experience, amplify unspoken discomfort, build resonance, then reveal the brand's role as relief. Clients have a natural defense against solutions, but no defense against a truth they can feel. Best for complex proposals where the category is noisy or the client is fatigued by sameness.</div>
+        <div class="detail lang-zh">策略提案的叙事弧线：呈现日常体验，放大未被言说的不适感，建立共鸣，再揭示品牌角色作为解决方案。客户对方案有天然防御机制，但对能感受到的真实"不对劲"没有防御。适用于品类噪音大、客户被同质化提案疲劳的复杂提案。</div>
+        <span class="method-tag lang-en">Deck Narrative</span>
+        <span class="method-tag lang-zh">提案叙事</span>
+        <span class="method-tag lang-en">Pitching</span>
       </div>
 
       <!-- Method 4 -->
       <div class="method-card">
         <div class="method-number">04</div>
-        <h3><span class="lang-en">Emotional Truth → Brand Role</span><span class="lang-zh">情绪真相到品牌角色</span></h3>
-        <div class="one-liner lang-en">A 7-step narrative structure: from consumer emotional truth to a brand role that earns the right to exist in their lives.</div>
-        <div class="one-liner lang-zh">七步叙事结构：从消费者的情绪真相出发，推导出品牌在消费者生活中"值得存在"的角色。</div>
-        <div class="detail lang-en">The sequence: Industry Mistake → Consumer Fatigue → Evidence → Category Complicity → Brand Permission → Brand Role → Content System → Execution. Ensures every strategy deck has a logical, emotionally grounded narrative arc rather than jumping straight to the brand solution.</div>
-        <div class="detail lang-zh">顺序：行业误区 → 消费者疲劳 → 证据 → 品类的共谋 → 品牌许可 → 品牌角色 → 内容体系 → 执行。确保每个策略提案都有一个逻辑清晰、有情感根基的叙事弧线，而不是直接跳到品牌方案。</div>
-        <span class="method-tag lang-en">Deck Structure</span><span class="method-tag lang-en">Narrative</span>
-        <span class="method-tag lang-zh">Deck架构</span><span class="method-tag lang-zh">叙事逻辑</span>
+        <h3><span class="lang-en">Emotional Truth to Brand Role</span><span class="lang-zh">情绪真相到品牌角色</span></h3>
+        <div class="one-liner lang-en">A 7-step narrative structure from consumer emotional truth to a brand role that earns the right to exist in their lives.</div>
+        <div class="one-liner lang-zh">七步叙事结构：从消费者的情绪真相出发，推导出品牌值得存在的角色。</div>
+        <svg class="method-diagram" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="280" height="140" rx="4" fill="var(--accent)" fill-opacity="0.04" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.15"/>
+          <circle cx="50" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
+          <text x="50" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">洞察</text>
+          <line x1="70" y1="90" x2="100" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <circle cx="120" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
+          <text x="120" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">策略</text>
+          <line x1="140" y1="90" x2="170" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <circle cx="190" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
+          <text x="190" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">角色</text>
+          <line x1="210" y1="90" x2="240" y2="90" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.2"/>
+          <circle cx="260" cy="90" r="20" fill="var(--accent)" fill-opacity="0.1"/>
+          <text x="260" y="94" text-anchor="middle" fill="var(--text-secondary)" font-size="9">内容</text>
+        </svg>
+        <div class="detail lang-en">The sequence: Industry Mistake, Consumer Fatigue, Evidence, Category Complicity, Brand Permission, Brand Role, Content System, Execution. Ensures every strategy deck has a logical, emotionally grounded narrative arc rather than jumping straight to the brand solution.</div>
+        <div class="detail lang-zh">顺序：行业误区，消费者疲劳，证据，品类的共谋，品牌许可，品牌角色，内容体系，执行。确保每个策略提案都有逻辑清晰、有情感根基的叙事弧线，而不是直接跳到品牌方案。</div>
+        <span class="method-tag lang-en">Deck Structure</span>
+        <span class="method-tag lang-zh">Deck架构</span>
+        <span class="method-tag lang-en">Narrative</span>
+        <span class="method-tag lang-zh">叙事逻辑</span>
       </div>
     </div>
   </div>
@@ -831,27 +788,48 @@
 <!-- Case Studies -->
 <section id="cases">
   <div class="container">
+    <span class="section-marker"></span>
     <div class="section-label en">Selected Work</div>
-    <div class="section-label zh" style="display:none">案例</div>
+    <div class="section-label lang-zh" style="display:none">案例</div>
     <h2 class="section-title">
       <span class="lang-en">Brands I've helped find their position.</span>
       <span class="lang-zh">帮他们找到位置的品牌。</span>
     </h2>
-    <div class="section-desc lang-en">Click each case to see the full story — brief, reframe, insight, strategy, and outcome.</div>
-    <div class="section-desc lang-zh">点击展开每个案例的完整故事——Brief、问题重构、洞察、策略和结果。</div>
+    <div class="section-desc lang-en">Click each case to see the full story.</div>
+    <div class="section-desc lang-zh">点击展开每个案例的完整故事。</div>
 
     <div class="cases-list reveal">
 
       <!-- Case 1: NIVEA -->
       <div class="case-item">
-        <div class="case-header">
-          <div>
-            <div class="case-service">Brand Strategy × Content System</div>
-            <div class="case-brand">NIVEA <span style="font-weight:400;font-size:16px;color:var(--text-secondary);">妮维雅</span></div>
-            <div class="case-tagline lang-en">"Your Reliable Buddy" — from brand role to annual social content system</div>
-            <div class="case-tagline lang-zh">"妮的靠谱搭子"——从品牌角色到全年Social内容体系</div>
+        <div class="case-image-wrap">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="400" fill="#0a1628"/>
+            <circle cx="400" cy="200" r="180" fill="none" stroke="#1a3a5c" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="400" cy="200" r="120" fill="none" stroke="#2a5a8c" stroke-width="0.5" opacity="0.2"/>
+            <path d="M280 200 Q340 140 400 160 Q460 180 520 200 Q460 220 400 200 Q340 180 280 200Z" fill="#3a7abd" opacity="0.25"/>
+            <path d="M320 200 Q360 175 400 185 Q440 195 480 200 Q440 210 400 200 Q360 190 320 200Z" fill="#4a8acd" opacity="0.15"/>
+            <circle cx="400" cy="200" r="3" fill="#6aaadd" opacity="0.5"/>
+            <text x="400" y="370" text-anchor="middle" fill="#6aaadd" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">NIVEA</text>
+          </svg>
+          <div class="case-image-overlay">
+            <span class="case-service">Brand Strategy x Content System</span>
           </div>
-          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-header-text">
+          <div class="case-header-top">
+            <div>
+              <div class="case-brand">NIVEA <span class="case-brand-sub">妮维雅</span></div>
+              <div class="case-tagline lang-en">"Your Reliable Buddy" from brand role to annual social content system</div>
+              <div class="case-tagline lang-zh">"妮的靠谱搭子"，从品牌角色到全年Social内容体系</div>
+              <div class="case-meta">
+                <span class="case-meta-item">Strategy Deck</span>
+                <span class="case-meta-item">Content System</span>
+                <span class="case-meta-item">2026</span>
+              </div>
+            </div>
+            <div class="case-arrow">→</div>
+          </div>
         </div>
         <div class="case-body">
           <div class="case-body-grid">
@@ -862,18 +840,18 @@
             </div>
             <div>
               <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">This wasn't about operating accounts. It was about rebuilding NIVEA's brand role in a market where skincare had become a stressful KPI — and everyone was promising better ingredients.</p>
+              <p class="lang-en">This wasn't about operating accounts. It was about rebuilding NIVEA's brand role in a market where skincare had become a stressful KPI and everyone was promising better ingredients.</p>
               <p class="lang-zh">这不是"运营账号"的问题，而是在护肤KPI化的焦虑市场中，为NIVEA重建一个让人放松的品牌角色。</p>
             </div>
             <div>
               <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
-              <p class="lang-en">Skincare had become a performance metric — consumers felt they had to learn more, chase faster, choose better, do more complete routines. The result was emotional fatigue: "after you apply it, that's it" — mind-body separation in daily care.</p>
-              <p class="lang-zh">护肤变成了一项KPI——消费者觉得必须学更多、追更快、选更好、做更完整的流程。结果是情绪疲劳："涂完就是涂完了"，身心分离。</p>
+              <p class="lang-en">Skincare had become a performance metric, consumers felt they had to learn more, chase faster, choose better, do more complete routines. The result was emotional fatigue: mind-body separation in daily care.</p>
+              <p class="lang-zh">护肤变成了一项KPI，消费者觉得必须学更多、追更快、选更好、做更完整的流程。结果是情绪疲劳：身心分离。</p>
             </div>
             <div>
               <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
-              <p class="lang-en">Positioned NIVEA as "Your Reliable Buddy" — a low-pressure companion who doesn't add to the anxiety but brings care back to simplicity. Built using the Prism method (consumer fatigue × category noise × brand heritage of trust) and operationalized through a full content system, tone guide, and topic architecture.</p>
-              <p class="lang-zh">将NIVEA定位为"妮的靠谱搭子"——一个不增加焦虑、把护理带回简单的低压力陪伴者。使用三棱镜推理法（消费者疲劳 × 品类噪音 × 品牌信任资产）推导，并落地为完整的内容体系、语调和话题架构。</p>
+              <p class="lang-en">Positioned NIVEA as "Your Reliable Buddy", a low-pressure companion who brings care back to simplicity. Built using the Prism method and operationalized through a full content system, tone guide, and topic architecture.</p>
+              <p class="lang-zh">将NIVEA定位为"妮的靠谱搭子"，一个把护理带回简单的低压力陪伴者。使用三棱镜推理法推导，并落地为完整的内容体系。</p>
             </div>
             <div>
               <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
@@ -889,16 +867,35 @@
         </div>
       </div>
 
-      <!-- Case 2: 古茗 -->
+      <!-- Case 2: Guming -->
       <div class="case-item">
-        <div class="case-header">
-          <div>
-            <div class="case-service">Visual Identity Concept</div>
-            <div class="case-brand">古茗 Guming</div>
-            <div class="case-tagline lang-en">Finding a visual language that carries "everyday little happiness"</div>
-            <div class="case-tagline lang-zh">找到一种能承载"日常小确幸"的视觉语言</div>
+        <div class="case-image-wrap">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="400" fill="#f5f0e8"/>
+            <circle cx="400" cy="190" r="150" fill="none" stroke="#d4c5a0" stroke-width="0.8" opacity="0.25"/>
+            <path d="M350 160 Q375 130 400 145 Q425 160 415 185 Q405 210 385 200 Q365 190 350 160Z" fill="#8a7a5a" opacity="0.1"/>
+            <path d="M375 155 Q390 135 400 148 Q410 161 405 178 Q400 195 390 190 Q380 185 375 155Z" fill="#9a8a6a" opacity="0.08"/>
+            <line x1="398" y1="185" x2="398" y2="290" stroke="#7a6a4a" stroke-width="1.2" opacity="0.1"/>
+            <path d="M365 265 Q400 245 435 265 Q445 285 400 290 Q355 285 365 265Z" fill="#8a7a5a" opacity="0.06"/>
+            <text x="400" y="370" text-anchor="middle" fill="#8a7a5a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">GUMING</text>
+          </svg>
+          <div class="case-image-overlay">
+            <span class="case-service">Visual Identity Concept</span>
           </div>
-          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-header-text">
+          <div class="case-header-top">
+            <div>
+              <div class="case-brand">古茗 <span class="case-brand-sub">Guming</span></div>
+              <div class="case-tagline lang-en">Finding a visual language that carries "everyday little happiness"</div>
+              <div class="case-tagline lang-zh">找到一种能承载"日常小确幸"的视觉语言</div>
+              <div class="case-meta">
+                <span class="case-meta-item">Visual Identity</span>
+                <span class="case-meta-item">Brand Concept</span>
+              </div>
+            </div>
+            <div class="case-arrow">→</div>
+          </div>
         </div>
         <div class="case-body">
           <div class="case-body-grid">
@@ -909,13 +906,13 @@
             </div>
             <div>
               <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">Not "make a beautiful logo." It was: "what visual system can make people feel 'this is my daily treat' without shouting?"</p>
-              <p class="lang-zh">不是"设计一个好看的logo"，而是"什么样的视觉系统能让人们觉得'这是我日常的小确幸'——不用声张"。</p>
+              <p class="lang-en">Not "make a beautiful logo." It was: "what visual system can make people feel this is my daily treat without shouting?"</p>
+              <p class="lang-zh">不是"设计一个好看的logo"，而是"什么样的视觉系统能让人们觉得这是我日常的小确幸，不用声张"。</p>
             </div>
             <div>
               <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
-              <p class="lang-en">Brand audit → competitive landscape analysis → visual direction exploration → concept development → application scenarios.</p>
-              <p class="lang-zh">品牌审计 → 竞争格局分析 → 视觉方向探索 → 概念深化 → 应用场景展示。</p>
+              <p class="lang-en">Brand audit, competitive landscape analysis, visual direction exploration, concept development, application scenarios.</p>
+              <p class="lang-zh">品牌审计、竞争格局分析、视觉方向探索、概念深化、应用场景展示。</p>
             </div>
             <div>
               <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
@@ -928,36 +925,58 @@
 
       <!-- Case 3: NORDISK -->
       <div class="case-item">
-        <div class="case-header">
-          <div>
-            <div class="case-service">Content Strategy × Social Media</div>
-            <div class="case-brand">NORDISK</div>
-            <div class="case-tagline lang-en">Building a Xiaohongshu presence around "an escape from the everyday"</div>
-            <div class="case-tagline lang-zh">围绕"逃离日常"建立小红书品牌存在感</div>
+        <div class="case-image-wrap">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="400" fill="#e8ece0"/>
+            <path d="M200 280 Q300 220 400 240 Q500 260 600 280" fill="none" stroke="#5a6a4a" stroke-width="1" opacity="0.18"/>
+            <path d="M160 300 Q300 235 400 250 Q500 265 640 300" fill="none" stroke="#4a5a3a" stroke-width="0.6" opacity="0.1"/>
+            <path d="M270 170 Q350 135 400 155 Q450 175 530 170" fill="none" stroke="#7a8a6a" stroke-width="0.8" opacity="0.12"/>
+            <circle cx="360" cy="165" r="6" fill="#6a7a5a" opacity="0.06"/>
+            <circle cx="420" cy="150" r="10" fill="#6a7a5a" opacity="0.05"/>
+            <circle cx="390" cy="168" r="4" fill="#6a7a5a" opacity="0.08"/>
+            <rect x="380" y="260" width="40" height="65" rx="2" fill="#5a6a4a" opacity="0.05"/>
+            <path d="M380 260 L400 235 L420 260Z" fill="#5a6a4a" opacity="0.08"/>
+            <text x="400" y="370" text-anchor="middle" fill="#5a6a4a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">NORDISK</text>
+          </svg>
+          <div class="case-image-overlay">
+            <span class="case-service">Content Strategy x Social Media</span>
           </div>
-          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-header-text">
+          <div class="case-header-top">
+            <div>
+              <div class="case-brand">NORDISK</div>
+              <div class="case-tagline lang-en">Building a Xiaohongshu presence around "an escape from the everyday"</div>
+              <div class="case-tagline lang-zh">围绕"逃离日常"建立小红书品牌存在感</div>
+              <div class="case-meta">
+                <span class="case-meta-item">Content Strategy</span>
+                <span class="case-meta-item">Xiaohongshu</span>
+              </div>
+            </div>
+            <div class="case-arrow">→</div>
+          </div>
         </div>
         <div class="case-body">
           <div class="case-body-grid">
             <div>
               <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
-              <p class="lang-en">NORDISK, a Danish outdoor lifestyle brand, needed a social media content strategy for the Chinese market, starting with Xiaohongshu (Little Red Book).</p>
+              <p class="lang-en">NORDISK, a Danish outdoor lifestyle brand, needed a social media content strategy for the Chinese market, starting with Xiaohongshu.</p>
               <p class="lang-zh">NORDISK，丹麦户外生活方式品牌，需要中国市场的社交内容策略，从小红书开始。</p>
             </div>
             <div>
               <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
               <p class="lang-en">Not "post product content." The real need was: how does a niche outdoor brand create a sense of belonging in a market where outdoor is either luxury gear or extreme sports?</p>
-              <p class="lang-zh">不是"发产品内容"。真正的需求是：一个户外品牌如何在一个把户外等同于"高端装备"或"极限运动"的市场中，创造归属感？</p>
+              <p class="lang-zh">不是"发产品内容"。真正的需求是：一个户外品牌如何在一个把户外等同于"高端装备"或"极限运动"的市场中创造归属感？</p>
             </div>
             <div>
               <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
-              <p class="lang-en">Young consumers in the outdoor category are not looking for gear guides. They're looking for an "exit" from the daily grind. The brand that feels like a companion to that escape wins.</p>
-              <p class="lang-zh">年轻消费者在户外品类中寻找的不是"装备攻略"，而是"逃离日常的入口"。能成为这种逃离的陪伴者的品牌，才能赢得他们的心。</p>
+              <p class="lang-en">Young consumers in the outdoor category are not looking for gear guides. They're looking for an "exit" from the daily grind.</p>
+              <p class="lang-zh">年轻消费者在户外中寻找的不是"装备攻略"，而是"逃离日常的入口"。</p>
             </div>
             <div>
               <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
-              <p class="lang-en">Buddy Brand Role applied to platform content: content matrix built around "your outdoor buddy" persona, with content pillars across inspiration, education, and community. KOL collaboration strategy and content calendar.</p>
-              <p class="lang-zh">品牌搭子角色在小红书的落地：围绕"你的户外搭子"人设建立内容矩阵，覆盖灵感、教程、社区三个支柱。同时包含达人合作策略和内容日历。</p>
+              <p class="lang-en">Buddy Brand Role applied to platform content, built around "your outdoor buddy" persona with content pillars across inspiration, education, and community.</p>
+              <p class="lang-zh">品牌搭子角色在小红书的落地：围绕"你的户外搭子"人设建立内容矩阵。</p>
             </div>
             <div>
               <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
@@ -970,14 +989,38 @@
 
       <!-- Case 4: Peninsula -->
       <div class="case-item">
-        <div class="case-header">
-          <div>
-            <div class="case-service">Brand Strategy</div>
-            <div class="case-brand">The Peninsula <span style="font-weight:400;font-size:16px;color:var(--text-secondary);">半岛酒店</span></div>
-            <div class="case-tagline lang-en">Reimagining the boutique experience for a legendary hotel brand</div>
-            <div class="case-tagline lang-zh">为传奇酒店品牌重新构想精品体验</div>
+        <div class="case-image-wrap">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="400" fill="#1a1816"/>
+            <line x1="300" y1="100" x2="300" y2="300" stroke="#c8a85a" stroke-width="0.4" opacity="0.12"/>
+            <line x1="500" y1="100" x2="500" y2="300" stroke="#c8a85a" stroke-width="0.4" opacity="0.12"/>
+            <line x1="280" y1="100" x2="520" y2="100" stroke="#c8a85a" stroke-width="0.2" opacity="0.08"/>
+            <line x1="280" y1="300" x2="520" y2="300" stroke="#c8a85a" stroke-width="0.2" opacity="0.08"/>
+            <rect x="355" y="130" width="90" height="140" rx="2" fill="#c8a85a" opacity="0.03"/>
+            <rect x="370" y="150" width="60" height="50" rx="25" fill="none" stroke="#c8a85a" stroke-width="0.5" opacity="0.12"/>
+            <circle cx="400" cy="175" r="18" fill="none" stroke="#c8a85a" stroke-width="0.5" opacity="0.1"/>
+            <circle cx="400" cy="175" r="7" fill="#c8a85a" opacity="0.08"/>
+            <line x1="370" y1="230" x2="430" y2="230" stroke="#c8a85a" stroke-width="0.4" opacity="0.08"/>
+            <line x1="375" y1="242" x2="425" y2="242" stroke="#c8a85a" stroke-width="0.3" opacity="0.06"/>
+            <text x="400" y="370" text-anchor="middle" fill="#c8a85a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">PENINSULA</text>
+          </svg>
+          <div class="case-image-overlay">
+            <span class="case-service">Brand Strategy</span>
           </div>
-          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-header-text">
+          <div class="case-header-top">
+            <div>
+              <div class="case-brand">The Peninsula <span class="case-brand-sub">半岛酒店</span></div>
+              <div class="case-tagline lang-en">Reimagining the boutique experience for a legendary hotel brand</div>
+              <div class="case-tagline lang-zh">为传奇酒店品牌重新构想精品体验</div>
+              <div class="case-meta">
+                <span class="case-meta-item">Brand Strategy</span>
+                <span class="case-meta-item">Social Content</span>
+              </div>
+            </div>
+            <div class="case-arrow">→</div>
+          </div>
         </div>
         <div class="case-body">
           <div class="case-body-grid">
@@ -988,8 +1031,8 @@
             </div>
             <div>
               <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
-              <p class="lang-en">Beyond traditional luxury hospitality positioning — how does a century-old brand stay culturally relevant to a new generation of Chinese luxury travelers?</p>
-              <p class="lang-zh">超越传统的奢华酒店定位——一个百年品牌如何对新一代中国奢华旅行者保持文化相关性？</p>
+              <p class="lang-en">Beyond traditional luxury hospitality positioning. How does a century-old brand stay culturally relevant to a new generation of Chinese luxury travelers?</p>
+              <p class="lang-zh">超越传统的奢华酒店定位。一个百年品牌如何对新一代中国奢华旅行者保持文化相关性？</p>
             </div>
             <div>
               <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
@@ -1002,14 +1045,35 @@
 
       <!-- Case 5: Aesop -->
       <div class="case-item">
-        <div class="case-header">
-          <div>
-            <div class="case-service">PR & Communication</div>
-            <div class="case-brand">Aesop</div>
-            <div class="case-tagline lang-en">PR communication planning for a luxury skincare brand with a distinct voice</div>
-            <div class="case-tagline lang-zh">为有独特品牌气质的奢华护肤品牌做公关传播规划</div>
+        <div class="case-image-wrap">
+          <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="400" fill="#f2ede8"/>
+            <rect x="340" y="110" width="22" height="150" rx="11" fill="#8a7a6a" opacity="0.07"/>
+            <rect x="378" y="95" width="26" height="165" rx="13" fill="#7a6a5a" opacity="0.05"/>
+            <rect x="420" y="130" width="20" height="130" rx="10" fill="#6a5a4a" opacity="0.06"/>
+            <rect x="454" y="105" width="24" height="155" rx="12" fill="#8a7a6a" opacity="0.04"/>
+            <line x1="340" y1="80" x2="480" y2="80" stroke="#8a7a6a" stroke-width="0.4" opacity="0.06"/>
+            <line x1="340" y1="280" x2="480" y2="280" stroke="#8a7a6a" stroke-width="0.4" opacity="0.06"/>
+            <circle cx="400" cy="310" r="60" fill="none" stroke="#8a7a6a" stroke-width="0.3" opacity="0.06"/>
+            <text x="400" y="370" text-anchor="middle" fill="#7a6a5a" font-family="Inter, sans-serif" font-size="14" letter-spacing="8" opacity="0.4">AESOP</text>
+          </svg>
+          <div class="case-image-overlay">
+            <span class="case-service">PR & Communication</span>
           </div>
-          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-header-text">
+          <div class="case-header-top">
+            <div>
+              <div class="case-brand">Aesop</div>
+              <div class="case-tagline lang-en">PR communication planning for a luxury skincare brand with a distinct voice</div>
+              <div class="case-tagline lang-zh">为有独特品牌气质的奢华护肤品牌做公关传播规划</div>
+              <div class="case-meta">
+                <span class="case-meta-item">PR Planning</span>
+                <span class="case-meta-item">Communication</span>
+              </div>
+            </div>
+            <div class="case-arrow">→</div>
+          </div>
         </div>
         <div class="case-body">
           <div class="case-body-grid">
@@ -1020,8 +1084,8 @@
             </div>
             <div>
               <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
-              <p class="lang-en">Integrated PR planning balancing Aesop's minimalist brand ethos with Chinese market expectations — media relations, gifting strategy, event planning, KOL collaboration.</p>
-              <p class="lang-zh">整合PR规划，在Aesop极简品牌气质与中国市场期待之间取得平衡——媒体关系、礼赠策略、活动规划、达人合作。</p>
+              <p class="lang-en">Integrated PR planning balancing Aesop's minimalist brand ethos with Chinese market expectations, including media relations, gifting strategy, event planning, and KOL collaboration.</p>
+              <p class="lang-zh">整合PR规划，在Aesop极简品牌气质与中国市场期待之间取得平衡，包括媒体关系、礼赠策略、活动规划和达人合作。</p>
             </div>
             <div>
               <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
@@ -1037,45 +1101,50 @@
 </section>
 
 <!-- Writing -->
-<section id="writing" style="background: var(--accent-light);">
-  <div class="container" style="background: transparent;">
+<section id="writing">
+  <div class="container">
+    <span class="section-marker"></span>
     <div class="section-label en">Writing</div>
-    <div class="section-label zh" style="display:none">写作</div>
+    <div class="section-label lang-zh" style="display:none">写作</div>
     <h2 class="section-title">
       <span class="lang-en">Thinking out loud.</span>
       <span class="lang-zh">想法的回音。</span>
     </h2>
-    <div class="section-desc lang-en">Strategy observations, consumer insights, and the occasional industry rant.</div>
-    <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业吐槽。</div>
+    <div class="section-desc lang-en">Strategy observations, consumer insights, and the occasional industry observation.</div>
+    <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业思考。</div>
 
     <div class="writing-grid reveal">
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Skincare Has Become a KPI</span><span class="lang-zh">护肤KPI化与选择疲劳</span></h4>
-        <p class="lang-en">Why the skincare industry's pursuit of "more" has left consumers exhausted — and what brand role can actually help.</p>
-        <p class="lang-zh">为什么护肤品行业的"更多"追求让消费者筋疲力尽——以及品牌角色能做什么。</p>
-        <span class="tag lang-en">Consumer Insight</span><span class="tag lang-zh">消费者洞察</span>
+        <p class="lang-en">Why the skincare industry's pursuit of "more" has left consumers exhausted, and what brand role can actually help.</p>
+        <p class="lang-zh">为什么护肤品行业的"更多"追求让消费者筋疲力尽，以及品牌角色能做什么。</p>
+        <span class="tag lang-en">Consumer Insight</span>
+        <span class="tag lang-zh">消费者洞察</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Why "Buddy" Is a Brand Role Worth Stealing</span><span class="lang-zh">为什么"搭子"是一个值得偷走的品牌角色</span></h4>
-        <p class="lang-en">Positioning your brand as a low-pressure companion — what it is, when it works, and how to operationalize it.</p>
-        <p class="lang-zh">把品牌定位为低压力陪伴者——是什么、什么时候有效、怎么落地。</p>
-        <span class="tag lang-en">Methodology</span><span class="tag lang-zh">方法论</span>
+        <p class="lang-en">Positioning your brand as a low-pressure companion: what it is, when it works, and how to operationalize it.</p>
+        <p class="lang-zh">把品牌定位为低压力陪伴者：是什么、什么时候有效、怎么落地。</p>
+        <span class="tag lang-en">Methodology</span>
+        <span class="tag lang-zh">方法论</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Sit Your Client in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h4>
-        <p class="lang-en">Why starting your pitch with strategy is the wrong move — and a better narrative structure for winning proposals.</p>
-        <p class="lang-zh">为什么从策略开始讲提案是错的——以及更好的叙事结构。</p>
-        <span class="tag lang-en">Pitching</span><span class="tag lang-zh">提案技巧</span>
+        <p class="lang-en">Why starting your pitch with strategy is the wrong move, and a better narrative structure for winning proposals.</p>
+        <p class="lang-zh">为什么从策略开始讲提案是错的，以及更好的叙事结构。</p>
+        <span class="tag lang-en">Pitching</span>
+        <span class="tag lang-zh">提案技巧</span>
       </div>
       <div class="writing-card">
         <div class="date">2025</div>
         <h4><span class="lang-en">Every Category Can Be Gamified</span><span class="lang-zh">所有品类都能用游戏化再做一遍</span></h4>
-        <p class="lang-en">How game mechanics can refresh stale categories — and where most brands get it wrong.</p>
-        <p class="lang-zh">游戏化机制如何刷新沉闷的品类——以及大多数品牌错在哪里。</p>
-        <span class="tag lang-en">Trends</span><span class="tag lang-zh">趋势观察</span>
+        <p class="lang-en">How game mechanics can refresh stale categories, and where most brands get it wrong.</p>
+        <p class="lang-zh">游戏化机制如何刷新沉闷的品类，以及大多数品牌错在哪里。</p>
+        <span class="tag lang-en">Trends</span>
+        <span class="tag lang-zh">趋势观察</span>
       </div>
     </div>
   </div>
@@ -1084,51 +1153,64 @@
 <!-- Contact -->
 <section id="contact" class="contact-section">
   <div class="container">
+    <span class="section-marker" style="margin:0 auto 20px;"></span>
     <div class="section-label en" style="text-align:center;">Contact</div>
-    <div class="section-label zh" style="display:none;text-align:center;">联系</div>
+    <div class="section-label lang-zh" style="display:none;text-align:center;">联系</div>
     <h2 class="section-title" style="text-align:center;">
       <span class="lang-en">Let's find the right position.</span>
       <span class="lang-zh">一起找到那个对的位置。</span>
     </h2>
-    <div class="section-desc lang-en" style="text-align:center;margin:0 auto 40px;">
-      Whether you have a brief in mind or just want to explore an idea — a 15-minute chat is always a good start.
+    <div class="section-desc lang-en" style="text-align:center;margin:0 auto 48px;">
+      Whether you have a brief in mind or just want to explore an idea, a 15-minute chat is always a good start.
     </div>
-    <div class="section-desc lang-zh" style="text-align:center;margin:0 auto 40px;">
-    不管是有具体的需求，还是只是想聊聊一个想法——15分钟的聊天永远是个好的开始。
+    <div class="section-desc lang-zh" style="text-align:center;margin:0 auto 48px;">
+      不管是有具体的需求，还是只是想聊聊一个想法，15分钟的聊天永远是个好的开始。
     </div>
     <div class="contact-links">
-      <a href="mailto:hello@judyzjy.com">✉️ hello@judyzjy.com</a>
-      <a href="#">💬 WeChat</a>
-      <a href="#">📕 Xiaohongshu</a>
+      <a href="mailto:zhujiahui11212020@163.com" class="contact-link">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6l8 5.5L20 6M4 18h16a2 2 0 002-2V8a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        zhujiahui11212020@163.com
+      </a>
+      <a href="#" class="contact-link" id="wechatBtn">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+        WeChat: _Zjyppz
+      </a>
+      <a href="https://www.xiaohongshu.com/user/profile/616bd934000000000201fd44" target="_blank" rel="noopener" class="contact-link">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+        </svg>
+        小红书
+      </a>
     </div>
-    <div class="contact-msg lang-en">
-      judyzjy.com — one page, one belief: strategy before creativity.
-    </div>
-    <div class="contact-msg lang-zh">
-      judyzjy.com — 一页，一个信念：先想清楚，再说漂亮。
-    </div>
+    <div class="contact-msg lang-en">judyzjy.com  |  Strategy before creativity.</div>
+    <div class="contact-msg lang-zh">judyzjy.com  |  先想清楚，再说漂亮。</div>
   </div>
 </section>
 
 <footer>
-  <span class="lang-en">© 2025–2026 Judy Z · Built with clarity</span>
-  <span class="lang-zh">© 2025–2026 Judy Z · 好策略来自想清楚</span>
+  <span class="lang-en">&copy; 2025-2026 Judy Z</span>
+  <span class="lang-zh">&copy; 2025-2026 Judy Z</span>
 </footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">WeChat ID copied</div>
 
 <script>
   // ===== Language Toggle =====
   const langToggle = document.getElementById('langToggle');
   const langSpans = langToggle.querySelectorAll('span');
   const body = document.body;
-
-  // Check saved language
   const savedLang = localStorage.getItem('judy-lang') || 'en';
   body.setAttribute('data-lang', savedLang);
   langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === savedLang));
-  // Show/hide section labels for zh
   document.querySelectorAll('.section-label').forEach(el => {
-    if (el.classList.contains('zh')) el.style.display = savedLang === 'zh' ? 'block' : 'none';
-    if (el.classList.contains('en')) el.style.display = savedLang === 'en' ? 'block' : 'none';
+    if (el.classList.contains('lang-zh')) el.style.display = savedLang === 'zh' ? 'block' : 'none';
+    else el.style.display = savedLang === 'en' ? 'block' : 'none';
   });
 
   langToggle.addEventListener('click', () => {
@@ -1138,8 +1220,12 @@
     localStorage.setItem('judy-lang', next);
     langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === next));
     document.querySelectorAll('.section-label').forEach(el => {
-      if (el.classList.contains('zh')) el.style.display = next === 'zh' ? 'block' : 'none';
-      if (el.classList.contains('en')) el.style.display = next === 'en' ? 'block' : 'none';
+      if (el.classList.contains('lang-zh')) el.style.display = next === 'zh' ? 'block' : 'none';
+      else el.style.display = next === 'en' ? 'block' : 'none';
+    });
+    document.querySelectorAll('svg').forEach(svg => {
+      const clone = svg.cloneNode(true);
+      svg.parentNode.replaceChild(clone, svg);
     });
   });
 
@@ -1157,6 +1243,12 @@
     themeToggle.textContent = next === 'light' ? '☼' : '☽';
   });
 
+  // ===== Nav scroll state =====
+  const topBar = document.querySelector('.top-bar');
+  window.addEventListener('scroll', () => {
+    topBar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+
   // ===== Case Study Expand =====
   document.querySelectorAll('.case-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -1164,7 +1256,7 @@
     });
   });
 
-  // ===== Smooth scroll for nav links =====
+  // ===== Smooth Scroll =====
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1173,7 +1265,7 @@
     });
   });
 
-  // ===== Intersection Observer for scroll reveals =====
+  // ===== Scroll Reveal =====
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1182,16 +1274,23 @@
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ===== Lang toggle fix for SVG text =====
-  document.getElementById('langToggle').addEventListener('click', () => {
-    // Force SVG text elements to repaint for language visibility
-    document.querySelectorAll('svg').forEach(svg => {
-      const clone = svg.cloneNode(true);
-      svg.parentNode.replaceChild(clone, svg);
+  // ===== WeChat Copy =====
+  const wechatBtn = document.getElementById('wechatBtn');
+  const toast = document.getElementById('toast');
+  wechatBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText('_Zjyppz').then(() => {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
     });
+  });
+
+  // ===== Fix section labels on load =====
+  document.querySelectorAll('.section-label.lang-zh').forEach(el => {
+    if (savedLang === 'zh') el.style.display = 'block';
   });
 </script>
 

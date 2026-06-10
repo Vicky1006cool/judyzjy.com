@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0a1628"/>
+  <circle cx="400" cy="250" r="220" fill="none" stroke="#1a3a5c" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="400" cy="250" r="160" fill="none" stroke="#2a5a8c" stroke-width="0.5" opacity="0.2"/>
+  <circle cx="400" cy="250" r="100" fill="#1a3a5c" opacity="0.15"/>
+  <path d="M260 250 Q330 180 400 200 Q470 220 540 250 Q470 280 400 260 Q330 240 260 250Z" fill="#3a7abd" opacity="0.3"/>
+  <path d="M300 250 Q350 220 400 230 Q450 240 500 250 Q450 260 400 250 Q350 240 300 250Z" fill="#4a8acd" opacity="0.2"/>
+  <line x1="320" y1="310" x2="320" y2="340" stroke="#5a9add" stroke-width="1.5" opacity="0.4"/>
+  <line x1="360" y1="310" x2="360" y2="340" stroke="#5a9add" stroke-width="1.5" opacity="0.4"/>
+  <line x1="400" y1="310" x2="400" y2="340" stroke="#5a9add" stroke-width="1.5" opacity="0.4"/>
+  <line x1="440" y1="310" x2="440" y2="340" stroke="#5a9add" stroke-width="1.5" opacity="0.4"/>
+  <line x1="480" y1="310" x2="480" y2="340" stroke="#5a9add" stroke-width="1.5" opacity="0.4"/>
+  <circle cx="400" cy="250" r="3" fill="#6aaadd" opacity="0.6"/>
+  <text x="400" y="460" text-anchor="middle" fill="#6aaadd" font-family="Inter, sans-serif" font-size="13" letter-spacing="6" opacity="0.6">NIVEA</text>
+</svg>

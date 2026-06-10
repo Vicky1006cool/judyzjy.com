@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f5f0e8"/>
+  <circle cx="400" cy="240" r="180" fill="none" stroke="#d4c5a0" stroke-width="0.8" opacity="0.3"/>
+  <path d="M340 200 Q370 160 400 180 Q430 200 420 230 Q410 260 380 250 Q350 240 340 200Z" fill="#8a7a5a" opacity="0.12"/>
+  <path d="M370 195 Q390 170 400 185 Q410 200 405 220 Q400 240 385 235 Q370 230 370 195Z" fill="#9a8a6a" opacity="0.1"/>
+  <line x1="395" y1="230" x2="395" y2="350" stroke="#7a6a4a" stroke-width="1.5" opacity="0.15"/>
+  <path d="M360 320 Q400 300 440 320 Q450 340 400 350 Q350 340 360 320Z" fill="#8a7a5a" opacity="0.08"/>
+  <circle cx="400" cy="200" r="60" fill="none" stroke="#b8a880" stroke-width="0.5" opacity="0.15"/>
+  <circle cx="400" cy="200" r="40" fill="none" stroke="#b8a880" stroke-width="0.5" opacity="0.1"/>
+  <text x="400" y="460" text-anchor="middle" fill="#8a7a5a" font-family="Inter, sans-serif" font-size="13" letter-spacing="6" opacity="0.5">GUMING</text>
+</svg>

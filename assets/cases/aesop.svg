@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f2ede8"/>
+  <rect x="340" y="140" width="24" height="180" rx="12" fill="#8a7a6a" opacity="0.08"/>
+  <rect x="380" y="120" width="28" height="200" rx="14" fill="#7a6a5a" opacity="0.06"/>
+  <rect x="424" y="160" width="22" height="160" rx="11" fill="#6a5a4a" opacity="0.07"/>
+  <rect x="460" y="130" width="26" height="190" rx="13" fill="#8a7a6a" opacity="0.05"/>
+  <line x1="340" y1="100" x2="490" y2="100" stroke="#8a7a6a" stroke-width="0.5" opacity="0.08"/>
+  <line x1="340" y1="340" x2="490" y2="340" stroke="#8a7a6a" stroke-width="0.5" opacity="0.08"/>
+  <circle cx="400" cy="370" r="60" fill="none" stroke="#8a7a6a" stroke-width="0.4" opacity="0.08"/>
+  <text x="400" y="460" text-anchor="middle" fill="#7a6a5a" font-family="Inter, sans-serif" font-size="13" letter-spacing="6" opacity="0.5">AESOP</text>
+</svg>
