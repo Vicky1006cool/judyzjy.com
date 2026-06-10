@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Judy Z · Brand Strategist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAF9F7;
+      --text: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --border: #e5e5e5;
+      --accent: #b8865a; /* warm gold - warm, strategic */
+      --accent-light: #f0e6d8;
+      --card-bg: #ffffff;
+      --tag-bg: #f3f0eb;
+      --hover-bg: #f5f2ed;
+      --shadow: 0 2px 20px rgba(0,0,0,0.04);
+      --radius: 16px;
+      --max-width: 1100px;
+      --font-en: 'Inter', -apple-system, sans-serif;
+      --font-zh: 'Noto Sans SC', -apple-system, sans-serif;
+      --font-zh-serif: 'Noto Serif SC', serif;
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a1a;
+      --text: #f0f0f0;
+      --text-secondary: #999;
+      --border: #333;
+      --accent: #d4a574;
+      --accent-light: #2a2520;
+      --card-bg: #242424;
+      --tag-bg: #2a2a2a;
+      --hover-bg: #2a2a2a;
+      --shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-zh);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 400;
+      transition: background 0.3s, color 0.3s;
+    }
+    .en { font-family: var(--font-en); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== Lang Toggle & Theme ===== */
+    .top-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+      background: rgba(250,249,247,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: background 0.3s;
+    }
+    [data-theme="dark"] .top-bar {
+      background: rgba(26,26,26,0.85);
+    }
+    .top-bar-logo {
+      font-size: 18px; font-weight: 600; letter-spacing: -0.5px;
+    }
+    .top-bar-nav {
+      display: flex; align-items: center; gap: 24px;
+    }
+    .top-bar-nav a {
+      font-size: 14px; color: var(--text-secondary);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .top-bar-nav a:hover { color: var(--text); }
+    .lang-toggle {
+      display: flex; gap: 2px;
+      background: var(--tag-bg); border-radius: 20px; padding: 3px;
+      cursor: pointer;
+      border: none; font-family: inherit; font-size: 13px;
+    }
+    .lang-toggle span {
+      padding: 4px 12px; border-radius: 18px;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+    }
+    .lang-toggle span.active {
+      background: var(--card-bg);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .theme-toggle {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-secondary); font-size: 18px;
+      padding: 4px; line-height: 1;
+      transition: color 0.2s;
+    }
+    .theme-toggle:hover { color: var(--text); }
+
+    /* ===== Container ===== */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 120px 0 80px;
+    }
+    .hero-content {
+      display: flex; align-items: center; gap: 60px;
+    }
+    .hero-text { flex: 1; }
+    .hero-image { flex-shrink: 0; }
+    .hero-image img {
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--font-en);
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 .zh { font-family: var(--font-zh-serif); font-size: 42px; letter-spacing: 2px; }
+    .hero-sub {
+      font-size: 20px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 540px;
+      margin-bottom: 32px;
+    }
+    .hero-sub .zh {
+      font-family: var(--font-zh-serif);
+      font-size: 18px;
+    }
+    .hero-cta {
+      display: flex; gap: 16px;
+    }
+    .hero-cta a {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .hero-cta .primary {
+      background: var(--accent);
+      color: white;
+    }
+    .hero-cta .primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .hero-cta .secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .hero-cta .secondary:hover {
+      background: var(--hover-bg);
+    }
+    .hero-brands {
+      margin-top: 48px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .hero-brands span {
+      padding: 6px 14px;
+      background: var(--tag-bg);
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Section Common ===== */
+    section { padding: 100px 0; }
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-family: var(--font-en);
+    }
+    .section-title {
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      font-family: var(--font-en);
+    }
+    .section-title .zh {
+      font-family: var(--font-zh-serif);
+      letter-spacing: 2px;
+      font-size: 28px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    /* ===== About ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .about-text p {
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .about-philosophy {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+    .about-philosophy h3 {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .about-philosophy blockquote {
+      font-family: var(--font-zh-serif);
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .about-philosophy ul {
+      list-style: none;
+    }
+    .about-philosophy li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .about-philosophy li:last-child { border-bottom: none; }
+    .about-philosophy li strong {
+      color: var(--accent);
+    }
+
+    /* ===== Methodology ===== */
+    .methodology-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .method-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+      border: 1px solid transparent;
+    }
+    .method-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+      border-color: var(--accent);
+    }
+    .method-number {
+      font-family: var(--font-en);
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .method-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .method-card h3 .zh {
+      font-family: var(--font-zh-serif);
+    }
+    .method-card .one-liner {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .method-card .detail {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      display: none;
+    }
+    .method-card.expanded .detail { display: block; }
+    .method-toggle {
+      font-size: 13px;
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 8px;
+      display: inline-block;
+    }
+    .method-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 10px;
+      background: var(--tag-bg);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      margin-right: 6px;
+      margin-top: 8px;
+    }
+
+    /* ===== Case Studies ===== */
+    .cases-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .case-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .case-item:hover {
+      border-color: var(--accent);
+    }
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .case-brand {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .case-service {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: var(--font-en);
+    }
+    .case-tagline {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      font-style: italic;
+    }
+    .case-arrow {
+      font-size: 24px;
+      color: var(--text-secondary);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .case-item.expanded .case-arrow {
+      transform: rotate(90deg);
+    }
+    .case-body {
+      display: none;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+    .case-item.expanded .case-body { display: block; }
+    .case-body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .case-body h4 {
+      font-size: 13px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: var(--font-en);
+      margin-bottom: 8px;
+    }
+    .case-body p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Writing ===== */
+    .writing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .writing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .writing-card:hover {
+      transform: translateY(-2px);
+    }
+    .writing-card .date {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-en);
+      margin-bottom: 8px;
+    }
+    .writing-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .writing-card p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .writing-card .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--tag-bg);
+      border-radius: 10px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    /* ===== Contact ===== */
+    .contact-section {
+      text-align: center;
+      padding: 100px 0;
+    }
+    .contact-section .section-title {
+      text-align: center;
+    }
+    .contact-section .section-desc {
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .contact-links a:hover {
+      border-color: var(--accent);
+      background: var(--hover-bg);
+    }
+    .contact-msg {
+      margin-top: 32px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 40px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .top-bar { padding: 16px 20px; }
+      .top-bar-nav a { font-size: 12px; }
+      .hero-content { flex-direction: column-reverse; text-align: center; gap: 32px; }
+      .hero-image img { width: 160px; height: 160px; }
+      .hero h1 { font-size: 36px; }
+      .hero h1 .zh { font-size: 28px; }
+      .hero-sub { max-width: 100%; }
+      .hero-cta { justify-content: center; }
+      .hero-brands { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .methodology-grid { grid-template-columns: 1fr; }
+      .case-body-grid { grid-template-columns: 1fr; }
+      .writing-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 28px; }
+      .section-title .zh { font-size: 22px; }
+      .contact-links { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .top-bar-nav a:not(.lang-toggle) { display: none; }
+      .hero h1 { font-size: 28px; }
+      .hero h1 .zh { font-size: 22px; }
+    }
+
+    /* ===== Language Visibility ===== */
+    .lang-zh { display: none; }
+    .lang-en { display: contents; }
+    [data-lang="zh"] .lang-zh { display: contents; }
+    [data-lang="zh"] .lang-en { display: none; }
+    [data-lang="zh"] .block-zh { display: block !important; }
+    [data-lang="zh"] .block-en { display: none !important; }
+    .block-en { display: block; }
+    .block-zh { display: none; }
+    [data-lang="zh"] .inline-zh { display: inline !important; }
+    [data-lang="zh"] .inline-en { display: none !important; }
+    .inline-en { display: inline; }
+    .inline-zh { display: none; }
+  </style>
+</head>
+<body data-lang="en">
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-logo en">Judy Z</div>
+  <div class="top-bar-nav">
+    <a href="#about" class="lang-en">About</a>
+    <a href="#about" class="lang-zh">关于</a>
+    <a href="#methodology" class="lang-en">Methodology</a>
+    <a href="#methodology" class="lang-zh">方法论</a>
+    <a href="#cases" class="lang-en">Work</a>
+    <a href="#cases" class="lang-zh">案例</a>
+    <a href="#writing" class="lang-en">Writing</a>
+    <a href="#writing" class="lang-zh">写作</a>
+    <a href="#contact" class="lang-en">Contact</a>
+    <a href="#contact" class="lang-zh">联系</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">◐</button>
+    <button class="lang-toggle" id="langToggle">
+      <span class="active" data-lang="en">EN</span>
+      <span data-lang="zh">中</span>
+    </button>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-tag">
+          <span class="lang-en">Brand Strategist</span>
+          <span class="lang-zh">品牌策略师</span>
+        </div>
+        <h1>
+          <span class="lang-en">Judy Z</span>
+          <span class="lang-zh">朱 Judy</span>
+        </h1>
+        <div class="hero-sub">
+          <span class="lang-en">I help brands find a position that people actually want to sit next to.</span>
+          <span class="lang-zh">帮品牌找到一个让人舒服的位置。</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#cases" class="primary lang-en">View Work</a>
+          <a href="#cases" class="primary lang-zh">看案例</a>
+          <a href="#contact" class="secondary lang-en">Get in Touch</a>
+          <a href="#contact" class="secondary lang-zh">联系我</a>
+        </div>
+        <div class="hero-brands">
+          <span>NIVEA</span><span>Peninsula</span><span>Aesop</span><span>NORDISK</span>
+          <span>Wrangler</span><span>古茗</span><span>Nike</span><span>亚朵</span>
+          <span>馥马尔</span><span>喜茶</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="photo.jpg" alt="Judy Z">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="section-label en">About</div>
+    <div class="section-label zh" style="display:none">关于</div>
+    <h2 class="section-title">
+      <span class="lang-en">Strategy before creativity.</span>
+      <span class="lang-zh">先想清楚，再说漂亮。</span>
+    </h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <!-- English -->
+        <div class="lang-en">
+          <p>I'm a brand strategist who believes the best creative work comes from a sharply defined problem — not a blank sheet of paper. Before we make something beautiful, we need to know who we're talking to, what they actually feel, and what role the brand can play in their lives without trying too hard.</p>
+          <p>With brands like NIVEA, Peninsula Hotel, Aesop, NORDISK, Wrangler, Guming, and Atour, I've built strategies across beauty, hospitality, outdoor, apparel, and F&B — always starting from consumer emotional truth.</p>
+          <p>I don't sell frameworks. I sell clarity. The frameworks just help me get there faster.</p>
+        </div>
+        <!-- Chinese -->
+        <div class="lang-zh">
+          <p>我是品牌策略师。我相信最好的创意来自一个被说清楚的问题，而不是一张白纸。在做出好看的东西之前，我们需要知道：我们在跟谁说话、他们真正感觉到了什么、品牌可以在他们的生活中扮演什么角色——不费力、不端着。</p>
+          <p>服务过 NIVEA、半岛酒店、Aesop、NORDISK、Wrangler、古茗、亚朵等品牌，在美妆、酒店、户外、服饰、茶饮等多个品类中积累策略经验。每一次，我都从消费者的情绪真相出发。</p>
+          <p>我不卖方法论框架。我卖的是"想清楚了"。框架只是帮我更快抵达的工具。</p>
+        </div>
+      </div>
+      <div class="about-philosophy">
+        <h3 class="lang-en">How I Think</h3>
+        <h3 class="lang-zh">我的工作哲学</h3>
+        <blockquote class="lang-en">"Brands shouldn't be teachers. They should be the friend you actually want to sit next to."</blockquote>
+        <blockquote class="lang-zh">"品牌不做你的老师，做你的搭子。"</blockquote>
+        <ul>
+          <li class="lang-en"><strong>01</strong> &nbsp;Consumer truth first. Everything else follows.</li>
+          <li class="lang-zh"><strong>01</strong> &nbsp;消费者的真实感受优先，其他都是推论。</li>
+          <li class="lang-en"><strong>02</strong> &nbsp;A good strategy is <em>consumer-true</em> × <em>brand-ownable</em> × <em>culturally-resonant</em>.</li>
+          <li class="lang-zh"><strong>02</strong> &nbsp;好策略 = 消费者真实 × 品牌可拥有 × 文化共鸣。</li>
+          <li class="lang-en"><strong>03</strong> &nbsp;The best brand role is the one that reduces, not adds, cognitive load.</li>
+          <li class="lang-zh"><strong>03</strong> &nbsp;最好的品牌角色，是减少消费者的心理负担，而不是增加。</li>
+          <li class="lang-en"><strong>04</strong> &nbsp;Reframe the problem first. The answer will be obvious.</li>
+          <li class="lang-zh"><strong>04</strong> &nbsp;先重新定义问题，答案自然浮现。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section id="methodology" style="background: var(--accent-light);">
+  <div class="container" style="background: transparent;">
+    <div class="section-label en">Methodology</div>
+    <div class="section-label zh" style="display:none">方法论</div>
+    <h2 class="section-title">
+      <span class="lang-en">How I arrive at the answer.</span>
+      <span class="lang-zh">我怎么抵达答案。</span>
+    </h2>
+    <div class="section-desc lang-en">These are the thinking tools I use to move from mess to clarity. Each one was born from real client work, then codified into a reusable framework.</div>
+    <div class="section-desc lang-zh">这些是我从"混乱"到"清晰"的思考工具。每一个都来自真实的客户项目，然后提炼为可复用的框架。</div>
+
+    <div class="methodology-grid">
+      <!-- Method 1 -->
+      <div class="method-card">
+        <div class="method-number">01</div>
+        <h3><span class="lang-en">The Prism</span><span class="lang-zh">三棱镜推理法</span></h3>
+        <div class="one-liner lang-en">Look at the problem through Consumer, Category, and Brand simultaneously. The strategy lives where all three converge.</div>
+        <div class="one-liner lang-zh">同时从消费者、品类和品牌三个角度审视问题。策略藏在三者的交汇处。</div>
+        <div class="detail lang-en">Most strategies only look at one or two lenses. The Prism forces a three-way convergence — ensuring the answer is consumer-true, category-relevant, and brand-ownable. Used for brand positioning, new product launches, and competitive differentiation.</div>
+        <div class="detail lang-zh">大多数策略只看了1-2个维度。三棱镜强迫三方交汇——确保答案在消费者层面真实、在品类层面相关、在品牌层面可拥有。适用于品牌定位、新品上市、品类竞争分析。</div>
+        <span class="method-tag lang-en">Brand Positioning</span><span class="method-tag lang-en">Strategy</span>
+        <span class="method-tag lang-zh">品牌定位</span><span class="method-tag lang-zh">策略框架</span>
+      </div>
+
+      <!-- Method 2 -->
+      <div class="method-card">
+        <div class="method-number">02</div>
+        <h3><span class="lang-en">The Buddy Role</span><span class="lang-zh">品牌搭子角色</span></h3>
+        <div class="one-liner lang-en">In noisy categories, consumers don't need more authority. They need a low-pressure companion.</div>
+        <div class="one-liner lang-zh">在高噪音品类中，消费者不需要更多权威，他们需要一个低压力的陪伴者。</div>
+        <div class="detail lang-en">The "Buddy" (搭子) role rejects the brand-as-authority or brand-as-celebrity model. Instead, it positions the brand as a companion who reduces cognitive load. Best for mass-market brands in categories with high expert noise and consumer fatigue. Case example: NIVEA's "Your Reliable Buddy" (妮的靠谱搭子).</div>
+        <div class="detail lang-zh">"搭子"角色拒绝品牌=权威或品牌=明星的竞争惯性。它把品牌定位为一个降低认知负担的陪伴者。最适合大众消费品类、专家噪音高、消费者疲劳程度强的品牌。案例：NIVEA "妮的靠谱搭子"。</div>
+        <span class="method-tag lang-en">Brand Role</span><span class="method-tag lang-en">Consumer Culture</span>
+        <span class="method-tag lang-zh">品牌角色</span><span class="method-tag lang-zh">消费者文化</span>
+      </div>
+
+      <!-- Method 3 -->
+      <div class="method-card">
+        <div class="method-number">03</div>
+        <h3><span class="lang-en">Sit in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h3>
+        <div class="one-liner lang-en">Don't pitch your solution first. First, make the client re-live the consumer's discomfort.</div>
+        <div class="one-liner lang-zh">不要先讲方案。先让客户重新体验消费者感受到的"不对劲"。</div>
+        <div class="detail lang-en">A narrative arc for strategic presentations: Present everyday experience → Amplify unspoken discomfort → Build resonance → Then reveal the brand's role as relief. Clients have a natural defense against solutions, but they have no defense against a truth they can feel. Best for complex proposals where the category is noisy or the client is fatigued by sameness.</div>
+        <div class="detail lang-zh">策略提案的叙事弧线：呈现日常体验 → 放大未被言说的不适感 → 建立共鸣 → 再揭示品牌角色作为解决方案。客户对方案有天然防御机制，但对能感受到的真实"不对劲"没有防御。适用于品类噪音大、客户被同质化提案疲劳的复杂提案。</div>
+        <span class="method-tag lang-en">Deck Narrative</span><span class="method-tag lang-en">Pitching</span>
+        <span class="method-tag lang-zh">提案叙事</span><span class="method-tag lang-zh">Presentation</span>
+      </div>
+
+      <!-- Method 4 -->
+      <div class="method-card">
+        <div class="method-number">04</div>
+        <h3><span class="lang-en">Emotional Truth → Brand Role</span><span class="lang-zh">情绪真相到品牌角色</span></h3>
+        <div class="one-liner lang-en">A 7-step narrative structure: from consumer emotional truth to a brand role that earns the right to exist in their lives.</div>
+        <div class="one-liner lang-zh">七步叙事结构：从消费者的情绪真相出发，推导出品牌在消费者生活中"值得存在"的角色。</div>
+        <div class="detail lang-en">The sequence: Industry Mistake → Consumer Fatigue → Evidence → Category Complicity → Brand Permission → Brand Role → Content System → Execution. Ensures every strategy deck has a logical, emotionally grounded narrative arc rather than jumping straight to the brand solution.</div>
+        <div class="detail lang-zh">顺序：行业误区 → 消费者疲劳 → 证据 → 品类的共谋 → 品牌许可 → 品牌角色 → 内容体系 → 执行。确保每个策略提案都有一个逻辑清晰、有情感根基的叙事弧线，而不是直接跳到品牌方案。</div>
+        <span class="method-tag lang-en">Deck Structure</span><span class="method-tag lang-en">Narrative</span>
+        <span class="method-tag lang-zh">Deck架构</span><span class="method-tag lang-zh">叙事逻辑</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Case Studies -->
+<section id="cases">
+  <div class="container">
+    <div class="section-label en">Selected Work</div>
+    <div class="section-label zh" style="display:none">案例</div>
+    <h2 class="section-title">
+      <span class="lang-en">Brands I've helped find their position.</span>
+      <span class="lang-zh">帮他们找到位置的品牌。</span>
+    </h2>
+    <div class="section-desc lang-en">Click each case to see the full story — brief, reframe, insight, strategy, and outcome.</div>
+    <div class="section-desc lang-zh">点击展开每个案例的完整故事——Brief、问题重构、洞察、策略和结果。</div>
+
+    <div class="cases-list">
+
+      <!-- Case 1: NIVEA -->
+      <div class="case-item">
+        <div class="case-header">
+          <div>
+            <div class="case-service">Brand Strategy × Content System</div>
+            <div class="case-brand">NIVEA <span style="font-weight:400;font-size:16px;color:var(--text-secondary);">妮维雅</span></div>
+            <div class="case-tagline lang-en">"Your Reliable Buddy" — from brand role to annual social content system</div>
+            <div class="case-tagline lang-zh">"妮的靠谱搭子"——从品牌角色到全年Social内容体系</div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-body">
+          <div class="case-body-grid">
+            <div>
+              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
+              <p class="lang-en">NIVEA needed a 2026 Social Account Operation strategy for the Chinese market. The initial ask was tactical: content calendar, platform operations, KPI targets.</p>
+              <p class="lang-zh">NIVEA需要2026年中国市场Social账号运营策略。初始需求偏向执行层：内容日历、平台运营、KPI指标。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
+              <p class="lang-en">This wasn't about operating accounts. It was about rebuilding NIVEA's brand role in a market where skincare had become a stressful KPI — and everyone was promising better ingredients.</p>
+              <p class="lang-zh">这不是"运营账号"的问题，而是在护肤KPI化的焦虑市场中，为NIVEA重建一个让人放松的品牌角色。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
+              <p class="lang-en">Skincare had become a performance metric — consumers felt they had to learn more, chase faster, choose better, do more complete routines. The result was emotional fatigue: "after you apply it, that's it" — mind-body separation in daily care.</p>
+              <p class="lang-zh">护肤变成了一项KPI——消费者觉得必须学更多、追更快、选更好、做更完整的流程。结果是情绪疲劳："涂完就是涂完了"，身心分离。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
+              <p class="lang-en">Positioned NIVEA as "Your Reliable Buddy" — a low-pressure companion who doesn't add to the anxiety but brings care back to simplicity. Built using the Prism method (consumer fatigue × category noise × brand heritage of trust) and operationalized through a full content system, tone guide, and topic architecture.</p>
+              <p class="lang-zh">将NIVEA定位为"妮的靠谱搭子"——一个不增加焦虑、把护理带回简单的低压力陪伴者。使用三棱镜推理法（消费者疲劳 × 品类噪音 × 品牌信任资产）推导，并落地为完整的内容体系、语调和话题架构。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
+              <p class="lang-en">Strategy deck, annual content system, expression asset library, tone-of-voice guide, competitor social analysis.</p>
+              <p class="lang-zh">策略提案Deck、全年内容体系、表达资产库、语调指南、竞品社交分析。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Result</h4><h4 class="lang-zh">结果</h4>
+              <p class="lang-en">Proposal approved. This framework continues to guide NIVEA's social content direction.</p>
+              <p class="lang-zh">提案通过。该框架持续指导NIVEA的Social内容方向。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 2: 古茗 -->
+      <div class="case-item">
+        <div class="case-header">
+          <div>
+            <div class="case-service">Visual Identity Concept</div>
+            <div class="case-brand">古茗 Guming</div>
+            <div class="case-tagline lang-en">Finding a visual language that carries "everyday little happiness"</div>
+            <div class="case-tagline lang-zh">找到一种能承载"日常小确幸"的视觉语言</div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-body">
+          <div class="case-body-grid">
+            <div>
+              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
+              <p class="lang-en">Guming needed a visual identity concept. The challenge: a major regional tea chain looking to modernize without losing its accessible, everyday character.</p>
+              <p class="lang-zh">古茗需要视觉身份概念方案。挑战：一个大型区域茶饮品牌，希望在现代化的同时不失去亲民的日常感。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
+              <p class="lang-en">Not "make a beautiful logo." It was: "what visual system can make people feel 'this is my daily treat' without shouting?"</p>
+              <p class="lang-zh">不是"设计一个好看的logo"，而是"什么样的视觉系统能让人们觉得'这是我日常的小确幸'——不用声张"。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
+              <p class="lang-en">Brand audit → competitive landscape analysis → visual direction exploration → concept development → application scenarios.</p>
+              <p class="lang-zh">品牌审计 → 竞争格局分析 → 视觉方向探索 → 概念深化 → 应用场景展示。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
+              <p class="lang-en">Concept Keynote deck with visual identity directions, brand application mockups.</p>
+              <p class="lang-zh">概念Keynote方案，包含视觉方向、品牌应用示意。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 3: NORDISK -->
+      <div class="case-item">
+        <div class="case-header">
+          <div>
+            <div class="case-service">Content Strategy × Social Media</div>
+            <div class="case-brand">NORDISK</div>
+            <div class="case-tagline lang-en">Building a Xiaohongshu presence around "an escape from the everyday"</div>
+            <div class="case-tagline lang-zh">围绕"逃离日常"建立小红书品牌存在感</div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-body">
+          <div class="case-body-grid">
+            <div>
+              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
+              <p class="lang-en">NORDISK, a Danish outdoor lifestyle brand, needed a social media content strategy for the Chinese market, starting with Xiaohongshu (Little Red Book).</p>
+              <p class="lang-zh">NORDISK，丹麦户外生活方式品牌，需要中国市场的社交内容策略，从小红书开始。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
+              <p class="lang-en">Not "post product content." The real need was: how does a niche outdoor brand create a sense of belonging in a market where outdoor is either luxury gear or extreme sports?</p>
+              <p class="lang-zh">不是"发产品内容"。真正的需求是：一个户外品牌如何在一个把户外等同于"高端装备"或"极限运动"的市场中，创造归属感？</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Insight</h4><h4 class="lang-zh">洞察</h4>
+              <p class="lang-en">Young consumers in the outdoor category are not looking for gear guides. They're looking for an "exit" from the daily grind. The brand that feels like a companion to that escape wins.</p>
+              <p class="lang-zh">年轻消费者在户外品类中寻找的不是"装备攻略"，而是"逃离日常的入口"。能成为这种逃离的陪伴者的品牌，才能赢得他们的心。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Strategy</h4><h4 class="lang-zh">策略</h4>
+              <p class="lang-en">Buddy Brand Role applied to platform content: content matrix built around "your outdoor buddy" persona, with content pillars across inspiration, education, and community. KOL collaboration strategy and content calendar.</p>
+              <p class="lang-zh">品牌搭子角色在小红书的落地：围绕"你的户外搭子"人设建立内容矩阵，覆盖灵感、教程、社区三个支柱。同时包含达人合作策略和内容日历。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
+              <p class="lang-en">Social media proposal deck, KOL planning, content calendar, brand introduction deck.</p>
+              <p class="lang-zh">社交媒体提案Deck、达人规划、内容日历、品牌介绍文件。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 4: Peninsula -->
+      <div class="case-item">
+        <div class="case-header">
+          <div>
+            <div class="case-service">Brand Strategy</div>
+            <div class="case-brand">The Peninsula <span style="font-weight:400;font-size:16px;color:var(--text-secondary);">半岛酒店</span></div>
+            <div class="case-tagline lang-en">Reimagining the boutique experience for a legendary hotel brand</div>
+            <div class="case-tagline lang-zh">为传奇酒店品牌重新构想精品体验</div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-body">
+          <div class="case-body-grid">
+            <div>
+              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
+              <p class="lang-en">Peninsula Hotel needed a strategy proposal for their boutique experience in the Chinese market.</p>
+              <p class="lang-zh">半岛酒店需要中国市场的精品体验策略方案。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Reframe</h4><h4 class="lang-zh">问题重构</h4>
+              <p class="lang-en">Beyond traditional luxury hospitality positioning — how does a century-old brand stay culturally relevant to a new generation of Chinese luxury travelers?</p>
+              <p class="lang-zh">超越传统的奢华酒店定位——一个百年品牌如何对新一代中国奢华旅行者保持文化相关性？</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
+              <p class="lang-en">Strategy proposal deck, social copy guidelines, meeting documentation.</p>
+              <p class="lang-zh">策略提案Deck、社交文案指南、会议记录。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case 5: Aesop -->
+      <div class="case-item">
+        <div class="case-header">
+          <div>
+            <div class="case-service">PR & Communication</div>
+            <div class="case-brand">Aesop</div>
+            <div class="case-tagline lang-en">PR communication planning for a luxury skincare brand with a distinct voice</div>
+            <div class="case-tagline lang-zh">为有独特品牌气质的奢华护肤品牌做公关传播规划</div>
+          </div>
+          <div class="case-arrow">→</div>
+        </div>
+        <div class="case-body">
+          <div class="case-body-grid">
+            <div>
+              <h4 class="lang-en">Brief</h4><h4 class="lang-zh">Brief</h4>
+              <p class="lang-en">Aesop needed a PR communication plan catering to the Chinese market.</p>
+              <p class="lang-zh">Aesop需要针对中国市场的PR传播计划。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Approach</h4><h4 class="lang-zh">方法</h4>
+              <p class="lang-en">Integrated PR planning balancing Aesop's minimalist brand ethos with Chinese market expectations — media relations, gifting strategy, event planning, KOL collaboration.</p>
+              <p class="lang-zh">整合PR规划，在Aesop极简品牌气质与中国市场期待之间取得平衡——媒体关系、礼赠策略、活动规划、达人合作。</p>
+            </div>
+            <div>
+              <h4 class="lang-en">Deliverables</h4><h4 class="lang-zh">产出物</h4>
+              <p class="lang-en">PR communication plan deck.</p>
+              <p class="lang-zh">PR传播规划Deck。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Writing -->
+<section id="writing" style="background: var(--accent-light);">
+  <div class="container" style="background: transparent;">
+    <div class="section-label en">Writing</div>
+    <div class="section-label zh" style="display:none">写作</div>
+    <h2 class="section-title">
+      <span class="lang-en">Thinking out loud.</span>
+      <span class="lang-zh">想法的回音。</span>
+    </h2>
+    <div class="section-desc lang-en">Strategy observations, consumer insights, and the occasional industry rant.</div>
+    <div class="section-desc lang-zh">策略观察、消费者洞察、偶尔的行业吐槽。</div>
+
+    <div class="writing-grid">
+      <div class="writing-card">
+        <div class="date">2025</div>
+        <h4><span class="lang-en">Skincare Has Become a KPI</span><span class="lang-zh">护肤KPI化与选择疲劳</span></h4>
+        <p class="lang-en">Why the skincare industry's pursuit of "more" has left consumers exhausted — and what brand role can actually help.</p>
+        <p class="lang-zh">为什么护肤品行业的"更多"追求让消费者筋疲力尽——以及品牌角色能做什么。</p>
+        <span class="tag lang-en">Consumer Insight</span><span class="tag lang-zh">消费者洞察</span>
+      </div>
+      <div class="writing-card">
+        <div class="date">2025</div>
+        <h4><span class="lang-en">Why "Buddy" Is a Brand Role Worth Stealing</span><span class="lang-zh">为什么"搭子"是一个值得偷走的品牌角色</span></h4>
+        <p class="lang-en">Positioning your brand as a low-pressure companion — what it is, when it works, and how to operationalize it.</p>
+        <p class="lang-zh">把品牌定位为低压力陪伴者——是什么、什么时候有效、怎么落地。</p>
+        <span class="tag lang-en">Methodology</span><span class="tag lang-zh">方法论</span>
+      </div>
+      <div class="writing-card">
+        <div class="date">2025</div>
+        <h4><span class="lang-en">Sit Your Client in the Problem First</span><span class="lang-zh">先让客户坐进问题里</span></h4>
+        <p class="lang-en">Why starting your pitch with strategy is the wrong move — and a better narrative structure for winning proposals.</p>
+        <p class="lang-zh">为什么从策略开始讲提案是错的——以及更好的叙事结构。</p>
+        <span class="tag lang-en">Pitching</span><span class="tag lang-zh">提案技巧</span>
+      </div>
+      <div class="writing-card">
+        <div class="date">2025</div>
+        <h4><span class="lang-en">Every Category Can Be Gamified</span><span class="lang-zh">所有品类都能用游戏化再做一遍</span></h4>
+        <p class="lang-en">How game mechanics can refresh stale categories — and where most brands get it wrong.</p>
+        <p class="lang-zh">游戏化机制如何刷新沉闷的品类——以及大多数品牌错在哪里。</p>
+        <span class="tag lang-en">Trends</span><span class="tag lang-zh">趋势观察</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-label en" style="text-align:center;">Contact</div>
+    <div class="section-label zh" style="display:none;text-align:center;">联系</div>
+    <h2 class="section-title" style="text-align:center;">
+      <span class="lang-en">Let's find the right position.</span>
+      <span class="lang-zh">一起找到那个对的位置。</span>
+    </h2>
+    <div class="section-desc lang-en" style="text-align:center;margin:0 auto 40px;">
+      Whether you have a brief in mind or just want to explore an idea — a 15-minute chat is always a good start.
+    </div>
+    <div class="section-desc lang-zh" style="text-align:center;margin:0 auto 40px;">
+    不管是有具体的需求，还是只是想聊聊一个想法——15分钟的聊天永远是个好的开始。
+    </div>
+    <div class="contact-links">
+      <a href="mailto:hello@judyzjy.com">✉️ hello@judyzjy.com</a>
+      <a href="#">💬 WeChat</a>
+      <a href="#">📕 Xiaohongshu</a>
+    </div>
+    <div class="contact-msg lang-en">
+      judyzjy.com — one page, one belief: strategy before creativity.
+    </div>
+    <div class="contact-msg lang-zh">
+      judyzjy.com — 一页，一个信念：先想清楚，再说漂亮。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="lang-en">© 2025–2026 Judy Z · Built with clarity</span>
+  <span class="lang-zh">© 2025–2026 Judy Z · 好策略来自想清楚</span>
+</footer>
+
+<script>
+  // ===== Language Toggle =====
+  const langToggle = document.getElementById('langToggle');
+  const langSpans = langToggle.querySelectorAll('span');
+  const body = document.body;
+
+  // Check saved language
+  const savedLang = localStorage.getItem('judy-lang') || 'en';
+  body.setAttribute('data-lang', savedLang);
+  langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === savedLang));
+  // Show/hide section labels for zh
+  document.querySelectorAll('.section-label').forEach(el => {
+    if (el.classList.contains('zh')) el.style.display = savedLang === 'zh' ? 'block' : 'none';
+    if (el.classList.contains('en')) el.style.display = savedLang === 'en' ? 'block' : 'none';
+  });
+
+  langToggle.addEventListener('click', () => {
+    const current = body.getAttribute('data-lang');
+    const next = current === 'en' ? 'zh' : 'en';
+    body.setAttribute('data-lang', next);
+    localStorage.setItem('judy-lang', next);
+    langSpans.forEach(s => s.classList.toggle('active', s.dataset.lang === next));
+    document.querySelectorAll('.section-label').forEach(el => {
+      if (el.classList.contains('zh')) el.style.display = next === 'zh' ? 'block' : 'none';
+      if (el.classList.contains('en')) el.style.display = next === 'en' ? 'block' : 'none';
+    });
+  });
+
+  // ===== Theme Toggle =====
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('judy-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeToggle.textContent = savedTheme === 'light' ? '☼' : '☽';
+
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('judy-theme', next);
+    themeToggle.textContent = next === 'light' ? '☼' : '☽';
+  });
+
+  // ===== Case Study Expand =====
+  document.querySelectorAll('.case-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('expanded');
+    });
+  });
+
+  // ===== Smooth scroll for nav links =====
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ===== Intersection Observer for section labels (zh) =====
+  // Observe methodology section background
+  const methodologySection = document.getElementById('methodology');
+  // already handled via CSS
+</script>
+
+</body>
+</html>
